@@ -4,54 +4,54 @@
       <div class="header__top-welcome">
         {{-- @if (is_incevio_package_loaded('zipcode') && Session::has('zipcode')) --}}
         @if (is_incevio_package_loaded('zipcode'))
-          <a href="javascript:void(0)" id="enterZipcodeModal">
-            <i class="fal fa-location-arrow"></i> {{ trans('theme.ship_to') . ' ' . Session::get('zipcode') }}
-          </a>
+        <a href="javascript:void(0)" id="enterZipcodeModal">
+          <i class="fal fa-location-arrow"></i> {{ trans('theme.ship_to') . ' ' . Session::get('zipcode') }}
+        </a>
         @else
-          <h3>{{ trans('theme.welcome') . ' ' . config('theme.name') }}</h3>
+        <h3>{{ trans('theme.welcome') . ' ' . config('theme.name') }}</h3>
         @endif
       </div>
 
       <div class="header__top-utility">
         <ul>
           @auth('customer')
-            <li class="image-icon">
-              <a href="{{ route('account', 'dashboard') }}">
-                <i class="fal fa-user"></i>
-                <span>{{ trans('theme.hello') .
+          <li class="image-icon">
+            <a href="{{ route('account', 'dashboard') }}">
+              <i class="fal fa-user"></i>
+              <span>{{ trans('theme.hello') .
     ', ' .
     Auth::guard('customer')->user()->getName() }}</span>
-              </a>
-            </li>
+            </a>
+          </li>
 
-            <li class="image-icon">
-              <a href="{{ route('customer.logout') }}">
-                <i class="fal fa-power-off"></i>
-                <span>{{ trans('theme.logout') }}</span>
-              </a>
-            </li>
+          <li class="image-icon">
+            <a href="{{ route('customer.logout') }}">
+              <i class="fal fa-power-off"></i>
+              <span>{{ trans('theme.logout') }}</span>
+            </a>
+          </li>
           @else
-            <li class="image-icon">
-              <a href="javascript:void(0)" data-toggle="modal" data-target="#loginModal">
-                <i class="fal fa-user"></i>
-                <span>{{ trans('theme.sing_in') }}</span>
-              </a>
-            </li>
+          <li class="image-icon">
+            <a href="javascript:void(0)" data-toggle="modal" data-target="#loginModal">
+              <i class="fal fa-user"></i>
+              <span>{{ trans('theme.sing_in') }}</span>
+            </a>
+          </li>
           @endauth
 
           @if (Auth::guard('customer')->check() && customer_has_wallet())
-            <li class="image-icon">
-              <a href="{{ route(config('wallet.routes.wallet')) }}">
-                <i class="fal fa-wallet"></i>
-                <strong>{{ get_formated_currency(Auth::guard('customer')->user()->balance) }}</strong>
-              </a>
-            </li>
+          <li class="image-icon">
+            <a href="{{ route(config('wallet.routes.wallet')) }}">
+              <i class="fal fa-wallet"></i>
+              <strong>{{ get_formated_currency(Auth::guard('customer')->user()->balance) }}</strong>
+            </a>
+          </li>
           @endif
 
           {{-- <li class="image-icon">
             <a href="{{ route('brands') }}">
-              <i class="fal fa-crown"></i> {{trans('theme.all_brands')}}
-            </a>
+          <i class="fal fa-crown"></i> {{trans('theme.all_brands')}}
+          </a>
           </li>
 
           <li class="image-icon">
@@ -75,18 +75,18 @@
           {{-- <li class="currency">
              <select name="currency" id="currencyChange">
                <option value="usd" data-imagesrc="{{theme_asset_url('icon/lang3.png')}}">USD</option>
-               <option value="jpy" data-imagesrc="{{theme_asset_url('icon/lang4.png')}}">JPY</option>
-               <option value="eur" data-imagesrc="{{theme_asset_url('icon/lang5.png')}}">EUR</option>
-               <option value="aud" data-imagesrc="{{theme_asset_url('icon/lang6.png')}}">AUD</option>
-             </select>
-           </li> --}}
+          <option value="jpy" data-imagesrc="{{theme_asset_url('icon/lang4.png')}}">JPY</option>
+          <option value="eur" data-imagesrc="{{theme_asset_url('icon/lang5.png')}}">EUR</option>
+          <option value="aud" data-imagesrc="{{theme_asset_url('icon/lang6.png')}}">AUD</option>
+          </select>
+          </li> --}}
 
           <li class="language">
             <select name="lang" id="languageChange">
               @foreach (config('active_locales') as $lang)
-                <option dd-link="{{ route('locale.change', $lang->code) }}" value="{{ $lang->code }}" data-imagesrc="{{ get_flag_img_by_code(array_slice(explode('_', $lang->php_locale_code), -1)[0], true) }}" {{ $lang->code == \App::getLocale() ? 'selected' : '' }}>
-                  {{ $lang->language }}
-                </option>
+              <option dd-link="{{ route('locale.change', $lang->code) }}" value="{{ $lang->code }}" data-imagesrc="{{ get_flag_img_by_code(array_slice(explode('_', $lang->php_locale_code), -1)[0], true) }}" {{ $lang->code == \App::getLocale() ? 'selected' : '' }}>
+                {{ $lang->language }}
+              </option>
               @endforeach
             </select>
           </li>
@@ -119,13 +119,13 @@
               <option value="all">{{ trans('theme.all_categories') }}</option>
 
               @foreach ($search_category_list as $search_category_grp)
-                <optgroup label="{{ $search_category_grp->name }}">
-                  @foreach ($search_category_grp->subGroups as $search_category)
-                    <option value="{{ $search_category->slug }}" {{ Request::get('insubgrp') == $search_category->slug ? 'selected' : '' }}>
-                      {{ $search_category->name }}
-                    </option>
-                  @endforeach
-                </optgroup>
+              <optgroup label="{{ $search_category_grp->name }}">
+                @foreach ($search_category_grp->subGroups as $search_category)
+                <option value="{{ $search_category->slug }}" {{ Request::get('insubgrp') == $search_category->slug ? 'selected' : '' }}>
+                  {{ $search_category->name }}
+                </option>
+                @endforeach
+              </optgroup>
               @endforeach
             </select>
           </div>
@@ -193,62 +193,62 @@
         <li>
           <a href="{{ route('categories') }}" class="menu-link" data-menu-link>
             <i class="fas fa-stream" style="margin-right: 10px;"></i>
-            {{ trans('theme.categories') }}
+            {{ trans('theme.category') }}
             {{-- <i class="far fa-chevron-down"></i> --}}
           </a>
 
           <ul class="menu-cat" data-menu-toggle>
             @foreach ($all_categories as $catGroup)
-              @if ($catGroup->subGroups->count())
-                @php
-                  $categories_count = $catGroup->subGroups->sum('categories_count');
-                  $cat_counter = 0;
-                @endphp
-                <li>
-                  <a href="{{ route('categoryGrp.browse', $catGroup->slug) }}">
-                    @if ($catGroup->logoImage && Storage::exists($catGroup->logoImage->path))
-                      <img src="{{ get_storage_file_url($catGroup->logoImage->path, 'tiny_thumb') }}" alt="{{ $catGroup->name }}">
-                    @else
-                      <i class="fal {{ $catGroup->icon ?? 'fa-cube' }}"></i>
-                    @endif
+            @if ($catGroup->subGroups->count())
+            @php
+            $categories_count = $catGroup->subGroups->sum('categories_count');
+            $cat_counter = 0;
+            @endphp
+            <li>
+              <a href="{{ route('categoryGrp.browse', $catGroup->slug) }}">
+                @if ($catGroup->logoImage && Storage::exists($catGroup->logoImage->path))
+                <img src="{{ get_storage_file_url($catGroup->logoImage->path, 'tiny_thumb') }}" alt="{{ $catGroup->name }}">
+                @else
+                <i class="fal {{ $catGroup->icon ?? 'fa-cube' }}"></i>
+                @endif
 
-                    <span>{{ $catGroup->name }}</span>
-                    <i class="fal fa-chevron-right"></i>
-                  </a>
+                <span>{{ $catGroup->name }}</span>
+                <i class="fal fa-chevron-right"></i>
+              </a>
 
-                  <div class="mega-dropdown" style="background-image:url({{ $catGroup->backgroundImage ? get_storage_file_url(optional($catGroup->backgroundImage)->path, 'full') : '' }}); background-position: right bottom; background-repeat: no-repeat;margin-right: 0; background-size: contain;">
+              <div class="mega-dropdown" style="background-image:url({{ $catGroup->backgroundImage ? get_storage_file_url(optional($catGroup->backgroundImage)->path, 'full') : '' }}); background-position: right bottom; background-repeat: no-repeat;margin-right: 0; background-size: contain;">
 
-                    <div class="row">
-                      @foreach ($catGroup->subGroups as $subGroup)
-                        <div class="col-lg-{{ $categories_count > 15 ? '4' : '6' }}">
-                          @php
-                            $cat_counter = 0; //Reset the counter
-                          @endphp
+                <div class="row">
+                  @foreach ($catGroup->subGroups as $subGroup)
+                  <div class="col-lg-{{ $categories_count > 15 ? '4' : '6' }}">
+                    @php
+                    $cat_counter = 0; //Reset the counter
+                    @endphp
 
-                          <div class="mega-dropdown__item">
-                            <h3>
-                              <a href="{{ route('categories.browse', $subGroup->slug) }}">{{ $subGroup->name }}</a>
-                            </h3>
-                            <ul>
-                              @foreach ($subGroup->categories as $cat)
-                                <li>
-                                  <a href="{{ route('category.browse', $cat->slug) }}">{{ $cat->name }}</a>
-                                  @if ($cat->description)
-                                    <p>{!! $cat->description !!}</p>
-                                  @endif
-                                </li>
-                                @php
-                                  $cat_counter++; //Increase the counter value by 1
-                                @endphp
-                              @endforeach
-                            </ul>
-                          </div>
-                        </div>
-                      @endforeach
+                    <div class="mega-dropdown__item">
+                      <h3>
+                        <a href="{{ route('categories.browse', $subGroup->slug) }}">{{ $subGroup->name }}</a>
+                      </h3>
+                      <ul>
+                        @foreach ($subGroup->categories as $cat)
+                        <li>
+                          <a href="{{ route('category.browse', $cat->slug) }}">{{ $cat->name }}</a>
+                          @if ($cat->description)
+                          <p>{!! $cat->description !!}</p>
+                          @endif
+                        </li>
+                        @php
+                        $cat_counter++; //Increase the counter value by 1
+                        @endphp
+                        @endforeach
+                      </ul>
                     </div>
                   </div>
-                </li>
-              @endif
+                  @endforeach
+                </div>
+              </div>
+            </li>
+            @endif
             @endforeach
           </ul>
         </li>
@@ -270,25 +270,25 @@
         {{-- <li class="menu-dropdown-list">
           <a class="menu-link" href="javascript:void(0)">
             <i class="fal fa-store menu-icon"></i> {{ trans('theme.vendors') }}
-            <i class="far fa-chevron-down"></i>
-          </a>
-          <div class="menu-cat shop-menu">
-            <div class="row" id="top_vendors">
-              @foreach ($top_vendors as $top_vendor)
-                <div class="col-md-4 col-6 mb-3">
-                  <div class="menu-banner">
-                    <a href="{{ route('admin.vendor.shop.show', $top_vendor->id) }}">
-                      <img src="{{ get_storage_file_url(optional($top_vendor->logoImage)->path, 'thumbnail') }}" class="" alt="{{ trans('app.logo') }}">
-                    </a>
-                  </div>
-                  <p class="my-2">
-                    {{ $top_vendor->name }}
-                  </p>
-                </div>
-              @endforeach
+        <i class="far fa-chevron-down"></i>
+        </a>
+        <div class="menu-cat shop-menu">
+          <div class="row" id="top_vendors">
+            @foreach ($top_vendors as $top_vendor)
+            <div class="col-md-4 col-6 mb-3">
+              <div class="menu-banner">
+                <a href="{{ route('admin.vendor.shop.show', $top_vendor->id) }}">
+                  <img src="{{ get_storage_file_url(optional($top_vendor->logoImage)->path, 'thumbnail') }}" class="" alt="{{ trans('app.logo') }}">
+                </a>
+              </div>
+              <p class="my-2">
+                {{ $top_vendor->name }}
+              </p>
             </div>
-            <a href="{{ route('shops') }}" class="text-primary">{{ trans('theme.all_vendors') }}</a>
+            @endforeach
           </div>
+          <a href="{{ route('shops') }}" class="text-primary">{{ trans('theme.all_vendors') }}</a>
+        </div>
         </li> --}}
 
         <li>
@@ -381,21 +381,21 @@
                 <div class="menu-banner">
                   <a href="#">
                     <img src="{{ theme_asset_url('img/shop-1.png') }}" alt="">
-                  </a>
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="menu-banner">
-                  <a href="#">
-                    <img src="{{ theme_asset_url('img/shop-2.png') }}" alt="">
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </li> --}}
+        </a>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="menu-banner">
+      <a href="#">
+        <img src="{{ theme_asset_url('img/shop-2.png') }}" alt="">
+      </a>
+    </div>
+  </div>
+</div>
+</div>
+</li> --}}
 
-        {{-- <li class="menu-dropdown-list">
+{{-- <li class="menu-dropdown-list">
           <a class="menu-link" href="#">
             Pages
             <i class="far fa-chevron-down"></i>
@@ -421,13 +421,13 @@
             </li>
           </ul>
         </li> --}}
-      </ul>
+</ul>
 
-      <div class="shale-text">
-        <a style="text-decoration: none" href="{{ $promotional_tagline['action_url'] ?? 'javascript:void(0)' }}">
-          <p>{{ !empty($promotional_tagline['text']) ? $promotional_tagline['text'] : '' }}</p>
-        </a>
-      </div>
-    </div>
-  </div>
+<div class="shale-text">
+  <a style="text-decoration: none" href="{{ $promotional_tagline['action_url'] ?? 'javascript:void(0)' }}">
+    <p>{{ !empty($promotional_tagline['text']) ? $promotional_tagline['text'] : '' }}</p>
+  </a>
+</div>
+</div>
+</div>
 </div>

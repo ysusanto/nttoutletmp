@@ -33,7 +33,20 @@
     </div>
   </div>
 </div>
-
+<div class="row">
+  <div class="col-md-6 nopadding-right">
+    <div class="form-group">
+      {!! Form::label('subdistrict_1', trans('app.form.subdistrict_1')) !!}
+      {!! Form::text('subdistrict_1', null, ['class' => 'form-control', 'placeholder' => trans('app.placeholder.subdistrict_1')]) !!}
+    </div>
+  </div>
+  <div class="col-md-6 nopadding-left">
+    <div class="form-group">
+      {!! Form::label('subdistrict_2', trans('app.form.subdistrict_2')) !!}
+      {!! Form::text('subdistrict_2', null, ['class' => 'form-control', 'placeholder' => trans('app.placeholder.subdistrict_2')]) !!}
+    </div>
+  </div>
+</div>
 <div class="row">
   <div class="col-md-4 nopadding-right">
     <div class="form-group">
@@ -59,7 +72,7 @@
   <div class="col-md-6 nopadding-right">
     <div class="form-group">
       {!! Form::label('country_id', trans('app.form.country')) !!}
-      {!! Form::select('country_id', $countries, isset($address) ? $address->country_id : config('system_settings.address_default_country'), ['class' => 'form-control select2', 'placeholder' => trans('app.placeholder.country')]) !!}
+      {!! Form::select('country_id', $countries , isset($address) ? $address->country_id : config('system_settings.address_default_country'), ['class' => 'form-control select2', 'placeholder' => trans('app.placeholder.country')]) !!}
     </div>
   </div>
   <div class="col-md-6 nopadding-left">

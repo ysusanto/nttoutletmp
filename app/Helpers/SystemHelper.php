@@ -496,7 +496,7 @@ if (!function_exists('crosscheckAndUpdateOldCartInfo')) {
         if (empty($request->all())) {
             return $cart;
         }
-
+        $shipping = $request->shipping_cost; //add by ari 02/06/2021
         // Set customer_id if not set yet
         if (!$cart->customer_id) {
             if (Auth::guard('customer')->check()) {
@@ -558,17 +558,17 @@ if (!function_exists('crosscheckAndUpdateOldCartInfo')) {
 
             // abort_unless( $shippingRate, 403, trans('theme.notify.seller_doesnt_ship'));
 
-            if ($shippingRate) {
-                $cart->shipping_rate_id = $shippingRate->id;
-                $cart->shipping = $shippingRate->rate;
-                if ($cart->handling == 0) {
-                    $cart->handling = getShopConfig($cart->shop_id, 'order_handling_cost');
-                }
-            } else if ($cart->is_free_shipping()) {
-                $cart->shipping_rate_id = Null;
-                $cart->shipping = 0;
-                $cart->handling = 0;
-            }
+            // if ($shippingRate) {
+            //     $cart->shipping_rate_id = $shippingRate->id;
+                $cart->shipping =  $shipping;
+            //     if ($cart->handling == 0) {
+            //         $cart->handling = getShopConfig($cart->shop_id, 'order_handling_cost');
+            //     }
+            // } else if ($cart->is_free_shipping()) {
+            //     $cart->shipping_rate_id = Null;
+            //     $cart->shipping =  $shipping;
+            //     $cart->handling = 0;
+            // }
         }
 
         // if ($request->shipping_rate_id == 0) { // When free shipping

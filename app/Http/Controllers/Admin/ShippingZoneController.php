@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Common\Authorizable;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Repositories\ShippingZone\ShippingZoneRepository;
 use App\Http\Requests\Validations\CreateShippingZoneRequest;
 use App\Http\Requests\Validations\UpdateShippingZoneRequest;
-
+use App\Repositories\ShippingCourier\ShippingCourierRepository;
+use App\Repositories\ShopCourier\ShopCourierRepository;
 class ShippingZoneController extends Controller
 {
     use Authorizable;
@@ -16,19 +18,23 @@ class ShippingZoneController extends Controller
     private $model_name;
 
     private $shipping_zone;
+    private $shop_courier;
+    private $courier;
 
     /**
      * construct
      */
-    public function __construct(ShippingZoneRepository $shipping_zone)
+    public function __construct(ShippingZoneRepository $shipping_zone,ShopCourierRepository $shop_courier,ShippingCourierRepository $shippingCourierRepository)
     {
         parent::__construct();
 
-        $this->model_name = trans('app.model.shipping_zone');
+        $this->model_name = trans('app.model.carrier');
 
-        $this->shipping_zone = $shipping_zone;
+        // $this->shipping_zone = $shipping_zone;
+        $this->shop_courier=$shop_courier;
+        $this->courier=$shippingCourierRepository;
     }
-
+//edit by ari 15/05/2021
     /**
      * Display a listing of the resource.
      *
@@ -36,9 +42,28 @@ class ShippingZoneController extends Controller
      */
     public function index()
     {
-        $shipping_zones = $this->shipping_zone->all();
-
-        return view('admin.shipping_zone.index', compact('shipping_zones'));
+        $listcourier=array();
+        $shop_id=Auth::user()->shop_id;
+        // $shipping_zones = $this->shop_courier->allCourier();
+        $couriers=$this->courier->all();
+        $shopcourier=$this->shop_courier->getShopCourier($shop_id);
+       if($couriers){
+            foreach($couriers as $c){
+                $checked="0";
+                $checkshopcourier=$this->shop_courier->getShopCourierbycourier($shop_id,$c['id']);
+                if($checkshopcourier){
+                $checked="1";
+                }
+                $datacourier=array(
+                    'id'=>$c['id'],
+                    "parent"=>$c['parent'],
+                    "name"=>$c['name'],
+                    'checked'=> $checked
+                );
+                array_push($listcourier,$datacourier);
+            }
+       }
+        return view('admin.shipping_zone.index', compact('listcourier'));
     }
 
     /**
@@ -57,9 +82,12 @@ class ShippingZoneController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateShippingZoneRequest $request)
+    public function store(Request $request)
     {
-        $this->shipping_zone->store($request);
+        $data['courier_id'] = $request->input('courier_id');
+        $data['shop_id'] = Auth::user()->shop_id;
+        // echo json_encode($shop_id);die();
+        $this->shop_courier->storedata($data);
 
         return back()->with('success', trans('messages.created', ['model' => $this->model_name]));
     }
@@ -72,7 +100,7 @@ class ShippingZoneController extends Controller
      */
     public function edit($id)
     {
-        $shipping_zone = $this->shipping_zone->find($id);
+        $shipping_zone = '';// $this->shipping_zone->find($id);
 
         return view('admin.shipping_zone._edit', compact('shipping_zone'));
     }
@@ -86,7 +114,7 @@ class ShippingZoneController extends Controller
      */
     public function update(UpdateShippingZoneRequest $request, $id)
     {
-        $this->shipping_zone->update($request, $id);
+      //  $this->shipping_zone->update($request, $id);
 
         return back()->with('success', trans('messages.updated', ['model' => $this->model_name]));
     }
@@ -101,7 +129,7 @@ class ShippingZoneController extends Controller
      */
     public function removeCountry(Request $request, $zone, $country)
     {
-        $this->shipping_zone->removeCountry($request, $zone, $country);
+        //$this->shipping_zone->removeCountry($request, $zone, $country);
 
         return back()->with('success',  trans('messages.updated', ['model' => $this->model_name]));
     }
@@ -115,7 +143,7 @@ class ShippingZoneController extends Controller
      */
     public function editStates($zone, $country)
     {
-        $shipping_zone = $this->shipping_zone->find($zone);
+        $shipping_zone = '';//$this->shipping_zone->find($zone);
 
         return view('admin.shipping_zone._states', compact('shipping_zone', 'country'));
     }
@@ -130,7 +158,7 @@ class ShippingZoneController extends Controller
      */
     public function updateStates(Request $request, $zone, $country)
     {
-        $this->shipping_zone->updateStates($request, $zone, $country);
+        //$this->shipping_zone->updateStates($request, $zone, $country);
 
         return back()->with('success',  trans('messages.updated', ['model' => $this->model_name]));
     }
@@ -144,7 +172,7 @@ class ShippingZoneController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        $this->shipping_zone->destroy($id);
+        //$this->shipping_zone->destroy($id);
 
         return back()->with('success',  trans('messages.deleted', ['model' => $this->model_name]));
     }
@@ -156,11 +184,11 @@ class ShippingZoneController extends Controller
      */
     public function ajaxGetTaxRate(Request $request)
     {
-        if ($request->ajax()) {
-            $taxrate = getTaxRate($request->input('ID'));
+        // if ($request->ajax()){
+        //     $taxrate = getTaxRate($request->input('ID'));
 
-            return get_formated_decimal($taxrate, true, 2);
-        }
+        //     return get_formated_decimal($taxrate, true, 2);
+        // }
 
         return false;
     }

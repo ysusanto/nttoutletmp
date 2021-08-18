@@ -67,7 +67,6 @@
             <section class="content-header">
               <h1>
                 {!! $page_title ?? '' !!}
-
                 <small>{!! $page_description ?? '' !!}</small>
               </h1>
               <span class='opt-button'>
@@ -75,7 +74,8 @@
                 @yield("buttons")
 
               </span>
-            </section>
+            </sectio
+            n>
           @endif
 
           <!-- Main content -->
@@ -92,7 +92,7 @@
               @endif
 
               <!-- VALIDATION ERRORS -->
-              @if(count($errors) > 0)
+              @if (count($errors) > 0)
                 <div class="alert alert-danger">
                   <strong>{{ trans('app.error') }}!</strong> {{ trans('messages.input_error') }}<br><br>
                   <ul class="list-group">
@@ -108,15 +108,16 @@
 
               {{-- Listings Notice --}}
               @if(Auth::user()->isFromMerchant())
+
                 @if(Auth::user()->hasBillingInfo() || ! is_billing_info_required())
-                    @unless(Auth::user()->isVerified())
+                    @if(! Auth::user()->isVerified())
                         <div class="alert alert-info alert-dismissible">
-                          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                           <strong><i class="icon fa fa-info-circle"></i>{{ trans('app.notice') }}</strong>
                           {{ trans('messages.email_verification_notice') }}
                             <a href="{{ route('verify') }}">{{ trans('app.resend_verification_link') }}</a>
                         </div>
-                    @endunless
+                    @endif
 
                     @include('admin.partials._listings_notice')
                 @endif

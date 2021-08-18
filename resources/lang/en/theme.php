@@ -93,6 +93,9 @@ return [
 		'view_product_details' => 'View Product Details',
 		'view_dispute'		=> 'View Dispute',
 		'visit_store' 		=> 'Visit Store',
+		"payment_midtrans" => "Choose payment method",
+		'payment' => "Payment",
+		"complete_order"=>"Complete"
 	],
 
 	//Store Front
@@ -230,7 +233,7 @@ return [
 	'order_detail' => 'Order Detail',
 	'order_info' => 'Order info',
 	'order_id' => 'Order ID',
-	'order_time_date' => 'Order date and time',
+	'order_time_date' => 'Order time and date',
 	'order_received' => 'Order received',
 	'out_of_stock' => 'Out Of Stock',
 	'packaging' => 'Packaging',
@@ -420,6 +423,8 @@ return [
 		'your_feedback_saved' => 'Thank you for your feedback!',
 		'you_will_be_redirected_to_paystack' => 'You will be redirected to Paystack.',
 		'you_will_be_redirected_to_instamojo' => 'You will be redirected to Instamojo.',
+		'all_seller_doesnt_ship' => 'All seller does not deliver to your selected Country/Region. Change the shipping address or find other sellers who ship to your area.',
+		"shipping_cost_not_emty" => "Please choose shipping courier",
 	],
 
 	'input_label' => [
@@ -464,6 +469,8 @@ return [
 		'valid_email' => 'Enter a valid email address',
 		'write_your_feedback' => 'Write your feedback within 250 characters',
 		'zip_code' => 'Zip Code',
+		'subdistrict_1' => 'Subdistrict 1(Kelurahan)',
+		'subdistrict_2' => 'Subdistrict 2(Kecamatan)'
 	],
 
 	'validation' => [
@@ -670,6 +677,7 @@ return [
 	'shop_now' => 'Shop Now',
 	'add_to_cart' => 'Add to Cart',
 	'item_added_to_wishlist' => 'Item added to wishlist',
+	'single_checkout' => 'Checkout All',
 	'flash_deal_days' => 'days',
 	'hrs' => 'hrs',
 	'mins' => 'mins',
@@ -681,19 +689,4 @@ return [
 	'vendors' => 'Vendors',
 	'all_brands' => 'All Brands',
 	'all_shops' => 'All Vendors',
-	'sale_over' => 'Sorry! You\'ve missed the sale!',
-	'categories' => 'Categories',
-	'messages' => 'Messages',
-	'sell' => 'Sell',
-	'cart_update_failed' => 'Cart update failed!',
-	'cart_count' => 'Cart count',
-	// 'follow_us' => 'Follow Us',
-	'for_customers' => 'For Customers',
-	'search_product_and_supplier' => 'Search Products & Suppliers',
-	'quick_links' => 'Quick Links',
-	'language_options' => 'Language Options',
-	'message' => 'Message',
-	'from' => 'From',
-	'type_min_char'  => 'Type at least :min characters.',
-	'searching' => 'Searching',
 ];

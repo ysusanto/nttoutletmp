@@ -6,11 +6,11 @@
 */
 $packages = [];
 foreach (glob(base_path('packages/*'), GLOB_ONLYDIR) as $dir) {
-    if (file_exists($manifest = $dir.'/manifest.json')) {
+    if (file_exists($manifest = $dir . '/manifest.json')) {
         if ($json = file_get_contents($manifest)) {
             $data = json_decode($json, true);
             if (isset($data['provider'])) {
-                $packages[] = "Incevio\\Package\\".$data['provider'];
+                $packages[] = "Incevio\\Package\\" . $data['provider'];
             }
         }
     }
@@ -209,6 +209,7 @@ return [
         App\Providers\RepositoryServiceProvider::class,
         App\Providers\GoogleDriveServiceProvider::class,
         App\Providers\MysqlScoutServiceProvider::class,
+        // erfanbagussetiana\rajaongkirpro\RajaOngkirServiceProvider::class, //rajaongkir ari 20052021
 
     ], $packages),
 
@@ -272,6 +273,7 @@ return [
         // 'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Paypalpayment'   => Anouar\Paypalpayment\Facades\PaypalPayment::class,
         'Chat'   => Musonza\Chat\Chat::class,
+        // 'RajaOngkir' => erfanbagussetiana\rajaongkirpro\RajaOngkirFacade::class,
     ],
 
 ];

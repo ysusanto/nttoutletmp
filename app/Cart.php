@@ -230,11 +230,11 @@ class Cart extends BaseModel
     {
         $grand_total = ($this->total + $this->taxes + $this->packaging) - $this->discount;
 
-        if ($this->shipping_rate_id) {
-            return $grand_total + $this->shipping + $this->handling;
-        }
+        // if ($this->shipping_rate_id) { edit by ari 20210811
+        return $grand_total + $this->shipping; // + $this->handling;
+        // }
 
-        return $grand_total;
+        // return $grand_total;
         // return $this->is_free_shipping() ? $grand_total : ($grand_total + $this->shipping);
     }
 

@@ -24,9 +24,9 @@ class CreateProductRequest extends Request
     public function rules()
     {
         Request::merge([
-                    'shop_id' => $this->user()->merchantId(),
-                    'slug' => convertToSlugString($this->input('name'), $this->input('gtin')),
-                ]); //Set shop_id and slug
+            'shop_id' => $this->user()->merchantId(),
+            'slug' => convertToSlugString($this->input('name'), $this->input('gtin')),
+        ]); //Set shop_id and slug
 
         return [
             'category_list' => 'required',
@@ -36,6 +36,7 @@ class CreateProductRequest extends Request
             'min_price' => 'nullable|numeric|min:0',
             'max_price' => 'nullable|numeric|min:' . $this->min_price ?? 0,
             'image' => 'mimes:jpg,jpeg,png,gif',
+
         ];
     }
 

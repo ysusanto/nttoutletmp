@@ -6,6 +6,7 @@ use DB;
 use Session;
 use App\Cart;
 use App\Order;
+use App\Customer;
 use App\PaymentMethod;
 use Illuminate\Http\Request;
 use App\Events\Order\OrderCreated;
@@ -17,12 +18,21 @@ use App\Http\Requests\Validations\ConfirmGoodsReceivedRequest;
 
 use App\Contracts\PaymentServiceContract as PaymentService;
 use App\Services\Payments\PaypalExpressPaymentService;
-
+use Steevenz\Rajaongkir;
 use App\Common\ShoppingCart;
-
+use App\Repositories\ShippingCourier\ShippingCourierRepository;
 class OrderController extends Controller
 {
     use ShoppingCart;
+    private $rajaongkir;
+    private $shippingCourier;
+    public function __construct(ShippingCourierRepository $shipping_courier)
+    {
+        parent::__construct();
+        
+        $this->shippingCourier = $shipping_courier;
+        // $this->rajaongkir = new Rajaongkir(env('RAJAONGKIR_APIKEY'), 'pro');
+    }
 
     /**
      * Checkout the specified cart.
@@ -287,4 +297,122 @@ class OrderController extends Controller
 
         return $error;
     }
+
+    private function _generateMidtransPayment($order)
+    {
+        $this->InitMidtransPayment();
+        $transaction_details = array(
+            'order_id' => $order->order_number,
+            'gross_amount' => round($order->grand_total), // no decimal allowed for creditcard
+        );
+        $customer = Customer::where('id', $order->customer_id)->first();
+        $customer_details = array(
+            'first_name'    => $customer->name,
+            'last_name'     => "",
+            'email'         => $customer->email,
+            'phone'         => "",
+
+        );
+        date_default_timezone_set('GMT');
+        $param = array(
+            "enable_payment" => \App\MidtransModel::PAYMENT_CHANNELS,
+            "transaction_details" => $transaction_details,
+            "customer_details" => $customer_details,
+            "expiry" => [
+                "start_time" => date('Y-m-d H:i:s T'),
+                "unit" => \App\MidtransModel::EXPIRY_UNIT,
+                "duration" => \App\MidtransModel::EXPIRY_DURATION
+            ]
+        );
+        $snapurl = \Midtrans\Snap::createTransaction($param);
+        $updateorder = Order::where("id", $order->id)->first();
+        if ($snapurl->token) {
+            $updateorder->payment_url = $snapurl->redirect_url;
+            $updateorder->payment_token = $snapurl->token;
+            $updateorder->save();
+        }
+
+        return $snapurl;
+    }
+    public function checkoutMidtrans(CheckoutCartRequest $request, Cart $cart)
+    {
+        $cart = crosscheckAndUpdateOldCartInfo($request, $cart);
+        // dd($cart);
+        // die();
+        $request->payment_method_id="9"; // hardcode dari midtrans
+        $order = $this->saveOrderFromCart($request, $cart);
+        $result = $this->_generateMidtransPayment($order);
+        $cart->forceDelete();
+        echo $result->redirect_url;
+        //    return ;
+    }
+    public function get_shippingTrack(Request $request)
+    {
+        $this->rajaongkir = new Rajaongkir(env('RAJAONGKIR_APIKEY'), 'pro');
+      
+        try {
+
+
+            $id = $request->input("id");
+            // echo json_encode($id);die();
+            $order = Order::findOrFail($id);
+           
+            $courier = $this->shippingCourier->courier($order->shipping_zone_id);
+           
+            $gettrackro = $this->rajaongkir->getWaybill(
+                $order->tracking_id, // id kota asal
+                strtolower($courier->parent), // kode kurir pengantar ( jne / tiki / pos )
+            );
+            echo json_encode($gettrackro);
+            die();
+            $listTrack = array();
+            if ($gettrackro != null) {
+                if (count($gettrackro['manifest']) > 0) {
+                    foreach ($gettrackro['manifest'] as $value) {
+                        # code...
+                        $trackdata = array(
+                            'm_id' => $value['manifest_code'],
+                            'desc' => $value['manifest_description'] ." " .$value['city_name'],
+                            'date_output' => date("d M Y", strtotime($value['manifest_date'])),
+                            'time' => $value['manifest_time'],
+                            'city' => $value['city_name'],
+                            'datetime_order' => $value['manifest_date'] . " " . $value['manifest_time']
+                        );
+                        array_push($listTrack, $trackdata);
+                    }
+                }
+                usort($listTrack, 'date_compare');
+                return response($listTrack, 200);
+            }
+        } catch (\Exception  $ex) {
+            return response($ex->getMessage(), 400);
+        }
+    }
+    private function date_compare($a, $b)
+    {
+        $t1 = strtotime($a['datetime_order']);
+        $t2 = strtotime($b['datetime_order']);
+        return $t1 - $t2;
+    }
+    public function finishorder(Request $request)
+    {
+      
+        try {
+
+
+            $id = $request->input("id");
+            // echo json_encode($id);die();
+            $order = Order::findOrFail($id);
+            if($order){
+                $order->order_status_id=Order::STATUS_COMPLETE;
+                $order->save();
+            }
+           
+                return response("ok", 200);
+            
+        } catch (\Exception  $ex) {
+            return response($ex->getMessage(), 400);
+        }
+    }
+
 }

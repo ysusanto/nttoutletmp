@@ -12,7 +12,12 @@
 			  {!! Form::select('order_status_id', $order_statuses, $order->order_status_id, ['class' => 'form-control select2-normal', 'placeholder' => trans('app.placeholder.carrier'), 'required']) !!}
 			  <div class="help-block with-errors"></div>
 			</div>
-
+            <div class="form-group" id="divinputtracking" style="display: none;">
+			  {!! Form::label('tracking_id', "Tracking No" , ['class' => 'with-help']) !!}
+			  <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="Tracking number from shipping courier"></i>
+			  {!! Form::text('tracking_id', $order->tracking_id, ['class' => 'form-control', 'placeholder' => "Tracking No."]) !!}
+			  <div class="help-block with-errors"></div>
+			</div>
             <small>
               {!! Form::checkbox('notify_customer', 1, null, ['class' => 'icheck', 'checked']) !!}
               {!! Form::label('notify_customer', strtoupper(trans('app.notify_customer')), ['class' => 'indent5']) !!}
@@ -26,3 +31,14 @@
         {!! Form::close() !!}
     </div> <!-- / .modal-content -->
 </div> <!-- / .modal-dialog -->
+<script>
+ $(document).ready(function()
+    {
+$("#order_status_id").on("change",function(){
+  var id=$(this).val();
+  if(id=="5"){
+$("#divinputtracking").show();
+  }
+})
+    })
+</script>

@@ -114,9 +114,9 @@ class ViewComposerServiceProvider extends ServiceProvider
 
         $this->composeRefundInitiationForm();
 
-        if (SystemConfig::isGgoogleAnalyticReady()) {
-            $this->composeReportAboutVisitors();
-        }
+        // if (SystemConfig::isGgoogleAnalyticReady()) {
+        //     $this->composeReportAboutVisitors();
+        // }
 
         $this->composeRoleForm();
 

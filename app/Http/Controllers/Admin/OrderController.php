@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use Auth;
 use App\Order;
-use App\Helpers\ListHelper;
 use App\Common\Authorizable;
 use Illuminate\Http\Request;
 use App\Events\Order\OrderCreated;
@@ -12,29 +11,33 @@ use App\Events\Order\OrderUpdated;
 use App\Events\Order\OrderFulfilled;
 use App\Http\Controllers\Controller;
 use App\Repositories\Order\OrderRepository;
+use App\Repositories\ShippingCourier\ShippingCourierRepository;
 use App\Http\Requests\Validations\CreateOrderRequest;
 use App\Http\Requests\Validations\FulfillOrderRequest;
 use App\Http\Requests\Validations\CustomerSearchRequest;
-
+use Steevenz\Rajaongkir;
+use Carbon\Carbon;
 // use App\Services\PdfInvoice;
 // use Konekt\PdfInvoice\InvoicePrinter;
 
 class OrderController extends Controller
 {
     use Authorizable;
-
+    private $shippingCourier;
     private $model_name;
-
+    private $rajaongkir;
     private $order;
 
     /**
      * construct
      */
-    public function __construct(OrderRepository $order)
+    public function __construct(OrderRepository $order, ShippingCourierRepository $shipping_courier)
     {
         parent::__construct();
         $this->model_name = trans('app.model.order');
         $this->order = $order;
+        $this->shippingCourier = $shipping_courier;
+        $this->rajaongkir = new Rajaongkir(env('RAJAONGKIR_APIKEY'), 'pro');
     }
 
     /**
@@ -103,13 +106,17 @@ class OrderController extends Controller
      */
     public function show($id)
     {
+
         $order = $this->order->find($id);
 
         $this->authorize('view', $order); // Check permission
-
+        // echo json_encode($order);die();
+        $courier = $this->shippingCourier->courier($order->shipping_zone_id);
+        // echo json_encode($courier);die();
+        // 
         $address = $order->customer->primaryAddress();
 
-        return view('admin.order.show', compact('order', 'address'));
+        return view('admin.order.show', compact('order', 'address', 'courier'));
     }
 
     /**
@@ -139,9 +146,7 @@ class OrderController extends Controller
 
         $this->authorize('fulfill', $order); // Check permission
 
-        $carriers = ListHelper::carriers($order->shop_id);
-
-        return view('admin.order._fulfill', compact('order', 'carriers'));
+        return view('admin.order._fulfill', compact('order'));
     }
 
     /**
@@ -153,7 +158,7 @@ class OrderController extends Controller
     public function edit($id)
     {
         $order = $this->order->find($id);
-
+        // echo json_encode($order);die();
         $this->authorize('fulfill', $order); // Check permission
 
         return view('admin.order._edit', compact('order'));
@@ -195,7 +200,14 @@ class OrderController extends Controller
      */
     public function updateOrderStatus(Request $request, $id)
     {
+        // echo json_encode( $request->input('order_status_id'));die();
         $order = $this->order->find($id);
+        if ($request->input('order_status_id') == "5") { // add by ari 05062021
+            $order->tracking_id = $request->input('tracking_id');
+            $order->shipping_date =Carbon::now()->format('Y-m-d');
+
+            $order->save();
+        }
 
         $this->authorize('fulfill', $order); // Check permission
 
@@ -310,5 +322,52 @@ class OrderController extends Controller
         }
 
         return back()->with('success', trans('messages.deleted', ['model' => $this->model_name]));
+    }
+
+    public function getTrackshipping(Request $request)
+    {
+        $id=$request->input("id");
+        // echo json_encode($id);die();
+        $order = $this->order->find($id);
+        // echo json_encode($order);die();
+        $courier = $this->shippingCourier->courier($order->shipping_zone_id);
+      
+        $gettrackro =  $this->rajaongkir->getWaybill($order->tracking_id,strtolower($courier->parent));
+        $listTrack = array();
+        if ($gettrackro != null) {
+            if(isset($gettrackro['delivery_status'])){
+                if($gettrackro['delivery_status']['status']=="DELIVERED"){
+                  
+                    // add by ari 17082021
+                        // $order->tracking_id = $request->input('tracking_id');
+                        $order->delivery_date =Carbon::now()->format('Y-m-d');
+                        $order->order_status_id=Order::STATUS_DELIVERED;
+                        $order->save();
+                
+                }
+            }
+            if (count($gettrackro['manifest']) > 0) {
+                foreach ($gettrackro['manifest'] as $value) {
+                    # code...
+                    $trackdata = array(
+                        'm_id'=>$value['manifest_code'],
+                        'desc'=>$value['manifest_description'],
+                        'date_output'=>date("d M Y",strtotime($value['manifest_date'])),
+                        'time'=>$value['manifest_time'],
+                        'city'=>$value['city_name'],
+                        'datetime_order'=>$value['manifest_date']." ".$value['manifest_time']
+                    );
+                    array_push($listTrack,$trackdata);
+                }
+            }
+        }
+        usort($listTrack, 'date_compare');
+        return response($listTrack, 200);
+    }
+    function date_compare($a, $b)
+    {
+        $t1 = strtotime($a['datetime_order']);
+        $t2 = strtotime($b['datetime_order']);
+        return $t1 - $t2;
     }
 }

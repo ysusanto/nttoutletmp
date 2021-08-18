@@ -162,6 +162,19 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Repositories\Report\SalesReportsRepository::class,
             \App\Repositories\Report\EloquentSalesReportsRepository::class
         );
+        // add by ari 
+          $this->app->singleton(
+            \App\Repositories\ShippingCourier\ShippingCourierRepository::class,
+            \App\Repositories\ShippingCourier\EloquentShippingCourier::class
+        );
+           $this->app->singleton(
+            \App\Repositories\ShopCourier\ShopCourierRepository::class,
+            \App\Repositories\ShopCourier\EloquentShopCourier::class
+        );
+        $this->app->singleton(
+            \App\Repositories\SubdistrictRo\SubdistrictRoRepository::class,
+            \App\Repositories\SubdistrictRo\EloquentSubdistrictRo::class
+        );
     }
 
 }

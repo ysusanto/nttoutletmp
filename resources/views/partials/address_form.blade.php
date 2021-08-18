@@ -10,11 +10,11 @@
   <div class="col-md-8 nopadding-right">
     <div class="form-group">
       @if (isset($one_checkout_form))
-        {!! Form::text('country_id', $cart->country->name, ['class' => 'form-control', 'disabled' => 'true']) !!}
-        <div class="help-block with-errors small text-warning">{{ trans('checkout::lang.make_changes_on_cart_page') }}</div>
+      {!! Form::text('country_id', $cart->country->name, ['class' => 'form-control', 'disabled' => 'true']) !!}
+      <div class="help-block with-errors small text-warning">{{ trans('checkout::lang.make_changes_on_cart_page') }}</div>
       @else
-        {!! Form::select('country_id', $countries, isset($address) ? null : (isset($cart) ? $cart->ship_to_country_id : config('system_settings.address_default_country')), ['id' => 'address_country_id', 'class' => 'form-control flat', 'placeholder' => trans('theme.country') . '*', 'required']) !!}
-        <div class="help-block with-errors"></div>
+      {!! Form::select('country_id', $countries, isset($address) ? null : (isset($cart) ? $cart->ship_to_country_id : config('system_settings.address_default_country')), ['id' => 'address_country_id', 'class' => 'form-control flat', 'placeholder' => trans('theme.country') . '*', 'required']) !!}
+      <div class="help-block with-errors"></div>
       @endif
     </div>
   </div>
@@ -35,7 +35,22 @@
   {!! Form::text('address_line_2', null, ['class' => 'form-control flat', 'placeholder' => trans('theme.placeholder.address_line_2')]) !!}
   <div class="help-block with-errors"></div>
 </div>
+<div class="row">
+  <div class="col-md-6 nopadding-right">
+    <div class="form-group">
 
+      {!! Form::text('subdistrict_1', null, ['class' => 'form-control', 'placeholder' => trans('app.placeholder.subdistrict_1')]) !!}
+      <div class="help-block with-errors"></div>
+    </div>
+  </div>
+  <div class="col-md-6 nopadding-left">
+    <div class="form-group">
+
+      {!! Form::text('subdistrict_2', null, ['class' => 'form-control', 'placeholder' => trans('app.placeholder.subdistrict_2')]) !!}
+      <div class="help-block with-errors"></div>
+    </div>
+  </div>
+</div>
 <div class="row">
   <div class="col-md-6 nopadding-right">
     <div class="form-group">
@@ -46,11 +61,11 @@
   <div class="col-md-6 nopadding-left">
     <div class="form-group">
       @if (isset($one_checkout_form))
-        {!! Form::text('state_id', $cart->state->name, ['class' => 'form-control', 'disabled' => 'true']) !!}
-        <div class="help-block with-errors small text-warning">{{ trans('checkout::lang.make_changes_on_cart_page') }}</div>
+      {!! Form::text('state_id', $cart->state->name, ['class' => 'form-control', 'disabled' => 'true']) !!}
+      <div class="help-block with-errors small text-warning">{{ trans('checkout::lang.make_changes_on_cart_page') }}</div>
       @else
-        {!! Form::select('state_id', isset($states) ? $states : [], isset($cart) ? $cart->ship_to_state_id : (isset($address) ? null : config('system_settings.address_default_state')), ['id' => 'address_state_id', 'class' => 'form-control flat', 'placeholder' => trans('theme.placeholder.state') . '*', empty($states) ? '' : 'required']) !!}
-        <div class="help-block with-errors"></div>
+      {!! Form::select('state_id', isset($states) ? $states : [], isset($cart) ? $cart->ship_to_state_id : (isset($address) ? null : config('system_settings.address_default_state')), ['id' => 'address_state_id', 'class' => 'form-control flat', 'placeholder' => trans('theme.placeholder.state') . '*', empty($states) ? '' : 'required']) !!}
+      <div class="help-block with-errors"></div>
       @endif
     </div>
   </div>

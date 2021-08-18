@@ -20,11 +20,6 @@ return [
         'endpoint' => env('MAILGUN_ENDPOINT', 'api.mailgun.net'),
     ],
 
-    //Mandrill Config
-    'mandrill' => [
-        'secret' => env('MAIL_PASSWORD'),
-    ],
-
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),
     ],
@@ -119,5 +114,11 @@ return [
         'secret' => env('PUSHER_APP_SECRET'),
         'cluster' => env('PUSHER_APP_CLUSTER'),
     ],
+    'midtrans'=>[
+        'server_key'=>env('MIDTRANS_SERVER_KEY'),
+        'is_production'=>env('MIDTRANS_ISPRODUCTION'),
+        'is_sanitized'=>env('MIDTRANS_ISSANITIZED'),
+        'is_3ds'=>env('MIDTRANS_IS3DS')
+    ]
 
 ];

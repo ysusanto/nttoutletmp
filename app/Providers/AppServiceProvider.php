@@ -2,22 +2,24 @@
 
 namespace App\Providers;
 
+use App\Observers\ProductObserver;
+use App\Product;
 use Request;
 use App\Shop;
 use App\Order;
 use App\Refund;
+use Laravel\Cashier\Cashier;
 use App\Observers\ShopObserver;
 use App\Observers\RefundObserver;
 use App\Observers\OrderObserver;
 use App\Contracts\PaymentServiceContract;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Cookie\Middleware\EncryptCookies;
-use Laravel\Cashier\Cashier;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -35,6 +37,7 @@ class AppServiceProvider extends ServiceProvider
         ) {
             \URL::forceScheme('https');
         }
+
 
         Blade::withoutDoubleEncoding();
         Paginator::useBootstrapThree();
@@ -61,10 +64,14 @@ class AppServiceProvider extends ServiceProvider
                 }
 
                 $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
-
-                $paginator = new LengthAwarePaginator($this->forPage($page, $perPage), $this->count(), $perPage, $page, $options);
-
-                return $paginator->withPath($q);
+                return (new LengthAwarePaginator(
+                    $this->forPage($page, $perPage),
+                    $this->count(),
+                    $perPage,
+                    $page,
+                    $options
+                ))
+                    ->withPath($q);
             });
         }
     }
@@ -103,6 +110,7 @@ class AppServiceProvider extends ServiceProvider
         );
     }
 
+
     private function resolvePaymentDependency($class_name)
     {
         switch ($class_name) {
@@ -133,6 +141,8 @@ class AppServiceProvider extends ServiceProvider
 
             case 'jrfpay':
                 return \Incevio\Package\Jrfpay\Services\JrfpayPaymentService::class;
+            case 'midtrans':
+                return \App\Services\Payments\MidtransPaymentService::class;
         }
 
         throw new \ErrorException('Error: Payment Method Not Found.');

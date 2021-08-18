@@ -6,7 +6,7 @@ use App\State;
 
 class Address extends BaseModel
 {
-    /**
+	/**
      * The database table used by the model.
      *
      * @var string
@@ -27,20 +27,22 @@ class Address extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'address_title',
-        'address_type',
-        'address_line_1',
-        'address_line_2',
-        'city',
-        'state_id',
-        'country_id',
-        'zip_code',
-        'phone',
-        'addressable_id',
-        'addressable_type',
-        'latitude',
-        'longitude',
-    ];
+                        'address_title',
+                        'address_type',
+                        'address_line_1',
+                        'address_line_2',
+                        'city',
+                        'state_id',
+                        'country_id',
+                        'zip_code',
+                        'phone',
+                        'addressable_id',
+                        'addressable_type',
+                        'latitude',
+                        'longitude',
+                        'subdistrict_1',
+                        'subdistrict_2',
+                    ];
 
     /**
      * Get all of the owning addressable models.
@@ -71,7 +73,7 @@ class Address extends BaseModel
      */
     public function setStateIdAttribute($value)
     {
-        if (!is_numeric($value) and $value != NULL) {
+        if (!is_numeric($value) and $value != NULL){
             $state = State::firstOrCreate(['name' => $value, 'country_id' => \Request::input('country_id')]);
             $value = $state->id;
         }
@@ -100,7 +102,7 @@ class Address extends BaseModel
         }
 
         // build str string
-        $str = trim(implode(', ', array_filter($data)));
+        $str = trim( implode(', ', array_filter($data)) );
 
         return str_replace(' ', '+', $str);
     }
@@ -117,40 +119,40 @@ class Address extends BaseModel
         $html = [];
 
         if ('App\Customer' == $this->addressable_type && $show_type) {
-            $html[] = '<strong class="pull-right">' . strtoupper($this->address_type) . '</strong>';
+            $html [] = '<strong class="pull-right">' . strtoupper($this->address_type) . '</strong>';
         }
 
-        if (config('system_settings.show_address_title')) {
-            $html[] = $this->address_title;
+        if(config('system_settings.show_address_title')) {
+            $html [] = $this->address_title;
         }
 
-        if (strlen($this->address_line_1)) {
-            $html[] = $this->address_line_1;
+        if(strlen($this->address_line_1)) {
+            $html [] = $this->address_line_1;
         }
 
-        if (strlen($this->address_line_2)) {
-            $html[] = $this->address_line_2;
+        if(strlen($this->address_line_2)) {
+            $html [] = $this->address_line_2;
         }
 
-        if (strlen($this->city)) {
-            $html[] = $this->city . ', ';
+        if(strlen($this->city)) {
+            $html []= $this->city . ', ';
         }
 
-        if (strlen($this->state_id) || $this->zip_code) {
-            $html[] = sprintf('%s %s', e($this->state_id ? optional($this->state)->name : ''), e($this->zip_code));
+        if(strlen($this->state_id) || $this->zip_code) {
+            $html []= sprintf('%s %s', e($this->state_id ? optional($this->state)->name : ''), e($this->zip_code));
         }
 
-        if (config('system_settings.address_show_country') && $this->country) {
-            $html[] = e($this->country->name);
+        if(config('system_settings.address_show_country') && $this->country) {
+            $html []= e($this->country->name);
         }
 
-        if (strlen($this->phone)) {
-            $html[] = '<abbr title="' . trans('app.phone') . '">P:</abbr> ' . e($this->phone);
+        if(strlen($this->phone)) {
+            $html [] = '<abbr title="' . trans('app.phone') . '">P:</abbr> ' . e($this->phone);
         }
 
         $addressStr = implode($separator, $html);
 
-        $return = '<address>' . $addressStr . '</address>';
+        $return = '<address>'.$addressStr.'</address>';
 
         return $return;
     }
@@ -162,37 +164,37 @@ class Address extends BaseModel
     {
         $str = [];
 
-        if ($title || config('system_settings.show_address_title')) {
-            $str[] = $this->address_title;
+        if($title || config('system_settings.show_address_title')) {
+            $str [] = $this->address_title;
         }
 
-        if (strlen($this->address_line_1)) {
-            $str[] = $this->address_line_1;
+        if(strlen($this->address_line_1)) {
+            $str [] = $this->address_line_1;
         }
 
-        if (strlen($this->address_line_2)) {
-            $str[] = $this->address_line_2;
+        if(strlen($this->address_line_2)) {
+            $str [] = $this->address_line_2;
         }
 
-        if (strlen($this->city)) {
-            $str[] = $this->city;
+        if(strlen($this->city)) {
+            $str []= $this->city;
         }
 
-        if (strlen($this->state_id) || $this->zip_code) {
-            $str[] = sprintf('%s %s', e($this->state_id ? $this->state->name : ''), e($this->zip_code));
+        if(strlen($this->state_id) || $this->zip_code) {
+            $str []= sprintf('%s %s', e($this->state_id ? $this->state->name : ''), e($this->zip_code));
         }
 
-        // if (strlen($this->city)) {
+        // if(strlen($this->city)){
         //     $state_name = $this->state ? $this->state->name : '';
         //     $str []= sprintf('%s, %s %s', $this->city, $state_name, $this->zip_code);
         // }
 
-        if (config('system_settings.address_show_country') && $this->country) {
-            $str[] = $this->country->name;
+        if(config('system_settings.address_show_country') && $this->country) {
+            $str []= $this->country->name;
         }
 
-        if (strlen($this->phone)) {
-            $str[] =  trans('app.phone') . ': ' . e($this->phone);
+        if(strlen($this->phone)) {
+            $str [] =  trans('app.phone') . ': ' . e($this->phone);
         }
 
         return implode(', ', $str);
@@ -206,30 +208,30 @@ class Address extends BaseModel
     public function toArray()
     {
         $address = [];
-        $address['address_type'] = $this->address_type;
+        $address ['address_type'] = $this->address_type;
         $address['address_title'] = $this->address_title;
         $address['address_line_1'] = $this->address_line_1;
         $address['address_line_2'] = $this->address_line_2;
         $address['city'] = $this->city;
 
-        if ($this->state) {
+        if($this->state) {
             $address['state'] = $this->state->name;
         }
 
         $address['zip_code'] = $this->zip_code;
 
-        if ($this->country) {
+        if($this->country) {
             $address['country'] = $this->country->name;
         }
 
         $address['phone'] = $this->phone;
 
-        if ($this->latitude && $this->longitude) {
+        if($this->latitude && $this->longitude){
             $address['latitude'] = $this->latitude;
             $address['longitude'] = $this->longitude;
         }
 
-        return !empty($address) ? array_filter($address) : Null;
+        return ! empty($address) ? array_filter($address) : Null;
     }
 
     /**
@@ -245,14 +247,14 @@ class Address extends BaseModel
         $address['postal_code'] = $this->zip_code;
         $address['city'] = $this->city;
 
-        if ($this->state) {
+        if($this->state) {
             $address['state'] = $this->state->iso_code;
         }
 
-        if ($this->country) {
+        if($this->country) {
             $address['country'] = $this->country->iso_code;
         }
 
-        return !empty($address) ? array_filter($address) : Null;
+        return ! empty($address) ? array_filter($address) : Null;
     }
 }

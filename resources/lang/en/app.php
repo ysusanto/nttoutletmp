@@ -100,7 +100,7 @@ return [
     'earnings' => 'Earnings',
     'primary_address' => 'Primary',
     'billing_address' => 'Billing address',
-    'current_plan' => 'Current active plan',
+    'current_plan' => 'Current plan',
     'features' => 'Features',
     'select_this_plan' => 'Select this plan',
     'billing_info' => 'Billing information',
@@ -545,6 +545,7 @@ return [
     'views' => 'Views',
     'support' => 'Support',
     'checkout' => 'Checkout',
+    'payment' => 'Payment',
     'analytics' => 'Analytics',
     'configs' => 'Configs',
     'config_updated_at' => 'Config updated at',
@@ -1142,6 +1143,9 @@ return [
         'brands' => 'Brands',
         'featured_brands' => 'Featured Brands',
         'trending_now_categories' => 'Trending now categories',
+
+        'subdistrict_1' => 'Subdistrict 1(Kelurahan)', // add by ari 15062021
+        'subdistrict_2' => 'Subdistrict 2(Kecamatan)'
     ],
 
     'placeholder' => [
@@ -1366,6 +1370,8 @@ return [
         'search_merchant' => 'Search shop by name',
         'category_featured_image' => 'Category Featured Image',
         'text_position' => 'Text position',
+        'subdistrict_1' => 'Subdistrict 1(Kelurahan)', //add by ari 15062021
+        'subdistrict_2' => 'Subdistrict 2(Kecamatan)'
     ],
 
     // Version 1.3.0
@@ -1542,7 +1548,6 @@ return [
     'cancellation_fee' => 'Cancellation fee',
     'waiting_for_approval' => 'waiting for approval',
     'info' => 'Info',
-    'reversal' => 'Reversal',
     'reversal_for_sale_of' => 'Reversal for sale of :order',
     'reversal_platform_fee' => 'Reversal platform fee for sale :for',
     'attention' => 'Attention!',
@@ -1567,12 +1572,4 @@ return [
     'left' => 'Left',
     'right' => 'Right',
     'search_inventory' => 'Search item',
-    'upload_package' => 'Upload package',
-    'zip_archive' => 'Zip archive file',
-    'misconfigured' => 'Misconfigured',
-    'clear_cache' => 'Clear system cache',
-    'and_in_more_categories' => 'and in :count more categories',
-    'icon_image' => 'Icon Image',
-    'how_it_works' => 'How it works',
-    'approve_refund' => 'Approve refund',
 ];

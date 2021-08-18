@@ -29,6 +29,8 @@ class CreateAddressRequest extends Request
            'city' => 'required',
            'zip_code' => 'required',
            'country_id' => 'required|integer',
+           'subdistrict_1'=>'required',
+           'subdistrict_2'=>'required'
         ];
     }
 

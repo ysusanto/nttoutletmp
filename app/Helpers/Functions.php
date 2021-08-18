@@ -28,7 +28,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\UploadedFile;
 use Carbon\Carbon;
-
+use Steevenz\Rajaongkir;
 // if (! function_exists('get_platform_tld'))
 // {
 //     /**
@@ -2339,3 +2339,37 @@ if (!function_exists('create_file_from_base64')) {
 //         return "https://connect.stripe.com/oauth/authorize?response_type=code&client_id=" . config('services.stripe.client_id') . "&scope=read_write&state=" . csrf_token();
 //     }
 // }
+if (!function_exists('getShopCourier')) {
+    function getShopCourier($cart_id)
+    {
+
+        $cartdata = \DB::table('carts')->whereNull('deleted_at')->where('ip_address', request()->ip())->where('id', $cart_id)->first();
+
+        $shopcourier = \DB::table('shop_courier_ros')
+            ->leftJoin('courier_ros', 'shop_courier_ros.id_courier', '=', 'courier_ros.id')
+            ->leftJoin('courier_ros as cr', 'courier_ros.parent_id', '=', 'cr.id')
+            ->select(['shop_courier_ros.id', 'shop_courier_ros.id_courier', 'courier_ros.name as type_courier', 'cr.name as courier', 'cr.path_logo'])
+
+            ->where('shop_id', $cartdata->shop_id)->get();
+        $courier = array();
+        if ($shopcourier != null) {
+            foreach ($shopcourier as $sc) {
+                if (!in_array($sc->courier, $courier)) {
+                    array_push($courier, $sc->courier);
+                }
+            }
+            // if (count($courier) > 0) {
+            //     foreach ($courier as $c) {
+            //         // $data = RajaOngkir::Cost([
+            //         //     'origin'         => 501, // id kota asal
+            //         //     'destination'     => 114, // id kota tujuan
+            //         //     'weight'         => $cartdata->shipping_weight, // berat satuan gram
+            //         //     'courier'         => strtolower($c), // kode kurir pengantar ( jne / tiki / pos )
+            //         // ])->get();
+            //     }
+            // }
+        }
+
+        return $shopcourier;
+    }
+};

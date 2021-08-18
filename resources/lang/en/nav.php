@@ -85,5 +85,7 @@ return [
     'packages' => 'Packages',
     'inspectable' => 'inspectables',
     'payout' => 'Payouts',
+    'all_category' => 'All Category',
 
+    'shipping_courier'=>'Carrier'
 ];

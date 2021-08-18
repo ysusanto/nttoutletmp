@@ -59,27 +59,28 @@ class Product extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'shop_id',
-        'manufacturer_id',
-        'brand',
-        'name',
-        'model_number',
-        'mpn',
-        'gtin',
-        'gtin_type',
-        'description',
-        'min_price',
-        'max_price',
-        'origin_country',
-        'has_variant',
-        'requires_shipping',
-        'downloadable',
-        'slug',
-        // 'meta_title',
-        // 'meta_description',
-        'sale_count',
-        'active'
-    ];
+                        'shop_id',
+                        'manufacturer_id',
+                        'brand',
+                        'name',
+                        'model_number',
+                        'mpn',
+                        'gtin',
+                        'gtin_type',
+                        'description',
+                        'min_price',
+                        'max_price',
+                        'origin_country',
+                        'has_variant',
+                        'requires_shipping',
+                        'downloadable',
+                        'slug',
+                        // 'meta_title',
+                        // 'meta_description',
+                        'sale_count',
+                        'active',
+                        'weight'
+                    ];
 
     /**
      * Get the value used to index the model.
@@ -121,9 +122,9 @@ class Product extends BaseModel
     public function image()
     {
         return $this->morphOne(\App\Image::class, 'imageable')
-            ->where(function ($q) {
-                $q->whereNull('featured')->orWhere('featured', 0);
-            })->orderBy('order', 'asc');
+        ->where(function($q){
+            $q->whereNull('featured')->orWhere('featured', 0);
+        })->orderBy('order', 'asc');
     }
 
     /**

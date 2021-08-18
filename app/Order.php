@@ -7,7 +7,6 @@ use DB;
 use App;
 use Carbon\Carbon;
 use App\Common\Loggable;
-use App\Common\Attachable;
 use App\Services\PdfInvoice;
 use App\Events\Order\OrderPaid;
 use App\Events\Order\OrderUpdated;
@@ -20,7 +19,7 @@ use App\Events\Order\OrderCancellationRequestApproved;
 
 class Order extends BaseModel
 {
-    use SoftDeletes, Loggable, Attachable;
+    use SoftDeletes, Loggable;
 
     const STATUS_WAITING_FOR_PAYMENT    = 1;    // Default
     const STATUS_PAYMENT_ERROR          = 2;
@@ -31,6 +30,7 @@ class Order extends BaseModel
     const STATUS_RETURNED               = 7;
     const STATUS_CANCELED               = 8;
     const STATUS_DISPUTED               = 9;
+    const STATUS_COMPLETE               =10;
 
     const PAYMENT_STATUS_UNPAID             = 1;       // Default
     const PAYMENT_STATUS_PENDING            = 2;
@@ -75,47 +75,48 @@ class Order extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'order_number',
-        'shop_id',
-        'customer_id',
-        'ship_to',
-        'shipping_zone_id',
-        'shipping_rate_id',
-        'packaging_id',
-        'item_count',
-        'quantity',
-        'shipping_weight',
-        'taxrate',
-        'total',
-        'discount',
-        'shipping',
-        'packaging',
-        'handling',
-        'taxes',
-        'grand_total',
-        'billing_address',
-        'shipping_address',
-        'shipping_date',
-        'delivery_date',
-        'tracking_id',
-        'coupon_id',
-        'carrier_id',
-        'message_to_customer',
-        'send_invoice_to_customer',
-        'admin_note',
-        'buyer_note',
-        'payment_method_id',
-        'payment_instruction',
-        'payment_date',
-        'payment_status',
-        'order_status_id',
-        'goods_received',
-        'approved',
-        'feedback_id',
-        'disputed',
-        'email',
-        'device_id'
-    ];
+                        'order_number',
+                        'shop_id',
+                        'customer_id',
+                        'ship_to',
+                        'shipping_zone_id',
+                        'shipping_rate_id',
+                        'packaging_id',
+                        'item_count',
+                        'quantity',
+                        'shipping_weight',
+                        'taxrate',
+                        'total',
+                        'discount',
+                        'shipping',
+                        'packaging',
+                        'handling',
+                        'taxes',
+                        'grand_total',
+                        'billing_address',
+                        'shipping_address',
+                        'shipping_date',
+                        'delivery_date',
+                        'tracking_id',
+                        'coupon_id',
+                        'carrier_id',
+                        'message_to_customer',
+                        'send_invoice_to_customer',
+                        'admin_note',
+                        'buyer_note',
+                        'payment_method_id',
+                        'payment_instruction',
+                        'payment_date',
+                        'payment_status',
+                        'order_status_id',
+                        'goods_received',
+                        'approved',
+                        'feedback_id',
+                        'disputed',
+                        'email',
+                        'payment_token',
+                        'payment_url'
+                    ];
 
     /**
      * Get the country associated with the order.
@@ -185,7 +186,7 @@ class Order extends BaseModel
         // ->withPivot(['item_description', 'quantity', 'unit_price','feedback_id'])->withTimestamps();
 
         return $this->belongsToMany(Inventory::class, 'order_items')
-            ->withPivot(['item_description', 'quantity', 'unit_price', 'feedback_id'])->withTimestamps();
+        ->withPivot(['item_description', 'quantity', 'unit_price','feedback_id'])->withTimestamps();
     }
     // public function inventories()
     // {
@@ -250,8 +251,7 @@ class Order extends BaseModel
      */
     public function paymentMethod()
     {
-        return $this->belongsTo(PaymentMethod::class, 'payment_method_id');
-        // ->withDefault();
+        return $this->belongsTo(PaymentMethod::class)->withDefault();
     }
 
     /**
@@ -281,20 +281,16 @@ class Order extends BaseModel
     /**
      * Set tag date formate
      */
-    public function setShippingDateAttribute($value)
-    {
+    public function setShippingDateAttribute($value){
         $this->attributes['shipping_date'] = Carbon::createFromFormat('Y-m-d', $value);
     }
-    public function setDeliveryDateAttribute($value)
-    {
+    public function setDeliveryDateAttribute($value){
         $this->attributes['delivery_date'] = Carbon::createFromFormat('Y-m-d', $value);
     }
-    public function setShippingAddressAttribute($value)
-    {
+    public function setShippingAddressAttribute($value){
         $this->attributes['shipping_address'] = is_numeric($value) ? \App\Address::find($value)->toString(True) : $value;
     }
-    public function setBillingAddressAttribute($value)
-    {
+    public function setBillingAddressAttribute($value){
         $this->attributes['billing_address'] = is_numeric($value) ? \App\Address::find($value)->toString(True) : $value;
     }
 
@@ -395,7 +391,6 @@ class Order extends BaseModel
     {
         $total = 0;
         $items = $this->inventories->pluck('pivot');
-
         foreach ($items as $item) {
             $total += (format_price_for_paypal($item->unit_price) * $item->quantity);
         }
@@ -450,7 +445,7 @@ class Order extends BaseModel
      */
     public function hasPendingCancellationRequest()
     {
-        return !$this->isCanceled() && $this->cancellation && $this->cancellation->isOpen();
+        return ! $this->isCanceled() && $this->cancellation && $this->cancellation->isOpen();
     }
     public function hasClosedCancellationRequest()
     {
@@ -496,7 +491,7 @@ class Order extends BaseModel
      */
     public function getTrackingUrl()
     {
-        if ($this->carrier_id && $this->tracking_id && $this->carrier->tracking_url) {
+        if($this->carrier_id && $this->tracking_id && $this->carrier->tracking_url) {
             return str_replace('@', $this->tracking_id, $this->carrier->tracking_url);
         }
 
@@ -513,12 +508,12 @@ class Order extends BaseModel
         $minutes = config('system_settings.can_cancel_order_within');
 
         // Not allowed to cancel
-        if ($minutes === 0) {
+        if($minutes === 0) {
             return False;
         }
 
         // Allowed untill fulfilment
-        if ($minutes === Null) {
+        if($minutes === Null) {
             return $this->canRequestCancellation();
         }
 
@@ -532,7 +527,7 @@ class Order extends BaseModel
      */
     public function canRequestCancellation()
     {
-        return !$this->isCanceled() && !$this->isFulfilled() && !$this->cancellation;
+        return ! $this->isCanceled() && ! $this->isFulfilled() && ! $this->cancellation;
     }
 
     /**
@@ -542,9 +537,11 @@ class Order extends BaseModel
      */
     public function cancellationFeeApplicable()
     {
-        return $this->isPaid() && can_set_cancellation_fee() &&
-            (!config('system_settings.vendor_order_cancellation_fee') ||
-                config('system_settings.vendor_order_cancellation_fee') > 0);
+        return $this->isPaid() && ! vendor_get_paid_directly() && is_incevio_package_loaded(['wallet']) &&
+                (
+                    ! config('system_settings.vendor_order_cancellation_fee') ||
+                    config('system_settings.vendor_order_cancellation_fee') > 0
+                );
     }
 
     /**
@@ -555,10 +552,10 @@ class Order extends BaseModel
     public function canRequestReturn()
     {
         if ($this->cancellation) {
-            return $this->isDelivered() && !$this->cancellation->return_goods;
+            return $this->isDelivered() && ! $this->cancellation->return_goods;
         }
 
-        return $this->isDelivered() && !$this->isCanceled();
+        return $this->isDelivered() && ! $this->isCanceled();
     }
 
     /**
@@ -568,8 +565,7 @@ class Order extends BaseModel
      */
     public function canTrack()
     {
-        return false; // Because the plagin not working
-        return $this->isFulfilled() && $this->tracking_id && !$this->isDelivered();
+        return $this->isFulfilled() && $this->tracking_id && ! $this->isDelivered();
     }
 
     /**
@@ -580,18 +576,18 @@ class Order extends BaseModel
     public function canEvaluate()
     {
         // Return if goods are not received yet
-        if (!$this->goods_received) {
+        if(! $this->goods_received) {
             return False;
         }
 
         // Check if the shop has been rated yet
-        if (!$this->feedback_id) {
+        if(! $this->feedback_id) {
             return True;
         }
 
         // Check if all items are been rated yet
         foreach ($this->inventories as $item) {
-            if (!$item->pivot->feedback_id) {
+            if(! $item->pivot->feedback_id) {
                 return True;
             }
         }
@@ -636,7 +632,7 @@ class Order extends BaseModel
         //Set logo image if exist
         $logo = get_storage_file_url(optional($this->shop->image)->path, Null);
 
-        if (App::environment('production') && Storage::exists(optional($this->shop->image)->path)) {
+        if(App::environment('production') && Storage::exists(optional($this->shop->image)->path)) {
             $invoice->setLogo($logo);
         }
 
@@ -650,9 +646,9 @@ class Order extends BaseModel
         foreach ($this->inventories as $item) {
             $item_description = $item->pivot->item_description;
 
-            if ($this->cancellation && $this->cancellation->isItemInRequest($item->id)) {
+            if($this->cancellation && $this->cancellation->isItemInRequest($item->id)) {
                 // continue;
-                $item_description = substr($item_description, 0, 20) . '... [' . trans('theme.' . $this->cancellation->request_type . '_requested') . ' ]';
+                $item_description = substr($item_description, 0, 20) . '... [' . trans('theme.'.$this->cancellation->request_type.'_requested') . ' ]';
             }
 
             $invoice->addItem($item_description, "", $item->pivot->quantity, $item->pivot->unit_price);
@@ -660,23 +656,23 @@ class Order extends BaseModel
 
         $invoice->addSummary(trans('invoice.total'), $this->total);
 
-        if ($this->taxes) {
-            $invoice->addSummary(trans('invoice.taxes') . " " . get_formated_decimal($this->taxrate, true, 2) . "%", $this->taxes);
+        if($this->taxes) {
+            $invoice->addSummary(trans('invoice.taxes') . " " . get_formated_decimal($this->taxrate, true, 2)."%", $this->taxes);
         }
 
-        if ($this->packaging) {
+        if($this->packaging) {
             $invoice->addSummary(trans('invoice.packaging'), $this->packaging);
         }
 
-        if ($this->handling) {
+        if($this->handling) {
             $invoice->addSummary(trans('invoice.handling'), $this->handling);
         }
 
-        if ($this->shipping) {
+        if($this->shipping) {
             $invoice->addSummary(trans('invoice.shipping'), $this->shipping);
         }
 
-        if ($this->discount) {
+        if($this->discount) {
             $invoice->addSummary(trans('invoice.discount'), $this->discount);
         }
 
@@ -684,20 +680,20 @@ class Order extends BaseModel
 
         $invoice->addBadge($this->paymentStatusName(true));
 
-        if (config('invoice.company_info_position') == 'right') {
+        if(config('invoice.company_info_position') == 'right'){
             $invoice->flipflop();
         }
 
-        if ($this->message_to_customer) {
+        if($this->message_to_customer){
             $invoice->addTitle(trans('invoice.message'));
             $invoice->addParagraph($this->message_to_customer);
         }
 
-        $invoice->setFooternote(get_platform_title() . " | " . url('/') . " | " . trans('invoice.footer_note'));
+        $invoice->setFooternote(get_platform_title() . " | " . url('/') . " | " .trans('invoice.footer_note'));
 
-        $invoice->render(get_platform_title() . '-' . $this->order_number . '.pdf', $des);
+        $invoice->render(get_platform_title() . '-' . $this->order_number .'.pdf', $des);
 
-        // Temporary!
+         // Temporary!
         App::setLocale($local); //Set local to the curret local
 
         return;
@@ -714,14 +710,14 @@ class Order extends BaseModel
         AdjustQttForCanceledOrder::dispatch($this);
 
         // Refund into wallet if money goes to admin and wallet is loaded
-        if (!vendor_get_paid_directly() && $this->isPaid() && customer_has_wallet()) {
+        if (! vendor_get_paid_directly() && $this->isPaid() && customer_has_wallet()) {
             $amount = $this->grand_total;
 
             if ($partial) {
                 $amount = DB::table('order_items')->where('order_id', $this->id)
-                    ->whereIn('inventory_id', $this->cancellation->items)
-                    ->select(DB::raw('quantity * unit_price AS total'))
-                    ->get()->sum('total');
+                ->whereIn('inventory_id', $this->cancellation->items)
+                ->select(DB::raw('quantity * unit_price AS total'))
+                ->get()->sum('total');
             }
 
             $cancellation_fee = $cancellation_fee ?? config('system_settings.vendor_order_cancellation_fee');
@@ -729,9 +725,10 @@ class Order extends BaseModel
             $this->refundToWallet($amount, $cancellation_fee);
         }
 
-        if ($partial) {
+        if($partial) {
             event(new OrderCancellationRequestApproved($this));
-        } else {
+        }
+        else {
             // Update order status
             $this->order_status_id = static::STATUS_CANCELED;
             $this->save();
@@ -749,31 +746,34 @@ class Order extends BaseModel
     {
         $this->payment_status = static::PAYMENT_STATUS_PAID;
 
-        if ($this->order_status_id < static::STATUS_CONFIRMED) {
+        if($this->order_status_id < static::STATUS_CONFIRMED) {
             $this->order_status_id = static::STATUS_CONFIRMED;
         }
 
         $this->save();
 
-        if (!vendor_get_paid_directly() && is_incevio_package_loaded('wallet')) {
-
-            $fee = getPlatformFeeForOrder($this);
-
+        if (! vendor_get_paid_directly() && is_incevio_package_loaded('wallet')) {
             // Deposit the order amount into vendor's wallet
             $meta = [
-                'type' => trans('app.sale'),
-                'description' => trans('app.for_sale_of', ['order' => $this->order_number]),
-                'fee' => $fee,
+                'type' => trans('app.for_sale_of', ['order' => $this->order_number]),
+                'description' => trans('app.order_number') . ': ' . $this->order_number,
                 'order_id' => $this->id
             ];
 
-            $this->shop->deposit($this->grand_total - $fee, $meta, true);
-        }
+            $this->shop->deposit($this->grand_total, $meta, true);
 
-        // Update shop's periodic sold amount
-        if ($this->shop->periodic_sold_amount) {
-            $this->shop->periodic_sold_amount += $this->total;
-            $this->shop->save();
+            $fee = getPlatformFeeForOrder($this);
+
+            // Charge the application fee
+            if ($fee > 0) {
+                $meta = [
+                    'type' => trans('app.platform_fee', ['for' => $this->order_number]),
+                    'description' => trans('app.order_number') . ': ' . $this->order_number,
+                    'order_id' => $this->id
+                ];
+
+                $this->shop->withdraw($fee, $meta, true);
+            }
         }
 
         event(new OrderPaid($this));
@@ -790,24 +790,34 @@ class Order extends BaseModel
     {
         $this->payment_status = static::PAYMENT_STATUS_UNPAID;
 
-        if ($this->order_status_id == static::STATUS_CONFIRMED) {
+        if($this->order_status_id == static::STATUS_CONFIRMED) {
             $this->order_status_id = static::STATUS_WAITING_FOR_PAYMENT;
         }
 
         $this->save();
 
-        if (!vendor_get_paid_directly()) {
-            $fee = getPlatformFeeForOrder($this);
-
+        if (! vendor_get_paid_directly()) {
             // Deposit the order amount into vendor's wallet
             $meta = [
-                'type' => trans('app.reversal'),
-                'description' => trans('app.reversal_for_sale_of', ['order' => $this->order_number]),
-                'fee' => $fee,
+                'type' => trans('app.reversal_for_sale_of', ['order' => $this->order_number]),
+                'description' => trans('app.order_number') . ': ' . $this->order_number,
                 'order_id' => $this->id
             ];
 
-            $this->shop->withdraw($this->grand_total - $fee, $meta, true);
+            $this->shop->withdraw($this->grand_total, $meta, true);
+
+            $fee = getPlatformFeeForOrder($this);
+
+            // Charge the application fee
+            if ($fee > 0) {
+                $meta = [
+                    'type' => trans('app.reversal_platform_fee', ['for' => $this->order_number]),
+                    'description' => trans('app.order_number') . ': ' . $this->order_number,
+                    'order_id' => $this->id
+                ];
+
+                $this->shop->deposit($fee, $meta, true);
+            }
         }
 
         event(new OrderUpdated($this));
@@ -822,25 +832,25 @@ class Order extends BaseModel
      */
     private function refundToWallet($amount, $cancellation_fee)
     {
-        if (!$this->isPaid()) {
+        if (! $this->isPaid()) {
             throw new \Exception(trans('exception.order_not_paid_yet'));
         }
 
-        if (!customer_has_wallet()) {
+        if (! customer_has_wallet()) {
             throw new \Exception(trans('exception.customer_wallet_not_enabled'));
         }
 
         $refund = new \Incevio\Package\Wallet\Services\RefundToWallet();
 
         $refund->sender($this->shop)
-            ->receiver($this->customer)
-            ->amount($amount)
-            ->meta([
-                'type' => trans('wallet::lang.refund'),
-                'description' => trans('wallet::lang.refund_of', ['order' => $this->order_number]),
-            ])
-            ->forceTransfer()
-            ->execute();
+        ->receiver($this->customer)
+        ->amount($amount)
+        ->meta([
+            'type' => trans('wallet::lang.refund'),
+            'description' => trans('wallet::lang.refund_of', ['order' => $this->order_number]),
+        ])
+        ->forceTransfer()
+        ->execute();
 
         // Charge the cancellation fee
         if ($cancellation_fee && $cancellation_fee > 0) {
@@ -854,8 +864,8 @@ class Order extends BaseModel
 
         // Update payment status
         $this->payment_status = $amount < $this->grand_total ?
-            static::PAYMENT_STATUS_PARTIALLY_REFUNDED :
-            static::PAYMENT_STATUS_REFUNDED;
+                                static::PAYMENT_STATUS_PARTIALLY_REFUNDED :
+                                static::PAYMENT_STATUS_REFUNDED;
         $this->save();
     }
 
@@ -867,14 +877,14 @@ class Order extends BaseModel
         if ($this->paymentMethod->type == PaymentMethod::TYPE_MANUAL) {
             if (vendor_get_paid_directly()) {
                 $config = \DB::table('config_manual_payments')
-                    ->where('shop_id', $this->shop_id)
-                    ->where('payment_method_id', $this->payment_method_id)
-                    ->select('payment_instructions')->first();
+                ->where('shop_id', $this->shop_id)
+                ->where('payment_method_id', $this->payment_method_id)
+                ->select('payment_instructions')->first();
 
                 return $config ? $config->payment_instructions : Null;
             }
 
-            return get_from_option_table('wallet_payment_instructions_' . $this->paymentMethod->code);
+            return get_from_option_table('wallet_payment_instructions_'.$this->paymentMethod->code);
         }
 
         return Null;
@@ -891,7 +901,7 @@ class Order extends BaseModel
     {
         $order_status = strtoupper(get_order_status_name($this->order_status_id));
 
-        if ($plain) {
+        if($plain) {
             return $order_status;
         }
 
@@ -912,8 +922,6 @@ class Order extends BaseModel
             case static::STATUS_DELIVERED:
                 return '<span class="label label-primary">' . $order_status . '</span>';
         }
-
-        return Null;
     }
 
     /**
@@ -927,7 +935,7 @@ class Order extends BaseModel
     {
         $payment_status = strtoupper(get_payment_status_name($this->payment_status));
 
-        if ($plain) {
+        if($plain) {
             return $payment_status;
         }
 
@@ -944,7 +952,5 @@ class Order extends BaseModel
             case static::PAYMENT_STATUS_PAID:
                 return '<span class="label label-outline">' . $payment_status . '</span>';
         }
-
-        return Null;
     }
 }

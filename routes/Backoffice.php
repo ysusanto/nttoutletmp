@@ -7,7 +7,7 @@ include('admin/Auth.php');
 // Admin Routes
 Route::group(['middleware' => ['auth'], 'namespace' => 'Admin', 'as' => 'admin.', 'prefix' => 'admin'], function () {
 	include('admin/Package.php');
-	include('admin/Promos.php');
+	// include('admin/Promotions.php');
 
 	// Markerplace Admin only routes
 	Route::middleware(['admin'])->group(function () {
@@ -77,6 +77,7 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Admin', 'as' => 'admin.'
 			include('admin/ShippingRate.php');
 			include('admin/Carrier.php');
 			include('admin/Packaging.php');
+			include('admin/ShippingCourier.php'); //add ari 15 mei 2021
 		});
 
 		// Order Routes for Admin/Merchant
