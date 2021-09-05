@@ -113,11 +113,11 @@
                         <i class="fas fa-map-marker"></i> @lang('theme.button.track_order')
                       </button>
                     @endif
-                    @if(($order->delivery_date!="" || $order->delivery_date!=null) && $order->order_status_id=="6")
+                    <!-- @if(($order->delivery_date!="" || $order->delivery_date!=null) && $order->order_status_id=="6")
                       <button type="button" id="btnfinishorder" onclick="btnfinishorder( {{ $order->id }})" class="btn btn-green btn-sm btn-block flat">
                         @lang('theme.button.complete_order')
                       </button>
-                    @endif
+                    @endif -->
                     @if($order->order_status_id=="5")
                       <a href="{{ route('order.feedback', $order) }}" class="btn btn-primary btn-sm btn-block flat">
                         @lang('theme.button.give_feedback')

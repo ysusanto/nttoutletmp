@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\BankMidtrans;
+use App\BankShop;
 use App\Shop;
 use App\Config;
 use Illuminate\Http\Request;
@@ -41,8 +43,9 @@ class ShopController extends Controller
         $shops = $this->shop->all();
 
         $trashes = $this->shop->trashOnly();
-
-        return view('admin.shop.index', compact('shops', 'trashes'));
+        $banks = BankMidtrans::all();
+        // dd( $banks);die();
+        return view('admin.shop.index', compact('shops', 'trashes','banks'));
     }
 
     /**
@@ -279,4 +282,63 @@ class ShopController extends Controller
 
         return back()->with('success', trans('messages.deleted', ['model' => $this->model_name]));
     }
+    public function ajaxBankStore(Request $request){
+        $this->InitMidtransPayment();
+        date_default_timezone_set('GMT');
+        $getBankName=BankMidtrans::where("code",$request->code_bank)->firstOrFail();
+        $getshop=Shop::where("id",$request->shop_id)->firstOrFail();
+        if($request->bank_id==""){
+            $bankdb=new BankShop();
+            $bankdb->shop_id=$request->shop_id;
+            $bankdb->code_bank=$request->code_bank;
+            $bankdb->bank_name=$getBankName->name;
+            $bankdb->name=$request->account_name;
+            $bankdb->account=$request->account_number;
+            $bankdb->alias_name=substr(str_replace(" ","",$getshop->name),0,5).$request->code_bank;
+            $bankdb->email=$request->email;
+            $bankdb->created_at=date('Y-m-d H:i:s');
+      
+            if($bankdb->save()){
+              $bankParams =array(
+                  'bank'=>$request->code_bank,
+                  'name'=>$request->account_name,
+                  'account'=>$request->account_number,
+                  'alias_name'=>substr(str_replace(" ","",$getshop->name),0,5).$request->code_bank,
+                  'email'=>$request->email,
+              );
+              $createbeneficial = \Midtrans\Payout::createBeneficiaries($bankParams); 
+             
+            }
+        }else{
+            $bankupdate=BankShop::find($request->bank_id);
+            // $bankdb->shop_id=$request->shop_id;
+            $bankupdate->code_bank=$request->code_bank;
+            $bankupdate->bank_name=$getBankName->name;
+            $bankupdate->name=$request->account_name;
+            $bankupdate->account=$request->account_number;
+            // $bankupdate->alias_name="";
+            $bankupdate->email=$request->email;
+            $bankupdate->updated_at=date('Y-m-d H:i:s');
+            if($bankupdate->save()){
+                $bankParams =array(
+                    'bank'=>$request->code_bank,
+                    'name'=>$request->account_name,
+                    'account'=>$request->account_number,
+                    'alias_name'=>substr(str_replace(" ","",$getshop->name),0,5).$request->code_bank,
+                    'email'=>$request->email,
+                );
+                $createbeneficial = \Midtrans\Payout::createBeneficiaries($bankParams,$bankupdate->alias_name); 
+               
+              }
+        }
+      
+      
+            echo json_encode(array(
+               'status'=>1,
+               "msg"=>"Created" 
+            ));       
+	
+
+    }
+   
 }

@@ -13,11 +13,13 @@ Route::group(['middleware' => ['ajax']], function(){
 	Route::get('helper/getFromPHPHelper', 'Admin\AjaxController@ajaxGetFromPHPHelper')->name('helper.getFromPHPHelper');
 
 	Route::get('cart/ajax/getTaxRate', 'Admin\ShippingZoneController@ajaxGetTaxRate')->name('ajax.getTaxRate');
+	Route::post('shop/ajax/bank', 'Admin\ShopController@ajaxBankStore')->name('ajax.bankshopstore')->middleware('ajax');
 });
 
 Route::get('address/ajax/getCountryStates', 'AddressController@ajaxCountryStates')->name('ajax.getCountryStates')->middleware('ajax');
 Route::get('shipping/ajax/getshippingcourier', 'AddressController@ajaxShippingCourier')->name('ajax.getShippingCourier')->middleware('ajax');
 Route::get('checkout/ajax/getpaymentmidtransurl', 'OrderController@ajaxpaymentmidtrans')->name('ajax.getPaymidtransUrl')->middleware('ajax');
+
 Route::group(['middleware' => ['auth']], function(){
 	include('common/Image.php');
 	include('common/Attachment.php');

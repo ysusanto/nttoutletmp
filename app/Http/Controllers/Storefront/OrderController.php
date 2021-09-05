@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Storefront;
 
+use App\BankShop;
 use DB;
 use Session;
 use App\Cart;
@@ -21,6 +22,8 @@ use App\Services\Payments\PaypalExpressPaymentService;
 use Steevenz\Rajaongkir;
 use App\Common\ShoppingCart;
 use App\Repositories\ShippingCourier\ShippingCourierRepository;
+use Illuminate\Support\Arr;
+
 class OrderController extends Controller
 {
     use ShoppingCart;
@@ -218,6 +221,27 @@ class OrderController extends Controller
     public function goods_received(ConfirmGoodsReceivedRequest $request, Order $order)
     {
         $order->mark_as_goods_received();
+        $bankshopdata=BankShop::where("shop_id",$order->shop_id)->firstOrFail();
+        // if($bankupdate->save()){
+            $bankparam =array(
+                'beneficiary_name'=>$bankshopdata->name,
+                'beneficiary_account'=>$bankshopdata->account,
+                'beneficiary_bank'=>$bankshopdata->code_bank,
+                'amount'=>$order->grand_total,
+                'beneficiary_email'=>$bankshopdata->email,
+                "notes"=>"order_number = ".$order->order_number
+            );
+            $payoutparam=array(
+                "payouts"=>[$bankparam]
+            );
+            $createpayout = \Midtrans\Payout::createPayouts($payoutparam); 
+            if(sizeof($createpayout['payouts'])>0){
+                $order->payout_reference_no=$createpayout['payouts'][0]["reference_no"];
+                $order->payout_status=$createpayout['payouts'][0]["status"];
+                $order->save();
+            }
+           
+        //   };
 
         return redirect()->route('order.feedback', $order)->with('success', trans('theme.notify.order_updated'));
     }
@@ -363,8 +387,8 @@ class OrderController extends Controller
                 $order->tracking_id, // id kota asal
                 strtolower($courier->parent), // kode kurir pengantar ( jne / tiki / pos )
             );
-            echo json_encode($gettrackro);
-            die();
+            // echo json_encode($gettrackro);
+            // die();
             $listTrack = array();
             if ($gettrackro != null) {
                 if (count($gettrackro['manifest']) > 0) {

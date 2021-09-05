@@ -1436,4 +1436,54 @@
 
 	    return result;
 	}
+	function addbankshop(shopid){
+		var dataBank=$("#btnaddbankshop"+shopid).data("bank");
+		if(dataBank.length>0){
+			var b=dataBank[0];
+			// console.log(dataBank[0].bank_name);
+			$("#BankName").val(b.code_bank);
+		$("#AccNumb").val(b.account);
+	$("#AccName").val(b.name);
+		$("#email").val(b.email);
+		$("#ShopIdBank").val(b.shop_id);
+		$("#bankId").val(b.id);
+		$("#addbankmodal").modal("show");
+		}else{
+			$("#ShopIdBank").val(shopid);
+			$("#bankId").val("");
+			$("#AccNumb").val("");
+			$("#AccName").val("");
+		$("#email").val("");
+			$("#addbankmodal").modal("show");
+		}
+	}
+	function clickSaveBankShop(){
+		var bankName=$("#BankName").val();
+		var accNumb=$("#AccNumb").val();
+		var accName=$("#AccName").val();
+		var email=$("#email").val();
+		var shopIdbank=$("#ShopIdBank").val();
+		var bankId=$("#bankId").val();
+		var url="{{ route('ajax.bankshopstore') }}";
+		var datasend={
+			bank_id:bankId,
+			shop_id:shopIdbank,
+			code_bank:bankName,
+			account_name:accName,
+			account_number:accNumb,
+			email:email
+		}
+		$.ajax({
+	        url: url,
+	        data: datasend,
+	        async: false,
+			type:"POST",
+	        success: function(v){
+				data=JSON.parse(v);
+	          if(data.status=="1"){
+				  window.location.reload();
+			  };
+	        }
+	    });
+	}
 </script>

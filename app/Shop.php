@@ -753,4 +753,8 @@ class Shop extends BaseModel
 
         return $query;
     }
+    public function bank($shopId)
+    {
+        return BankShop::where('shop_id', $shopId)->get();
+    }
 }

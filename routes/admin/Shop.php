@@ -21,4 +21,5 @@ Route::delete('shop/{shop}/trash', 'ShopController@trash')->name('shop.trash'); 
 
 Route::get('shop/{shop}/restore', 'ShopController@restore')->name('shop.restore');
 
+
 Route::resource('shop', 'ShopController', ['except' => ['create', 'store']]);

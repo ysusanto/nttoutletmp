@@ -39,6 +39,10 @@ class Order extends BaseModel
     const PAYMENT_STATUS_PARTIALLY_REFUNDED = 5;
     const PAYMENT_STATUS_REFUNDED           = 6;
 
+    const PAYOUT_STATUS_QUEUED= "queued";
+    const PAYOUT_STATUS_PROCCESS= "processed";
+    const PAYOUT_STATUS_DONE= "completed";
+
     /**
      * The database table used by the model.
      *

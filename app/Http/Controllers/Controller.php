@@ -29,5 +29,7 @@ class Controller extends BaseController
     \Midtrans\Config::$isSanitized = env('MIDTRANS_ISSANITIZED');
     // Set 3DS transaction for credit card to true
     \Midtrans\Config::$is3ds = env('MIDTRANS_IS3DS');
+    \Midtrans\Config::$paymentIdempotencyKey = env('MIDTRANS_IS3DS');
+    \Midtrans\Config::$apikey=env("MIDTRANS_API_KEY_IRIS");
   }
 }

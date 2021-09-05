@@ -139,6 +139,11 @@
                   @else
                     <a href="javascript:void(0)" data-link="{{ route('address.create', ['shop', $shop->id]) }}" class="ajax-modal-btn"><i data-toggle="tooltip" data-placement="top" title="{{ trans('app.add_address') }}" class="fa fa-plus-square-o"></i></a>&nbsp;
                   @endif
+                  @if($shop->bank($shop->id))
+                  <a href="javascript:void(0)" id="btnaddbankshop{{ $shop->id }}" onclick="addbankshop({{ $shop->id }})" data-bank="{{ $shop->bank($shop->id) }}" ><i data-toggle="tooltip" data-placement="top" title="Bank Account" class="fa fa-bank"></i></a>&nbsp;
+                  @else
+                    <a href="javascript:void(0)" id="btnaddbankshop{{ $shop->id }}" onclick="addbankshop({{ $shop->id }})" data-bank="" ><i data-toggle="tooltip" data-placement="top" title="Bank Account" class="fa fa-bank"></i></a>&nbsp;
+                  @endif
                 @endcan
 
                 @can('delete', $shop)
@@ -212,3 +217,67 @@
     </div> <!-- /.box-body -->
   </div> <!-- /.box -->
 @endsection
+
+<div class="modal fade" id="addbankmodal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+    
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      {{ trans('app.form.form') }}
+    </div>
+    <div class="modal-body">
+
+    <div class="form-group">
+    
+    {!! Form::hidden('bankId', null, ['id'=> "bankId"]) !!}
+    {!! Form::hidden('ShopIdBank', null, ['id'=> "ShopIdBank"]) !!}
+                  {!! Form::label('name', 'Bank Name*', ['class' => 'with-help']) !!}
+                  <!-- <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="{{ trans('help.shop_name') }}"></i> -->
+                  <select id="BankName" name="bankname" class="form-control">
+              
+                     @foreach($banks as $b)
+                       <option value="{{$b->code}}">{{$b->name}}</option>
+                     @endforeach
+              
+                 </select>
+               
+                  <!-- {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => trans('app.placeholder.shop_name'), 'required']) !!} -->
+                  <div class="help-block with-errors"></div>
+                </div>
+                <div class="form-group">
+                  {!! Form::label('name', 'Account Number*', ['class' => 'with-help']) !!}
+                  <!-- <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="{{ trans('help.shop_name') }}"></i> -->
+                  {!! Form::number('AccNumber', null, ['class' => 'form-control', 'placeholder' => "Account Number", 'required', 'id'=> "AccNumb"]) !!}
+               
+                  <!-- {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => trans('app.placeholder.shop_name'), 'required']) !!} -->
+                  <div class="help-block with-errors"></div>
+                </div>
+                <div class="form-group">
+                  {!! Form::label('name', 'Account Name*', ['class' => 'with-help']) !!}
+                  <!-- <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="{{ trans('help.shop_name') }}"></i> -->
+                  {!! Form::text('AccName', null, ['class' => 'form-control', 'placeholder' => "Account Name", 'required', 'id'=> "AccName"]) !!}
+               
+                  <!-- {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => trans('app.placeholder.shop_name'), 'required']) !!} -->
+                  <div class="help-block with-errors"></div>
+                </div>
+                <div class="form-group">
+                  {!! Form::label('name', 'Email', ['class' => 'with-help']) !!}
+                  <!-- <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="{{ trans('help.shop_name') }}"></i> -->
+                  {!! Form::text('email', null, ['class' => 'form-control', 'placeholder' => "Email", 'required', 'id'=> "email"]) !!}
+               
+                  <!-- {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => trans('app.placeholder.shop_name'), 'required']) !!} -->
+                  <div class="help-block with-errors"></div>
+                </div>
+
+
+    </div>
+    <div class="modal-footer">
+      <button onclick="clickSaveBankShop()" class="btn btn-flat btn-new">Save</button>
+      <!-- {!! Form::submit(trans('app.form.save'), ['class' => 'btn btn-flat btn-new']) !!} -->
+    </div>
+    <!-- {!! Form::close() !!} -->
+  </div> <!-- / .modal-content -->
+</div> <!-- / .modal-dialog -->
+
+</div>

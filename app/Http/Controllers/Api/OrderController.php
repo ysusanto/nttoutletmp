@@ -15,6 +15,7 @@ use App\Http\Requests\Validations\OrderDetailRequest;
 use App\Http\Requests\Validations\DirectCheckoutRequest;
 // use App\Http\Requests\Validations\DirectCheckoutRequest;
 use App\Http\Requests\Validations\ConfirmGoodsReceivedRequest;
+use App\BankShop;
 
 class OrderController extends Controller
 {
@@ -117,6 +118,26 @@ class OrderController extends Controller
         // Update the order if goods_received
         if ($request->has('goods_received')) {
             $order->goods_received();
+            //add by ari 05092021
+            $bankshopdata=BankShop::where("shop_id",$order->shop_id)->firstOrFail();
+        // if($bankupdate->save()){
+            $bankparam =array(
+                'beneficiary_name'=>$bankshopdata->name,
+                'beneficiary_account'=>$bankshopdata->account,
+                'beneficiary_bank'=>$bankshopdata->code_bank,
+                'amount'=>$order->grand_total,
+                'beneficiary_email'=>$bankshopdata->email,
+                "notes"=>"order_number = ".$order->order_number
+            );
+            $payoutparam=array(
+                "payouts"=>[$bankparam]
+            );
+            $createpayout = \Midtrans\Payout::createPayouts($payoutparam); 
+            if(sizeof($createpayout['payouts'])>0){
+                $order->payout_reference_no=$createpayout['payouts'][0]["reference_no"];
+                $order->payout_status=$createpayout['payouts'][0]["status"];
+                $order->save();
+            }
         }
 
         if ($request->has('photo')) {
