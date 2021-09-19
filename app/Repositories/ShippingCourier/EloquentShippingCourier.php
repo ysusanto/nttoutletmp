@@ -8,6 +8,8 @@ use App\CourierRo;
 use Illuminate\Http\Request;
 use App\Repositories\BaseRepository;
 use App\Repositories\EloquentRepository;
+use stdClass;
+
 // add by ari 01062021
 class EloquentShippingCourier extends EloquentRepository implements BaseRepository, ShippingCourierRepository
 {
@@ -22,6 +24,7 @@ class EloquentShippingCourier extends EloquentRepository implements BaseReposito
         $courier = $this->model->findOrFail($id);
         // echo json_encode($courier);die();
         $courier->parent = $this->model->where('id', $courier->parent_id)->select('name')->first()->name;
+        $courier->parentcode = $this->model->where('id', $courier->parent_id)->select('code')->first()->code;
         return $courier;
     }
 
@@ -34,15 +37,22 @@ class EloquentShippingCourier extends EloquentRepository implements BaseReposito
         if ($parent) {
             foreach ($parent as $value) {
                 # code...
-
+                // $courier= new stdClass();
+                // $courier->id=$value->id;
+                // $courier->parent=$value->parent;
+                // $courier->code=$value->code;
+                // $courier->name=$value->name;
+                // $courier->logo=$value->logo;
                 $courier = array(
                     'id' => $value->id,
                     'parent' => $this->model->where('id', $value->parent_id)->select('name')->first()->name,
                     'code' => $value->code,
                     'name' => $value->name,
                     'logo' => $value->path_logo,
+                    'is_active'=>$value->is_active
 
                 );
+                // $courier=(object)$courier;
                 array_push($allcourier, $courier);
             }
         }

@@ -288,29 +288,55 @@ class ShopController extends Controller
         $getBankName=BankMidtrans::where("code",$request->code_bank)->firstOrFail();
         $getshop=Shop::where("id",$request->shop_id)->firstOrFail();
         if($request->bank_id==""){
-            $bankdb=new BankShop();
-            $bankdb->shop_id=$request->shop_id;
-            $bankdb->code_bank=$request->code_bank;
-            $bankdb->bank_name=$getBankName->name;
-            $bankdb->name=$request->account_name;
-            $bankdb->account=$request->account_number;
-            $bankdb->alias_name=substr(str_replace(" ","",$getshop->name),0,5).$request->code_bank;
-            $bankdb->email=$request->email;
-            $bankdb->created_at=date('Y-m-d H:i:s');
+           
       
-            if($bankdb->save()){
+          
               $bankParams =array(
                   'bank'=>$request->code_bank,
                   'name'=>$request->account_name,
                   'account'=>$request->account_number,
-                  'alias_name'=>substr(str_replace(" ","",$getshop->name),0,5).$request->code_bank,
+                  'alias_name'=>substr(str_replace(" ","", strtolower($getshop->name)),0,5).$request->code_bank,
                   'email'=>$request->email,
               );
+
               $createbeneficial = \Midtrans\Payout::createBeneficiaries($bankParams); 
+              
+             if($createbeneficial->status=="created")
+             {
+                $bankdb=new BankShop();
+                $bankdb->shop_id=$request->shop_id;
+                $bankdb->code_bank=$request->code_bank;
+                $bankdb->bank_name=$getBankName->name;
+                $bankdb->name=$request->account_name;
+                $bankdb->account=$request->account_number;
+                $bankdb->alias_name=substr(str_replace(" ","", strtolower($getshop->name)),0,5).$request->code_bank;
+                $bankdb->email=$request->email;
+                $bankdb->created_at=date('Y-m-d H:i:s');
+              $bankdb->save();
+             }else{
+                echo json_encode(array(
+                    'status'=>0,
+                    "msg"=>"Create bank account in midtrans failure ".$createbeneficial
+                 )); 
+                 die();
+             }
+            //   dd($createbeneficial);die();
              
-            }
+             
         }else{
+            
             $bankupdate=BankShop::find($request->bank_id);
+                $bankParams =array(
+                    'bank'=>$request->code_bank,
+                    'name'=>$request->account_name,
+                    'account'=>$request->account_number,
+                    'alias_name'=>substr(str_replace(" ","", strtolower($getshop->name)),0,5).$request->code_bank,
+                    'email'=>$request->email,
+                );
+                $createbeneficial = \Midtrans\Payout::createBeneficiaries($bankParams,$bankupdate->alias_name); 
+               
+              if($createbeneficial->status=="updated"){
+            
             // $bankdb->shop_id=$request->shop_id;
             $bankupdate->code_bank=$request->code_bank;
             $bankupdate->bank_name=$getBankName->name;
@@ -319,16 +345,13 @@ class ShopController extends Controller
             // $bankupdate->alias_name="";
             $bankupdate->email=$request->email;
             $bankupdate->updated_at=date('Y-m-d H:i:s');
-            if($bankupdate->save()){
-                $bankParams =array(
-                    'bank'=>$request->code_bank,
-                    'name'=>$request->account_name,
-                    'account'=>$request->account_number,
-                    'alias_name'=>substr(str_replace(" ","",$getshop->name),0,5).$request->code_bank,
-                    'email'=>$request->email,
-                );
-                $createbeneficial = \Midtrans\Payout::createBeneficiaries($bankParams,$bankupdate->alias_name); 
-               
+            $bankupdate->save();
+              }else{
+                echo json_encode(array(
+                    'status'=>0,
+                    "msg"=>"update bank account in midtrans failure ".$createbeneficial
+                 )); 
+                 die();
               }
         }
       

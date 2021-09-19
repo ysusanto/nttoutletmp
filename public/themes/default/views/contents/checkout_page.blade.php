@@ -270,12 +270,13 @@ $shopcourier=getShopCourier($cart->id);
       </div> <!-- /.col-md-5 -->
 
       <div class="col-md-3">
-        <h3 class="widget-title" style="display:none">{{ trans('theme.payment_options') }}</h3>
-        <div class="space30" style="display:none">
+        <h3 class="widget-title" >{{ trans('theme.payment_options') }}</h3>
+        <div class="space30" >
+      
           @foreach($paymentMethods as $paymentMethod)
           @php
           $config = get_payment_config_info($paymentMethod->code, vendor_get_paid_directly() ? $shop : Null);
-
+       
           @endphp
 
 
@@ -316,12 +317,12 @@ $shopcourier=getShopCourier($cart->id);
         </p>
         <!-- modify by ari 04062021 -->
         <div id="submit-btn-block" class="clearfix space30">
-          <!-- <button id="pay-now-btn" class="btn btn-primary btn-lg btn-block" type="submit">
+          <button id="pay-now-btn" class="btn btn-primary btn-lg btn-block" type="submit" style="display: none;">
             <small>
-              <i class="far fa-shield"></i> <span id="pay-now-btn-txt">@lang('theme.button.checkout')</span>
+              <i class="far fa-shield"></i> <span id="pay-now-btn-txt">@lang('theme.button.payment')</span>
             </small>
-          </button> -->
-          <button type="button" class="btn btn-primary btn-lg btn-block" id="btncheckoutmidtrans">
+          </button>
+          <button type="button" class="btn btn-primary btn-lg btn-block" id="btncheckoutmidtrans" style="display: none;">
             <small>
               <i class="far fa-shield"></i> <span id="pay-now-btn-txt">@lang('theme.button.payment')</span>
             </small>

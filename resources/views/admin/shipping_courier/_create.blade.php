@@ -1,6 +1,11 @@
 <div class="modal-dialog modal-md">
     <div class="modal-content">
-        {!! Form::open(['route' => 'admin.shipping.shippingCourier.store', 'files' => true, 'id' => 'form', 'data-toggle' => 'validator']) !!}
+    @if(isset($courier))
+    {!! Form::model($courier, ['method' => 'PUT', 'route' => ['admin.shipping.shippingCourier.update', $courier->id], 'files' => true, 'id' => 'form', 'data-toggle' => 'validator']) !!}
+    @else
+    {!! Form::open(['route' => 'admin.shipping.shippingCourier.store', 'files' => true, 'id' => 'form', 'data-toggle' => 'validator']) !!}
+@endif
+       
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             {{ trans('app.form.form') }}

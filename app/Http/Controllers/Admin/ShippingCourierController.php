@@ -27,7 +27,7 @@ class ShippingCourierController extends Controller
     {
         parent::__construct();
 
-        $this->model_name = trans('app.model.shipping_courier');
+        $this->model = trans('app.model.shipping_courier');
         $this->rajaongkir = new Rajaongkir(env('RAJAONGKIR_APIKEY'), 'pro');
         $this->shippingCourier = $shipping_courier;
     }
@@ -35,7 +35,8 @@ class ShippingCourierController extends Controller
     {
         //
         $shipping_courier = $this->shippingCourier->all();
-        // echo json_encode($shipping_courier);die();
+        // $shipping_courier=json_decode(json_encode($shipping_courier));
+        // print_r($shipping_courier);die();
         return view('admin.shipping_courier.index', compact('shipping_courier'));
     }
 
@@ -46,11 +47,25 @@ class ShippingCourierController extends Controller
      */
     public function create()
     {
+        $listcouriero=  $this->rajaongkir->getCouriersList();
+        // echo json_encode($listcouriero);die();
+// dd("dada");
         //
         // return "dadad";
-        return view('admin.shipping_courier._create');
+        return view('admin.shipping_courier._create',compact('listcouriero'));
     }
-
+    private function getcodeCourier(){
+        $listcouriero=  $this->rajaongkir->getCouriersList();
+        $newarraycourier=array();
+        foreach ($listcouriero as $key => $value) {
+            # code...
+            array_push($newarraycourier,array(
+                'id'=>$key,
+                "value"=>$value
+            ));
+        }
+        return $newarraycourier;
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -60,6 +75,39 @@ class ShippingCourierController extends Controller
     public function store(Request $request)
     {
         //
+        $checkparent=CourierRo::where([
+            ["code","=",$request->courier_name],
+            ["parent_id","=","0"]
+            ])->first();
+            if($checkparent){
+                $courierRo=new CourierRo();
+                $courierRo->parent_id=$checkparent->id;
+                $courierRo->name=$request->servicetype;
+                $courierRo->code=strtolower($request->servicetype);
+                $courierRo->is_active=$request->status;
+                $courierRo->created_at=date('Y-m-d H:i:s');
+                $courierRo->save();
+            }else{
+                 $listcouriero=  $this->rajaongkir->getCouriersList();;
+                $courierRoparent=new CourierRo();
+                $courierRoparent->parent_id="0";
+                $courierRoparent->name=$listcouriero[$request->courier_name];
+                $courierRoparent->code=strtolower($request->courier_name);
+                $courierRoparent->is_active=$request->status;
+                $courierRoparent->created_at=date('Y-m-d H:i:s');
+                $courierRoparent->save();
+
+
+                $courierRo=new CourierRo();
+                $courierRo->parent_id= $courierRoparent->id;
+                $courierRo->name=$request->servicetype;
+                $courierRo->code=strtolower($request->servicetype);
+                $courierRo->is_active=$request->status;
+                $courierRo->created_at=date('Y-m-d H:i:s');
+                $courierRo->save();
+            }
+            return back()->with('success', trans('messages.created', ['model' => $this->model]));
+        // print_r($request->courier_name);die();
 
     }
 
@@ -71,6 +119,7 @@ class ShippingCourierController extends Controller
      */
     public function show(CourierRo $courierRo)
     {
+        
         //
     }
 
@@ -80,9 +129,19 @@ class ShippingCourierController extends Controller
      * @param  \App\CourierRo  $courierRo
      * @return \Illuminate\Http\Response
      */
-    public function edit(CourierRo $courierRo)
+    public function edit($id)
     {
+        $listcouriero=  $this->rajaongkir->getCouriersList();
+        $courierdata=$this->shippingCourier->courier($id);
+        $courier=array(
+            "id"=>$courierdata->id,
+            "status" => $courierdata->is_active,
+            "servicetype"=>$courierdata->name,
+            "courier_name"=>$courierdata->parentcode
+        );
         //
+        // $datacourier=CourierRo
+        return view('admin.shipping_courier._edit',compact('listcouriero'))->with("courier",$courier);
     }
 
     /**
@@ -103,8 +162,11 @@ class ShippingCourierController extends Controller
      * @param  \App\CourierRo  $courierRo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CourierRo $courierRo)
-    {
+    public function remove($id){
+
+    
+    $courier=CourierRo::find($id)->delete();
+    return back()->with('success', trans('messages.deleted', ['model' => $this->model]));
         //
     }
    

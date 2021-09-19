@@ -632,6 +632,7 @@ if (!function_exists('crosscheckAndUpdateOldCartInfo')) {
         // $cart->packaging = $packaging;
         // $cart->discount = $discount;
         $cart->discount = $cart->get_discounted_amount();
+        $cart->shipping_zone_id = $request->courier_id;
         // $cart->handling = $handling;
         $cart->grand_total = $cart->calculate_grand_total();
         // $cart->grand_total = ($total + $taxes + $shipping + $packaging + $handling) - $discount;
@@ -812,6 +813,13 @@ if (!function_exists('get_payment_config_info')) {
                         'msg' => $info,
                     ];
                 }
+            case "midtrans":
+                $config = config('services.midtrans');
+                return [
+                    'config' => $config,
+                    'msg' => trans('theme.notify.you_will_be_redirected_to_midtrans'),
+                   ];    
+
         }
 
         return Null;

@@ -195,6 +195,8 @@ class SystemConfig extends BaseModel
             case 'wire':
             case 'cod':
                 return (bool) get_from_option_table('wallet_payment_info_' . $code);
+            case 'midtrans':
+                return (bool) (config('services.midtrans.server_key') );
                 // return is_incevio_package_loaded('wallet') && (bool) get_from_option_table('wallet_payment_info_' . $code);
         }
 

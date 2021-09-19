@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Storefront;
 
+use App\AirportCity;
 use App\BankShop;
 use DB;
 use Session;
@@ -22,6 +23,7 @@ use App\Services\Payments\PaypalExpressPaymentService;
 use Steevenz\Rajaongkir;
 use App\Common\ShoppingCart;
 use App\Repositories\ShippingCourier\ShippingCourierRepository;
+use Carbon\Carbon;
 use Illuminate\Support\Arr;
 
 class OrderController extends Controller
@@ -46,7 +48,7 @@ class OrderController extends Controller
     public function create(CheckoutCartRequest $request, Cart $cart, PaymentService $paymentService)
     {
         $cart = crosscheckAndUpdateOldCartInfo($request, $cart);
-
+// print_r($cart);die();
         DB::beginTransaction();
 
         try {
@@ -221,6 +223,7 @@ class OrderController extends Controller
     public function goods_received(ConfirmGoodsReceivedRequest $request, Order $order)
     {
         $order->mark_as_goods_received();
+        $this->InitMidtransPayment();
         $bankshopdata=BankShop::where("shop_id",$order->shop_id)->firstOrFail();
         // if($bankupdate->save()){
             $bankparam =array(
@@ -229,16 +232,23 @@ class OrderController extends Controller
                 'beneficiary_bank'=>$bankshopdata->code_bank,
                 'amount'=>$order->grand_total,
                 'beneficiary_email'=>$bankshopdata->email,
-                "notes"=>"order_number = ".$order->order_number
+                "notes"=>"order_number = ".$order->order_number." ". $order->created_at
             );
             $payoutparam=array(
                 "payouts"=>[$bankparam]
             );
             $createpayout = \Midtrans\Payout::createPayouts($payoutparam); 
-            if(sizeof($createpayout['payouts'])>0){
-                $order->payout_reference_no=$createpayout['payouts'][0]["reference_no"];
-                $order->payout_status=$createpayout['payouts'][0]["status"];
+            if(sizeof($createpayout->payouts)>0){
+                $order->payout_reference_no=$createpayout->payouts[0]->reference_no;
+                $order->payout_status=$createpayout->payouts[0]->status;
                 $order->save();
+
+                $approvedparam=array(
+                    'reference_nos'=>[$order->payout_reference_no],
+                    'otp'=>""
+                );
+                $approvepayout=\Midtrans\Payout::approvedPayouts($approvedparam);
+
             }
            
         //   };
@@ -361,8 +371,7 @@ class OrderController extends Controller
     public function checkoutMidtrans(CheckoutCartRequest $request, Cart $cart)
     {
         $cart = crosscheckAndUpdateOldCartInfo($request, $cart);
-        // dd($cart);
-        // die();
+       
         $request->payment_method_id="9"; // hardcode dari midtrans
         $order = $this->saveOrderFromCart($request, $cart);
         $result = $this->_generateMidtransPayment($order);
@@ -399,14 +408,22 @@ class OrderController extends Controller
                             'desc' => $value['manifest_description'] ." " .$value['city_name'],
                             'date_output' => date("d M Y", strtotime($value['manifest_date'])),
                             'time' => $value['manifest_time'],
-                            'city' => $value['city_name'],
+                            'city' => $courier->parent!="lion"? $value['city_name']: AirportCity::where("iata_code", $value['city_name'])->get()->City,
                             'datetime_order' => $value['manifest_date'] . " " . $value['manifest_time']
                         );
                         array_push($listTrack, $trackdata);
                     }
                 }
-                usort($listTrack, 'date_compare');
+                usort($listTrack, function ($a, $b)
+                {
+                    $dateA = Carbon::createFromFormat('Y-m-d H:i', $a['datetime_order']);
+                    $dateB = Carbon::createFromFormat('Y-m-d H:i', $b['datetime_order']);
+                    // ascending ordering, use `<=` for descending
+                    return $dateA <= $dateB;
+                });
                 return response($listTrack, 200);
+            }else{
+                return response("Data Missing", 400);
             }
         } catch (\Exception  $ex) {
             return response($ex->getMessage(), 400);
@@ -437,6 +454,59 @@ class OrderController extends Controller
         } catch (\Exception  $ex) {
             return response($ex->getMessage(), 400);
         }
+    }
+    public function sendPayoutCronJob(){
+        try{
+
+       
+            $cekorder=Order::where("order_status_id","=","6")
+            ->whereNull('payout_reference_no')
+            ->whereRaw('datediff(delivery_date, now()) = 3')
+            ->get();
+            $bankparamarray=array();
+            if($cekorder){
+                foreach($cekorder as $order){
+                    $bankshopdata=BankShop::where("shop_id",$order->shop_id)->firstOrFail();
+                    if($bankshopdata){
+                        $bankparam =array(
+                            'beneficiary_name'=>$bankshopdata->name,
+                            'beneficiary_account'=>$bankshopdata->account,
+                            'beneficiary_bank'=>$bankshopdata->code_bank,
+                            'amount'=>$cekorder->grand_total,
+                            'beneficiary_email'=>$bankshopdata->email,
+                            "notes"=>"order_number = ".$cekorder->order_number ." ".$cekorder->delivery_date
+                        );
+                        array_push($bankparamarray,$bankparam);
+                    }
+                    // if($bankupdate->save()){
+                        
+                }
+                
+                $payoutparam=array(
+                    "payouts"=>$bankparamarray
+                );
+                $createpayout = \Midtrans\Payout::createPayouts($payoutparam); 
+                if(sizeof($createpayout->payouts)>0){
+                    $reference_no_array=array();
+                    foreach($createpayout->payouts as $payout){
+                        $order->payout_reference_no=$payout->reference_no;
+                        $order->payout_status=$payout->status;
+                        $order->save();
+                        array_push($reference_no_array,$order->payout_reference_no);
+                    }
+                     $approvedparam=array(
+                    'reference_nos'=>$reference_no_array,
+                    'otp'=>""
+                );
+                $approvepayout=\Midtrans\Payout::approvedPayouts($approvedparam);
+                }    
+                        
+            }
+        echo "ok";
+        }catch(\Exception $e){
+            return response($e->getMessage(), 400);
+        }
+        
     }
 
 }

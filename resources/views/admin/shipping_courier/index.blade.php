@@ -11,7 +11,7 @@
         </div>
     </div> <!-- /.box-header -->
     <div class="box-body">
-  
+
         <table class="table table-hover table-no-sort">
             <thead>
                 <tr>
@@ -31,8 +31,9 @@
                             </ul>
                         </div>
                     </th>
-                    <th>Courier</th>
-                    <th>Name</th>
+                    <th>Courier Name</th>
+                    <th>Service Type Name</th>
+                    <th>Status</th>
                     <th>Action</th>
 
 
@@ -51,9 +52,19 @@
                     <td>
                         {{$courier['name']}}
                     </td>
-
                     <td>
-                        <input id="{{ $courier['id']}}" name="courier_id[]" type="checkbox" class="massCheck" value="{{$courier['id']}}">
+                        @if($courier['is_active']=="1")
+                        Active
+                        @else
+                            InActive
+                        @endif
+                    </td>
+                    <td>
+                      
+                     
+                    {!! Form::open(['route' => ['admin.shipping.shippingCourier.trash',$courier['id']], 'method' => 'delete', 'class' => 'data-form']) !!}
+										{!! Form::button('<i class="fa fa-trash-o"></i>', ['type' => 'submit', 'class' => 'confirm ajax-silent', 'title' => trans('app.trash'), 'data-toggle' => 'tooltip', 'data-placement' => 'top']) !!}
+									{!! Form::close() !!}
                     </td>
                 </tr>
                 @endforeach

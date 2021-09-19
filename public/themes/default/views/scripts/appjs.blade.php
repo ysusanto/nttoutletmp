@@ -416,12 +416,15 @@ function getTrackShipping(orderId){
 		        url: action,
 		        type: 'POST',
 		     data:"id="+orderId,
+             beforeSend: function(){
+                $('#loading').show();
+             },
 		        success: function (xhr,textStatus) {
-                 
+                    $('#loading').hide();
 		           console.log(textStatus);
 					var html="<ul class='timeline'>";
-		            if (xhr == 200){
-                        var datatrack=	xhr.responseJSON;
+		            // if (xhr == 200){
+                        var datatrack= 	xhr;
 						var x=0;
 						var color="black";
 					 datatrack.forEach(function(item){
@@ -429,15 +432,15 @@ function getTrackShipping(orderId){
 							 color="green";
 						 }
                          html += '<li>';
-                         html += '<span><b>' + item.date_output + ' '+item.time+'</b></a>';
+                         html += '<span style="margin-left:25px;"><b>' + item.date_output + ' '+item.time+'</b></a>';
             // option += '<a href="#" class="float-right">1 April, 2014</a>';
-            html += '<p>' +item.desc+'</p>';
+            html += '<p style="margin-left:25px;">' +item.desc+'</p>';
             html += '</li>';
 						
 							x++;
 					 })
 					 
-		            }
+		            // }
 		        
                     html+="</ul>";
 

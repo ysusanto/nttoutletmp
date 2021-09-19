@@ -3,6 +3,7 @@
 @endphp
 
 <div class="form-group">
+{{ Form::hidden('invisible', 'secret') }}
   {!! Form::label('name', trans('app.form.name').'*', ['class' => 'with-help']) !!}
   <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="bottom" title="{{ trans('help.shipping_rate_name') }}"></i>
   {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => trans('app.placeholder.name'), 'required']) !!}

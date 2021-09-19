@@ -13,6 +13,7 @@ class CourierRo extends Model
         'parent_id',
         'code',
         'name',
-        'path_logo'
+        'path_logo',
+        "is_active"
     ];
 }
