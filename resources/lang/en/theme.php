@@ -45,6 +45,7 @@ return [
 		'appeal'			=> 'Appeal',
 		'buy_now' 			=> 'Buy Now',
 		'buy_from_this_seller' => 'Buy From This Seller',
+		'buy' => 'Buy',
 		'cancel'			=> 'Cancel',
 		'change_avatar'     => 'Change Avatar',
 		'checkout' 			=> 'Checkout',

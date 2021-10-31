@@ -63,6 +63,7 @@ class Cart extends BaseModel
         'payment_status',
         'message_to_customer',
         'admin_note',
+        'cp_id',
     ];
 
     /**

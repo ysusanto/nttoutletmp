@@ -19,7 +19,9 @@ class CheckoutCartRequest extends Request
      */
     public function authorize()
     {
-        return crosscheckCartOwnership($this, $this->route('cart'));
+        // return crosscheckCartOwnership($this, $this->route('cart'));
+        // echo json_encode($this->route('cartparent'));die();
+        return crosscheckCartParentOwnership($this, $this->route('cartParent'));
     }
 
     /**

@@ -1,5 +1,5 @@
 <?php
-	Route::post('order/{cart}', 'OrderController@create')->name('order.create');
+	Route::post('order/{cartParent}', 'OrderController@create')->name('order.create');
 	Route::get('paymentFailed/{order}', 'OrderController@paymentFailed')->name('payment.failed');
 	Route::get('paymentSuccess/{order}/{gateway}', 'OrderController@paymentGatewaySuccessResponse')->name('payment.success');
 	Route::post('orders/trackshipping', 'OrderController@get_shippingTrack')->name('order.trackship'); // modify by ari 06062021

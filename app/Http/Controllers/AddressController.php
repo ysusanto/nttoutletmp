@@ -187,6 +187,7 @@ class AddressController extends Controller
                     //     'weight'         => (int)  $cart->shipping_weight, // berat satuan gram
                     //     'courier'         => strtolower($c), // kode kurir pengantar ( jne / tiki / pos )
                     // ])->get();
+                    // print_r($shopcourier);die();
                     $courierservice = "";
                     if ($data != null && $shopcourier != null) {
                         foreach ($shopcourier as $row) {

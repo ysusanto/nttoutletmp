@@ -2,6 +2,7 @@
 
 use App\Cart;
 use App\Order;
+use App\CartParent;
 use App\Coupon;
 use App\Packaging;
 use App\ShippingRate;
@@ -484,6 +485,28 @@ if (!function_exists('crosscheckCartOwnership')) {
     }
 }
 
+if (!function_exists('crosscheckCartParentOwnership')) {
+    /**
+     * Crosscheck the cart ownership
+     *
+     * @param \App\Cart $cart
+     */
+    function crosscheckCartParentOwnership($request, CartParent $cart)
+    {
+        // echo json_encode($cart);die();
+        $return = $cart->customer_id == Null && $cart->ip_address == get_visitor_IP();
+
+        if (Auth::guard('customer')->check()) {
+            return  $return || ($cart->customer_id == Auth::guard('customer')->user()->id);
+        }
+
+        if (Auth::guard('api')->check()) {
+            return  $return || ($cart->customer_id == Auth::guard('api')->user()->id);
+        }
+
+        return $return;
+    }
+}
 if (!function_exists('crosscheckAndUpdateOldCartInfo')) {
     /**
      * Crosscheck old cart info with current listing and update
@@ -493,9 +516,12 @@ if (!function_exists('crosscheckAndUpdateOldCartInfo')) {
     function crosscheckAndUpdateOldCartInfo($request, Cart $cart)
     {
         // If the reqest has nothing to update
+    if(!isset($request->op_id)){
         if (empty($request->all())) {
             return $cart;
         }
+    }
+      
         $shipping = $request->shipping_cost; //add by ari 02/06/2021
         // Set customer_id if not set yet
         if (!$cart->customer_id) {
@@ -608,11 +634,12 @@ if (!function_exists('crosscheckAndUpdateOldCartInfo')) {
                 }
             }
         }
-
-        // if ($request->payment_method) {
-        //     $code = $request->payment_method == 'saved_card' ? 'stripe' : $request->payment_method;
-        //     $cart->payment_method_id = get_id_of_model('payment_methods', 'code', $code);
-        // }
+        // dd($request);die();
+        if ($request->payment_method) {
+            $code = $request->payment_method == 'saved_card' ? 'stripe' : $request->payment_method;
+           
+            $cart->payment_method_id = get_id_of_model('payment_methods', 'code', $code);
+        }
 
         if ($request->ship_to_country_id) {
             $cart->ship_to_country_id = $request->ship_to_country_id;
@@ -635,6 +662,7 @@ if (!function_exists('crosscheckAndUpdateOldCartInfo')) {
         $cart->shipping_zone_id = $request->courier_id;
         // $cart->handling = $handling;
         $cart->grand_total = $cart->calculate_grand_total();
+        // dd($cart);die();
         // $cart->grand_total = ($total + $taxes + $shipping + $packaging + $handling) - $discount;
         $cart->save();
 

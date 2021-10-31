@@ -1,5 +1,10 @@
 <section>
     <div class="container">
+        <div class="row">
+        {!! Form::model($cartParent, ['method' => 'PUT', 'route' => ['cart.update', $cartParent->id], 'id' => 'formId'.$cartParent->id]) !!}
+        {{ Form::hidden('cart_parent_id', $cartParent->id) }}
+        <div class="col-md-9">
+
         @if($carts->count() > 0)
         @php
         //For oneCheckout
@@ -34,20 +39,20 @@
         @endphp
 
         <div class="row shopping-cart-table-wrap space30 {{$expressId == $cart->id ? 'selected' : ''}}" id="cartId{{$cart->id}}" data-cart="{{$cart->id}}">
-            <div class="col-md-9">
-                {!! Form::model($cart, ['method' => 'PUT', 'route' => ['cart.update', $cart->id], 'id' => 'formId'.$cart->id]) !!}
-                {{ Form::hidden('cart_id', $cart->id, ['id' => 'cart-id'.$cart->id]) }}
-                {{ Form::hidden('shop_id', $cart->shop->id, ['id' => 'shop-id'.$cart->id]) }}
-                {{ Form::hidden('tax_id', isset($shipping_zone->id) ? $shipping_zone->tax_id : Null, ['id' => 'tax-id'.$cart->id]) }}
-                {{ Form::hidden('taxrate', Null, ['id' => 'cart-taxrate'.$cart->id]) }}
-                {{ Form::hidden('packaging_id', $default_packaging ? $default_packaging->id : Null, ['id' => 'packaging-id'.$cart->id]) }}
-                {{ Form::hidden('ship_to', $cart->ship_to, ['id' => 'ship-to'.$cart->id]) }}
-                {{ Form::hidden('zone_id', isset($shipping_zone->id) ? $shipping_zone->id : Null, ['id' => 'zone-id'.$cart->id]) }}
-                {{ Form::hidden('shipping_rate_id', $cart->shipping_rate_id, ['id' => 'shipping-rate-id'.$cart->id]) }}
-                {{ Form::hidden('ship_to_country_id', $cart->ship_to_country_id, ['id' => 'shipto-country-id'.$cart->id]) }}
-                {{ Form::hidden('ship_to_state_id', $cart->ship_to_state_id, ['id' => 'shipto-state-id'.$cart->id]) }}
-                {{ Form::hidden('discount_id', $cart->coupon_id, ['id' => 'discount-id'.$cart->id]) }}
-                {{ Form::hidden('handling_cost', optional($cart->shop->config)->order_handling_cost, ['id' => 'handling-cost'.$cart->id]) }}
+            <div class="col-md-12">
+              
+                {{ Form::hidden('cart_id[]', $cart->id, ['id' => 'cart-id'.$cart->id]) }}
+                {{ Form::hidden('shop_id[]', $cart->shop->id, ['id' => 'shop-id'.$cart->id]) }}
+                {{ Form::hidden('tax_id[]', isset($shipping_zone->id) ? $shipping_zone->tax_id : Null, ['id' => 'tax-id'.$cart->id]) }}
+                {{ Form::hidden('taxrate[]', Null, ['id' => 'cart-taxrate'.$cart->id]) }}
+                {{ Form::hidden('packaging_id[]', $default_packaging ? $default_packaging->id : Null, ['id' => 'packaging-id'.$cart->id]) }}
+                {{ Form::hidden('ship_to[]', $cart->ship_to, ['id' => 'ship-to'.$cart->id]) }}
+                {{ Form::hidden('zone_id[]', isset($shipping_zone->id) ? $shipping_zone->id : Null, ['id' => 'zone-id'.$cart->id]) }}
+                {{ Form::hidden('shipping_rate_id[]', $cart->shipping_rate_id, ['id' => 'shipping-rate-id'.$cart->id]) }}
+                {{ Form::hidden('ship_to_country_id[]', $cart->ship_to_country_id, ['id' => 'shipto-country-id'.$cart->id]) }}
+                {{ Form::hidden('ship_to_state_id[]', $cart->ship_to_state_id, ['id' => 'shipto-state-id'.$cart->id]) }}
+                {{ Form::hidden('discount_id[]', $cart->coupon_id, ['id' => 'discount-id'.$cart->id]) }}
+                {{ Form::hidden('handling_cost[]', optional($cart->shop->config)->order_handling_cost, ['id' => 'handling-cost'.$cart->id]) }}
 
                 <div class="shopping-cart-header-section">
                     <div class="row">
@@ -109,13 +114,13 @@
                             <td>
                                 <div class="product-info-qty-item">
                                     <button class="product-info-qty product-info-qty-minus">-</button>
-                                    <input name="quantity[{{$item->id}}]" id="itemQtt{{$item->id}}" class="product-info-qty product-info-qty-input" data-cart="{{$cart->id}}" data-item="{{$item->id}}" data-min="{{$item->min_order_quantity}}" data-max="{{$item->stock_quantity}}" type="text" value="{{$item->pivot->quantity}}">
+                                    <input name="qty[{{$cart->id}}][{{$item->id}}]" id="itemQtt{{$item->id}}" class="product-info-qty product-info-qty-input" data-cart="{{$cart->id}}" data-item="{{$item->id}}" data-min="{{$item->min_order_quantity}}" data-max="{{$item->stock_quantity}}" data-cartparent="{{$cartParent->id}}" type="text" value="{{$item->pivot->quantity}}">
                                     <button class="product-info-qty product-info-qty-plus">+</button>
                                 </div>
                             </td>
                             <td>
                                 <span>{{ get_currency_prefix() }}
-                                    <span id="item-total{{$cart->id}}-{{$item->id}}" class="item-total{{$cart->id}}">{{ number_format($item_total, 2, '.', '') }}</span>{{ get_currency_suffix() }}
+                                    <span id="item-total{{$cart->id}}-{{$item->id}}" class="item-total{{$cartParent->id}}">{{ number_format($item_total, 2, '.', '') }}</span>{{ get_currency_suffix() }}
                                 </span>
                             </td>
                             <td>
@@ -150,14 +155,19 @@
                 </div>
             </div><!-- /.col-md-9 -->
 
-            <div class="col-md-3 space20">
+            
+         
+        </div> <!-- /.row -->
+        @endforeach
+        </div> 
+        <div class="col-md-3 space20">
                 <div class="side-widget" id="cart-summary{{$cart->id}}">
                     <h3 class="side-widget-title"><span>{{ trans('theme.cart_summary') }}</span></h3>
                     <ul class="shopping-cart-summary">
                         <li>
                             <span>{{ trans('theme.total') }}</span>
                             <span>{{ get_currency_prefix() }}
-                                <span id="summary-total{{$cart->id}}">{{ number_format($cart_total, 2, '.', '') }}</span>{{ get_currency_suffix() }}
+                                <span id="summary-total{{$cartParent->id}}">{{ number_format($cartParent->total, 2, '.', '') }}</span>{{ get_currency_suffix() }}
                             </span>
                         </li>
                         <!-- <li>
@@ -212,15 +222,13 @@
                 </div>
 
                 @if(allow_checkout())
-                <button class="btn btn-primary btn-sm flat pull-right" id="checkout-btn{{$cart->id}}" type="submit"><i class="fa fa-shopping-cart"></i> {{ trans('theme.button.buy_from_this_seller') }}</button>
+                <button class="btn btn-primary btn-sm flat pull-right" id="checkout-btn{{$cartParent->id}}" type="submit"><i class="fa fa-shopping-cart"></i> {{ trans('theme.button.buy') }}</button>
                 @else
-                <a href="#nav-login-dialog" data-toggle="modal" data-target="#loginModal" class="btn btn-primary btn-sm flat pull-right"><i class="fa fa-shopping-cart"></i> {{ trans('theme.button.buy_from_this_seller') }}</a>
+                <a href="#nav-login-dialog" data-toggle="modal" data-target="#loginModal" class="btn btn-primary btn-sm flat pull-right"><i class="fa fa-shopping-cart"></i> {{ trans('theme.button.buy') }}</a>
                 @endif
-            </div> <!-- /.col-md-3 -->
-            {!! Form::close() !!}
-        </div> <!-- /.row -->
-        @endforeach
-
+            </div> <!-- /.col-md-3 -->      
+            {!! Form::close() !!}     
+        </div>
         <div class="row">
             <div class="col-md-6 pull-left">
                 <a class="btn btn-black flat" href="{{ url('/') }}">{{ trans('theme.button.continue_shopping') }}</a>

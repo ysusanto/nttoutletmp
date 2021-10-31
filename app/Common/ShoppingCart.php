@@ -5,6 +5,7 @@ namespace App\Common;
 use Auth;
 use Session;
 use App\Cart;
+use App\CartParent;
 use App\Order;
 use App\Coupon;
 use Illuminate\Http\Request;
@@ -63,6 +64,7 @@ trait ShoppingCart
                 'email' => $request->email ?? $cart->email,
                 'buyer_note' => $request->buyer_note,
                 'device_id' => $request->device_id ?? $cart->device_id,
+                'op_id'=>$request->op_id
             ])
         )->save();
 
@@ -101,7 +103,7 @@ trait ShoppingCart
         if ($order->coupon_id) {
             Coupon::find($order->coupon_id)->decrement('quantity');
         }
-
+      
         // Delete the cart
         $cart->forceDelete();
 

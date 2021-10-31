@@ -119,7 +119,8 @@ class Order extends BaseModel
                         'disputed',
                         'email',
                         'payment_token',
-                        'payment_url'
+                        'payment_url',
+                        'op_id',
                     ];
 
     /**

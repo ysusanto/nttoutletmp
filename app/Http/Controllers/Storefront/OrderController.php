@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Storefront;
 
 use App\AirportCity;
 use App\BankShop;
+use App\CartParent;
 use DB;
 use Session;
 use App\Cart;
@@ -22,9 +23,11 @@ use App\Contracts\PaymentServiceContract as PaymentService;
 use App\Services\Payments\PaypalExpressPaymentService;
 use Steevenz\Rajaongkir;
 use App\Common\ShoppingCart;
+use App\OrderParent;
 use App\Repositories\ShippingCourier\ShippingCourierRepository;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
+use stdClass;
 
 class OrderController extends Controller
 {
@@ -45,10 +48,11 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function create(CheckoutCartRequest $request, Cart $cart, PaymentService $paymentService)
+    public function create2(CheckoutCartRequest $request, Cart $cart, PaymentService $paymentService)
+    // public function create(Request $request,$id)
     {
         $cart = crosscheckAndUpdateOldCartInfo($request, $cart);
-// print_r($cart);die();
+
         DB::beginTransaction();
 
         try {
@@ -64,6 +68,113 @@ class OrderController extends Controller
                 ->setConfig()
                 ->charge();
 
+            // Check if the result is a RedirectResponse of Paypal and some other gateways
+            if ($response instanceof RedirectResponse) {
+                // Everything is fine. Now commit the transaction
+                DB::commit();
+
+                // Delete the cart
+                // $cart->forceDelete();
+
+                return $response;
+            }
+            // Payment succeed
+            else if ($response->success) {
+                // Order confirmed
+                if ($order->paymentMethod->type !== PaymentMethod::TYPE_MANUAL) {
+                    // Order has been paid
+                    $order->markAsPaid();
+                }
+
+                // Everything is fine. Now commit the transaction
+                DB::commit();
+
+                // Delete the cart
+                // $cart->forceDelete();
+
+                // Trigger the Event
+                event(new OrderCreated($order));
+
+                return view('theme::order_complete', compact('order'))->with('success', trans('theme.notify.order_placed'));
+            }
+
+            throw new \Exception("Error Manual Payment Processing Request");
+        } catch (\Exception $e) {
+            DB::rollback(); // rollback the transaction and log the error
+
+            \Log::error($request->payment_method . ' Payment failed:: ' . $e->getMessage());
+            \Log::error($e);
+
+            return redirect()->back()->with('error', $e->getMessage())->withInput();
+        }
+    }
+
+    // public function create2(CheckoutCartRequest $request, Cart $cart, PaymentService $paymentService)
+    public function create(CheckoutCartRequest $request,CartParent $cartParent, PaymentService $paymentService)
+    {
+        $checkcarts=Cart::where("cp_id",$cartParent->id)->get();
+        DB::beginTransaction();
+// dd($request->payment_method);die();
+        try {
+        if($checkcarts){
+            // $cartparent=CartParent::where("id",$request->cartparentid)->first();
+            $orderparent=new OrderParent();
+            $orderparent->code = "MT"  .str_pad(rand(1, 999999), 6, '0', STR_PAD_LEFT);
+            // $orderparent->total = $old_cart ? ($old_cart->total + ($qtt * $unit_price)) : $unit_price;
+            $orderparent->order_status_id = "0";
+            $orderparent->payment_method_id = "1";
+            $orderparent->customer_id = $cartParent->customer_id;
+            $orderparent->ip_address = $request->ip();
+            $orderparent->save();
+            $x=0;
+            $grandtotal=0;
+            foreach($checkcarts as $ct){
+                $r = new Request();
+                // $r->quantity = $request->qty[$cart->id];
+                $r->zone_id = $request->zone_id[$x];
+                $r->tax_id = $request->tax_id[$x];
+                $r->taxrate = $request->taxrate[$x];
+                $r->ship_to = $request->ship_to[$x];
+                $r->packaging_id = $request->packaging_id[$x];
+                $r->shipping_rate_id = $request->shipping_rate_id[$x];
+                $r->ship_to_country_id = $request->ship_to_country_id[$x];
+                $r->ship_to_state_id = $request->ship_to_state_id[$x];
+                $r->op_id=$orderparent->id;
+                $r->courier_id=$request->courier_id[$x];
+                $r->shipping_cost=$request->shipping_cost[$x];
+                 $r->payment_method=$request->payment_method;
+                $cart = crosscheckAndUpdateOldCartInfo($r, $ct);
+                // dd($cart);die();
+                $grandtotal +=(float)$cart->calculate_grand_total();
+                // $r->payment_method_id="1"; // hardcode dari midtrans
+                $order = $this->saveOrderFromCart($r, $cart);
+                // dd($order);die();
+                $x++;
+            }
+            // $cartparent=CartParent::find($id);
+            $cartParent->forceDelete();
+            $orderparent->total=$grandtotal;
+            $orderparent->updated_at=Carbon::now();
+            $orderparent->save();
+        }
+        
+
+      
+            // Create the order
+
+
+            $receiver = vendor_get_paid_directly() ? 'merchant' : 'platform';
+            
+            $response = $paymentService->setReceiver($receiver)
+            ->setOrderInfo($order)
+                ->setAmount($orderparent->total)
+                ->setDescription(trans('app.purchase_from', ['marketplace' => get_platform_title()]));
+
+               
+            $response=$response    
+                ->setConfig()
+                ->charge();
+             //   dd($response);die();
             // Check if the result is a RedirectResponse of Paypal and some other gateways
             if ($response instanceof RedirectResponse) {
                 // Everything is fine. Now commit the transaction
@@ -359,24 +470,87 @@ class OrderController extends Controller
             ]
         );
         $snapurl = \Midtrans\Snap::createTransaction($param);
-        $updateorder = Order::where("id", $order->id)->first();
-        if ($snapurl->token) {
-            $updateorder->payment_url = $snapurl->redirect_url;
+        $updateorderparent=OrderParent::where("id",$order->op_id)->first();
+        $updateorders = Order::where("op_id", $order->op_id)->get();
+        if ($snapurl->token && $updateorders!=null) {
+            $updateorderparent->payment_url = $snapurl->redirect_url;
+            $updateorderparent->payment_token = $snapurl->token;
+            $updateorderparent->updated_at=Carbon::now();
+            $updateorderparent->save();
+            foreach ($updateorders as $value) {
+                # code...
+                $updateorder=Order::where("id",$value->id)->first();
+                $updateorder->payment_url = $snapurl->redirect_url;
             $updateorder->payment_token = $snapurl->token;
+            $updateorder->updated_at=Carbon::now();
             $updateorder->save();
+            }
+            
         }
 
         return $snapurl;
     }
-    public function checkoutMidtrans(CheckoutCartRequest $request, Cart $cart)
+    public function checkoutMidtrans(Request $request, Cart $cart)
     {
-        $cart = crosscheckAndUpdateOldCartInfo($request, $cart);
-       
-        $request->payment_method_id="9"; // hardcode dari midtrans
-        $order = $this->saveOrderFromCart($request, $cart);
-        $result = $this->_generateMidtransPayment($order);
-        $cart->forceDelete();
+        // echo json_encode($request->shipping_cost);die();
+        $cartparent=CartParent::where("id",$request->cartparentid)->first();
+      if($cartparent){
+        $orderparent=new OrderParent();
+        $orderparent->code = "MT"  .str_pad(rand(1, 999999), 6, '0', STR_PAD_LEFT);
+        // $orderparent->total = $old_cart ? ($old_cart->total + ($qtt * $unit_price)) : $unit_price;
+        $orderparent->order_status_id = "0";
+        $orderparent->payment_method_id = "9";
+        $orderparent->customer_id = $cartparent->customer_id;
+        $orderparent->ip_address = $request->ip();
+        $orderparent->save();
+     
+       $grandtotal=0;
+        $carts=Cart::where("cp_id",$request->cartparentid)->get();
+        if($carts){
+            $x=0;
+            foreach ($carts as $value) {
+                # code...
+                $r = new Request();
+                // $r->quantity = $request->qty[$cart->id];
+                $r->zone_id = $request->zone_id[$x];
+                $r->tax_id = $request->tax_id[$x];
+                $r->taxrate = $request->taxrate[$x];
+                $r->ship_to = $request->ship_to[$x];
+                $r->packaging_id = $request->packaging_id[$x];
+                $r->shipping_rate_id = $request->shipping_rate_id[$x];
+                $r->ship_to_country_id = $request->ship_to_country_id[$x];
+                $r->ship_to_state_id = $request->ship_to_state_id[$x];
+                $r->op_id=$orderparent->id;
+                $r->courier_id=$request->courier_id[$x];
+                $r->shipping_cost=$request->shipping_cost[$x];
+                // if($x==1){
+                //     dd($r);die();
+                // }
+              
+                $cart = crosscheckAndUpdateOldCartInfo($r, $value);
+                $grandtotal +=(float)$cart->calculate_grand_total();
+                $r->payment_method_id="9"; // hardcode dari midtrans
+                // dd($r);die();
+                
+                $order = $this->saveOrderFromCart($r, $cart);
+                $x++;
+            }
+        }
+        $orderparent->total=$grandtotal;
+        $orderparent->updated_at=Carbon::now();
+        $orderparent->save();
+        $parammidtrans=new stdClass();
+        $parammidtrans->order_number=$orderparent->code;
+        $parammidtrans->grand_total=$grandtotal;
+        $parammidtrans->op_id=$orderparent->id;
+        
+        $parammidtrans->customer_id=$orderparent->customer_id ;
+        $result = $this->_generateMidtransPayment($parammidtrans);
+        // $cart->forceDelete();
         echo $result->redirect_url;
+       
+    }
+       
         //    return ;
     }
     public function get_shippingTrack(Request $request)

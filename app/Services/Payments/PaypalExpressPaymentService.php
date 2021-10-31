@@ -3,6 +3,7 @@
 namespace App\Services\Payments;
 
 use Paypalpayment;
+
 use Illuminate\Http\Request;
 
 class PaypalExpressPaymentService extends PaymentService
@@ -30,7 +31,7 @@ class PaypalExpressPaymentService extends PaymentService
             $client_id = config('services.paypal.client_id');
             $client_secret = config('services.paypal.secret');
         }
-
+// dd($client_id);die();
         config()->set('paypal_payment.mode', $mode);
         config()->set('paypal_payment.account.client_id', $client_id);
         config()->set('paypal_payment.account.client_secret', $client_secret);
@@ -142,13 +143,14 @@ class PaypalExpressPaymentService extends PaymentService
     public function charge()
     {
         $payment = Paypalpayment::payment();
+    
         $payment->setIntent("sale")
         ->setPayer($this->payee)
         ->setTransactions([$this->transaction])
         ->setRedirectUrls($this->redirectUrls);
-
+     
         $payment->create(Paypalpayment::apiContext());
-
+        // dd($payment);die();
         return redirect()->to($payment->getApprovalLink());
     }
 

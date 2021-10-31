@@ -60,6 +60,7 @@
       // Submit the form
       $("a#paypal-express-btn").on('click', function(e) {
         e.preventDefault();
+        console.log("abcaf");
         $("form[name='checkoutForm']").submit();
       });
 

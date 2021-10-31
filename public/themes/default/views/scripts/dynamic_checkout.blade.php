@@ -244,6 +244,7 @@ if($(".payment-option").on("ifChecked",function(){
         // Update Item total on qty change
         $(".product-info-qty-input").on('change', function(e) {
 	        var cart = $(this).data('cart');
+			var cartparent = $(this).data('cartparent');
 	        var item = $(this).data('item');
 	        var qtt = $(this).val();
 			var unitWeight = Number($("#unitWeight"+item).val());
@@ -256,7 +257,7 @@ if($(".payment-option").on("ifChecked",function(){
 			var itemWeight = unitWeight * qtt;
 			$("#itemWeight"+item).val(itemWeight);
 
-			calculateCartTotal(cart);
+			calculateCartTotal(cartparent);
 
 			// Set shipping options for the zone
 		//	setShippingOptions(cart);
@@ -614,7 +615,7 @@ $("#btncheckoutmidtrans").on("click",function(e){
 			},
             complete: function(xhr) {
 				console.log(xhr);
-				window.location.href=xhr.responseText;
+				// window.location.href=xhr.responseText;
 			},
 			error:function(json){
 

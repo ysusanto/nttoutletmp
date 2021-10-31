@@ -2,34 +2,16 @@
 $geoip = geoip(request()->ip());
 $geoip_country = $business_areas->where('iso_code', $geoip->iso_code)->first();
 
-$shipping_country_id = $cart->ship_to_country_id ?? optional($geoip_country)->id;
 
-if(! $cart->shipping_state_id){
-$geoip_state = \DB::table('states')->select('id', 'name', 'iso_code')->where([
-['country_id', '=', $shipping_country_id], ['iso_code', '=', $geoip->state]
-])->first();
-}
-
-$shipping_state_id = $cart->ship_to_state_id ?? optional($geoip_state)->id;
-
-$shipping_zone = get_shipping_zone_of($cart->shop_id, $shipping_country_id, $shipping_state_id);
-
-$shipping_options ='NaN';
-
-
-$packaging_options = optional($cart->shop)->packagings;
-
-$default_packaging = $cart->shippingPackage ??
-optional($cart->shop->packagings)->where('default',1)->first() ??
-$platformDefaultPackaging;
-$shopcourier=getShopCourier($cart->id);
 @endphp
 
 <section>
-  <input type="hidden" id="listcart" value={{$cart->id}}>
+
   <div class="container">
-    {!! Form::open(['route' => ['order.create', $cart], 'id' => 'checkoutForm', 'data-toggle' => 'validator', 'novalidate']) !!}
-    <div class="row shopping-cart-table-wrap space30" id="cartId{{$cart->id}}" data-cart="{{$cart->id}}">
+  {!! Form::open(['route' => ['order.create', $cartparent], 'name' => 'checkoutForm', 'id' => 'checkoutForm', 'novalidate',"enctype"=>"multipart/form-data"]) !!}
+    
+
+    <div class="row shopping-cart-table-wrap space30" id="cartId{{$cartparent->id}}" data-cart="{{$cartparent->id}}">
 
       @if(Session::has('error'))
       <div class="notice notice-danger notice-sm">
@@ -41,15 +23,40 @@ $shopcourier=getShopCourier($cart->id);
         <strong>{{ trans('theme.warning') }}</strong>
         <span id="checkout-notice-msg">@lang('theme.notify.seller_doesnt_ship')</span>
       </div>
-
+<input type="hidden" value="{{$cartparent->id}}" name="cartparentid" id="cartparentid">
       <div class="col-md-4 bg-light">
+        @foreach($carts as $cart)
+        @php
+        $shipping_country_id = $cart->ship_to_country_id ?? optional($geoip_country)->id;
+
+        if(! $cart->shipping_state_id){
+        $geoip_state = \DB::table('states')->select('id', 'name', 'iso_code')->where([
+        ['country_id', '=', $shipping_country_id], ['iso_code', '=', $geoip->state]
+        ])->first();
+        }
+
+        $shipping_state_id = $cart->ship_to_state_id ?? optional($geoip_state)->id;
+
+        $shipping_zone = get_shipping_zone_of($cart->shop_id, $shipping_country_id, $shipping_state_id);
+
+        $shipping_options ='NaN';
+
+
+        $packaging_options = optional($cart->shop)->packagings;
+
+        $default_packaging = $cart->shippingPackage ??
+        optional($cart->shop->packagings)->where('default',1)->first() ??
+        $platformDefaultPackaging;
+        $shopcourier=getShopCourier($cart->id);
+        @endphp
+        <input type="hidden" id="listcart" value={{$cart->id}}>
         <div class="seller-info space20">
           <div class="text-muted small mt-2">@lang('theme.sold_by')</div>
 
-          <img src="{{ get_storage_file_url(optional($shop->image)->path, 'tiny') }}" class="seller-info-logo img-sm img-circle" alt="{{ trans('theme.logo') }}">
+          <img src="{{ get_storage_file_url(optional($cart->shop->image)->path, 'tiny') }}" class="seller-info-logo img-sm img-circle" alt="{{ trans('theme.logo') }}">
 
-          <a href="{{ route('show.store', $shop->slug) }}" class="seller-info-name">
-            {{ $shop->name }}
+          <a href="{{ route('show.store',$cart->shop->slug) }}" class="seller-info-name">
+            {{ $cart->shop->name }}
           </a>
         </div><!-- /.seller-info -->
 
@@ -63,21 +70,21 @@ $shopcourier=getShopCourier($cart->id);
           </span>
         </div><!-- /input-group -->
 
-        {{ Form::hidden('cart_id', $cart->id, ['id' => 'checkout-id']) }}
+        {{ Form::hidden('cart_id[]', $cart->id, ['id' => 'checkout-id']) }}
         {{ Form::hidden('cart_weight', $cart->shipping_weight, ['id' => 'cartWeight'.$cart->id]) }}
         {{ Form::hidden('free_shipping', $cart->is_free_shipping(), ['id' => 'freeShipping'.$cart->id]) }}
         {{ Form::hidden('shop_id', $cart->shop->id, ['id' => 'shop-id'.$cart->id]) }}
-        {{ Form::hidden('tax_id', isset($shipping_zone->id) ? $shipping_zone->tax_id : Null, ['id' => 'tax-id'.$cart->id]) }}
-        {{ Form::hidden('taxrate', $cart->taxrate, ['id' => 'cart-taxrate'.$cart->id]) }}
-        {{ Form::hidden('packaging_id', $cart->packaging_id ?? $default_packaging->id, ['id' => 'packaging-id'.$cart->id]) }}
-        {{ Form::hidden('zone_id', $cart->shipping_zone_id, ['id' => 'zone-id'.$cart->id]) }}
-        {{ Form::hidden('shipping_rate_id', $cart->shipping_rate_id, ['id' => 'shipping-rate-id'.$cart->id]) }}
-        {{ Form::hidden('ship_to_country_id', $cart->ship_to_country_id, ['id' => 'shipto-country-id'.$cart->id]) }}
-        {{ Form::hidden('ship_to_state_id', $cart->ship_to_state_id, ['id' => 'shipto-state-id'.$cart->id]) }}
-        {{ Form::hidden('discount_id', $cart->coupon_id, ['id' => 'discount-id'.$cart->id]) }}
-        {{ Form::hidden('handling_cost', $cart->handling_cost > 0 ? $cart->handling_cost : optional($cart->shop->config)->order_handling_cost, ['id' => 'handling-cost'.$cart->id]) }}
-        {{ Form::hidden('courier_id',0 , ['id' => 'courier_id'.$cart->id]) }}
-        {{ Form::hidden('shipping_cost', 0, ['id' => 'shipping-cost'.$cart->id]) }}
+        {{ Form::hidden('tax_id[]', isset($shipping_zone->id) ? $shipping_zone->tax_id : Null, ['id' => 'tax-id'.$cart->id]) }}
+        {{ Form::hidden('taxrate[]', $cart->taxrate, ['id' => 'cart-taxrate'.$cart->id]) }}
+        {{ Form::hidden('packaging_id[]', $cart->packaging_id ?? $default_packaging->id, ['id' => 'packaging-id'.$cart->id]) }}
+        {{ Form::hidden('zone_id[]', $cart->shipping_zone_id, ['id' => 'zone-id'.$cart->id]) }}
+        {{ Form::hidden('shipping_rate_id[]', $cart->shipping_rate_id, ['id' => 'shipping-rate-id'.$cart->id]) }}
+        {{ Form::hidden('ship_to_country_id[]', $cart->ship_to_country_id, ['id' => 'shipto-country-id'.$cart->id]) }}
+        {{ Form::hidden('ship_to_state_id[]', $cart->ship_to_state_id, ['id' => 'shipto-state-id'.$cart->id]) }}
+        {{ Form::hidden('discount_id[]', $cart->coupon_id, ['id' => 'discount-id'.$cart->id]) }}
+        {{ Form::hidden('handling_cost[]', $cart->handling_cost > 0 ? $cart->handling_cost : optional($cart->shop->config)->order_handling_cost, ['id' => 'handling-cost'.$cart->id]) }}
+        {{ Form::hidden('courier_id[]',0 , ['id' => 'courier_id'.$cart->id]) }}
+        {{ Form::hidden('shipping_cost[]', 0, ['id' => 'shipping-cost'.$cart->id]) }}
         <h3 class="widget-title">{{ trans('theme.order_info') }}</h3>
         <ul class="shopping-cart-summary ">
           <li>
@@ -144,7 +151,7 @@ $shopcourier=getShopCourier($cart->id);
             </span>
           </li>
         </ul>
-
+        @endforeach
         <hr class="style1 muted" />
 
         <div class="clearfix"></div>
@@ -270,34 +277,32 @@ $shopcourier=getShopCourier($cart->id);
       </div> <!-- /.col-md-5 -->
 
       <div class="col-md-3">
-        <h3 class="widget-title" >{{ trans('theme.payment_options') }}</h3>
-        <div class="space30" >
-      
-          @foreach($paymentMethods as $paymentMethod)
-          @php
-          $config = get_payment_config_info($paymentMethod->code, vendor_get_paid_directly() ? $shop : Null);
+        <h3 class="widget-title">{{ trans('theme.payment_options') }}</h3>
+        <div class="space30">
        
+
+        
+       
+
+          @foreach($outputpayment as $paymentMethod)
+          @php
+          $config = get_payment_config_info($paymentMethod['code'], Null);
+
           @endphp
+        
 
 
           {{-- Skip the payment option if not confirured --}}
-          @continue(! $config || ! is_array($config) || ! $config['config'])
-
-          @if($customer && ($paymentMethod->code == 'stripe') && $customer->hasBillingToken())
+          @continue(! $config || ! is_array($config) || ! $config['config'])        
+         
           <div class="form-group">
             <label>
-              <input name="payment_method" value="saved_card" class="i-radio-blue payment-option" type="radio" data-info="{{$config['msg']}}" data-type="{{ $paymentMethod->type }}" required="required" {{ old('payment_method') ? '' : 'checked' }} /> @lang('theme.card'): <i class="fas fa-cc-{{ strtolower($customer->card_brand) }}"></i> ************{{$customer->card_last_four}}
-            </label>
-          </div>
-          @endif
-
-          <div class="form-group">
-            <label>
-              <input name="payment_method" value="{{ $paymentMethod->code }}" data-code="{{ $paymentMethod->code }}" class="i-radio-blue payment-option" type="radio" data-info="{{$config['msg']}}" data-type="{{ $paymentMethod->type }}" required="required" {{ old('payment_method') == $paymentMethod->code ? 'checked' : '' }} /> {{ $paymentMethod->code == 'paystack' ? trans('theme.credit_card') : $paymentMethod->code == 'midtrans'? 'Other': $paymentMethod->name }}
+              <input name="payment_method" value="{{ $paymentMethod['code'] }}" data-code="{{ $paymentMethod['code'] }}" class="i-radio-blue payment-option" type="radio" data-info="{{$config['msg']}}" data-type="{{ $paymentMethod['type'] }}" required="required" {{ old('payment_method') == $paymentMethod['code'] ? 'checked' : '' }} /> {{ $paymentMethod['code'] == 'paystack' ? trans('theme.credit_card') : $paymentMethod['code'] == 'midtrans'? 'Other': $paymentMethod['name'] }}
             </label>
           </div>
 
           @endforeach
+         
         </div>
 
         {{-- authorize-net --}}
