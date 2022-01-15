@@ -70,6 +70,63 @@
 		      	}
 		    });
 
+			//city address 20211231
+
+			$('body').on('change', '#state_id', function() {
+            var states = $(this).val();
+            var state_node = $('#city');
+
+            $.ajax({
+              delay: 250,
+              data: "id="+states,
+              url: "{{ route('ajax.getStatesCity') }}",
+              success: function(result){
+                var data = '<option value="">{{trans('theme.placeholder.city')}}</option>';
+                if(result.length !== 0){
+                    data += $.map(result, function(val, id) {
+                        return '<option value="'+val+'">'+val+'</option>';
+                    })
+
+                    state_node.attr('required', 'required');
+                }
+                else{
+                    state_node.removeAttr('required');
+                }
+
+                state_node.html(data);
+
+                state_node.trigger('change'); // Trigger the onchange event on state id
+              }
+            });
+        });
+		$('body').on('change', '#city', function() {
+            var states = $(this).val();
+            var state_node = $('#subdistrict_2');
+
+            $.ajax({
+              delay: 250,
+              data: "id="+states,
+              url: "{{ route('ajax.getCitySubdistrict') }}",
+              success: function(result){
+                var data = '<option value="">{{trans('theme.placeholder.subdistrict_1')}}</option>';
+                if(result.length !== 0){
+                    data += $.map(result, function(val, id) {
+                        return '<option value="'+val+'">'+val+'</option>';
+                    })
+
+                    state_node.attr('required', 'required');
+                }
+                else{
+                    state_node.removeAttr('required');
+                }
+
+                state_node.html(data);
+
+                state_node.trigger('change'); // Trigger the onchange event on state id
+              }
+            });
+        });
+
 		    // Confirmation for actions
 		    $('body').on('click', '.confirm', function(e) {
 			    e.preventDefault();
@@ -461,6 +518,7 @@
 		    }
 		);
 
+		
 		$(".select2-categories").select2({
 		    placeholder: "{{ trans('app.placeholder.category_sub_groups') }}"
 		});

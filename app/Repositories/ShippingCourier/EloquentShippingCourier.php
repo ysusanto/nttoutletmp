@@ -31,7 +31,7 @@ class EloquentShippingCourier extends EloquentRepository implements BaseReposito
     public function all()
     {
         $allcourier = array();
-        $parent = $this->model->where('parent_id', '>', 0)->orderBy('code', 'asc')->get();
+        $parent = $this->model->where('parent_id', '>', 0)->where("is_active","=","1")->orderBy('code', 'asc')->get();
         // var_dump($parent);
         // die();
         if ($parent) {

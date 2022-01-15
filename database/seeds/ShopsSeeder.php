@@ -34,7 +34,7 @@ class ShopsSeeder extends BaseSeeder
 
         if (is_subscription_enabled()) {
             $plan_id = 'price_1GyyRyJewI4n8wVFSRWlMSHy';
-            $trial_ends_at = $now->addDays(13);
+            $trial_ends_at = $now->addDays(30);
         }
 
         foreach ($merchants as $merchant) {

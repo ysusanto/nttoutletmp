@@ -1,0 +1,1352 @@
+	[
+		{
+			"icao_code": "WIAS",
+			"iata_code": "MLG",
+			"airport_name": "Abdul Rachman Saleh",
+			"City": "Malang, Jawa Timur",
+			"province": "",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WASC",
+			"iata_code": "RSK",
+			"airport_name": "Abresso",
+			"City": "Ransiki, Manokwari",
+			"province": "Papua",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WIIS",
+			"iata_code": "SRG",
+			"airport_name": "Achmad Yani",
+			"City": "Semarang",
+			"province": "Jawa Tengah",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WARJ",
+			"iata_code": "JOG",
+			"airport_name": "Adi Sutjipto",
+			"City": "Yogyakarta",
+			"province": "DI Yogyakarta",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WRSQ",
+			"iata_code": "SOC",
+			"airport_name": "Adi Sumarmo",
+			"City": "Solo",
+			"province": "Jawa Tengah",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WIME",
+			"iata_code": "AEG",
+			"airport_name": "Aek Godang",
+			"City": "Padang Sidempuan",
+			"province": "Sumatera Utara",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WATM",
+			"iata_code": "ARD",
+			"airport_name": "Pulau Alor",
+			"City": "Pulau Alor",
+			"province": "Nusa Tenggara Timur",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAPA",
+			"iata_code": "AHI",
+			"airport_name": "Amahai",
+			"City": "Amahai",
+			"province": "Papua",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAAM",
+			"iata_code": "MXB",
+			"airport_name": "Andi Jemma",
+			"City": "Masamba",
+			"province": "Sulawesi Selatan",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "",
+			"iata_code": "AGD",
+			"airport_name": "Anggi",
+			"City": "Anggi, Manokwari",
+			"province": "Papua",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "",
+			"iata_code": "AAS",
+			"airport_name": "Apalapsili",
+			"City": "Apalapsili, Yalimo",
+			"province": "Papua",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAJA",
+			"iata_code": "ARJ",
+			"airport_name": "Arso",
+			"City": "Arso, Keerom",
+			"province": "Papua",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "",
+			"iata_code": "AYW",
+			"airport_name": "Ayawasi",
+			"City": "Ayawasi, Maybrat",
+			"province": "Papua",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WASO",
+			"iata_code": "BXB",
+			"airport_name": "Babo",
+			"City": "Babo, Teluk Bintuni",
+			"province": "Papua",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAKE",
+			"iata_code": "BXD",
+			"airport_name": "Bade",
+			"City": "Bade, Merauke",
+			"province": "Papua",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "",
+			"iata_code": "BXM",
+			"airport_name": "Batom",
+			"City": "Batom, Jayawijaya",
+			"province": "Papua",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WRBC",
+			"iata_code": "BTW",
+			"airport_name": "Batulicin",
+			"City": "Batulicin, Kalimantan Selatan",
+			"province": "",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WALK",
+			"iata_code": "BEJ",
+			"airport_name": "Berau (Kalimaru)",
+			"City": "Tanjung Redeb, Berau",
+			"province": "Kalimantan Timur",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAAB",
+			"iata_code": "BUW",
+			"airport_name": "Betoambari",
+			"City": "Bau Bau, Pulau Buton",
+			"province": "Sulawesi Tenggara",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WIMB",
+			"iata_code": "GNS",
+			"airport_name": "Binaka",
+			"City": "Gunungsitoli",
+			"province": "Sumatera Utara",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAJB",
+			"iata_code": "BUI",
+			"airport_name": "Bokondini",
+			"City": "Bokondini, Tolikara",
+			"province": "Papua",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "",
+			"iata_code": "BJG",
+			"airport_name": "Bolaang",
+			"City": "Bolaang Mogondow",
+			"province": "Sulawesi Utara",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WRLC",
+			"iata_code": "BXT",
+			"airport_name": "Bontang",
+			"City": "Bontang",
+			"province": "Kalimantan Timur",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAMW",
+			"iata_code": "LUW",
+			"airport_name": "Bubung",
+			"City": "Luwuk",
+			"province": "Sulawesi Tengah",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WIKD",
+			"iata_code": "TJQ",
+			"airport_name": "Bulutumbang",
+			"City": "Tanjung Pandan",
+			"province": "Kepulauan Bangka Belitung",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WRLV",
+			"iata_code": "BYQ",
+			"airport_name": "Bunyu",
+			"City": "Pulau Bunyu",
+			"province": "Kalimantan Timur",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WIAM",
+			"iata_code": "TSY",
+			"airport_name": "Cibeureum",
+			"City": "Tasikmalaya",
+			"province": "Jawa Barat",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WIIC",
+			"iata_code": "CBN",
+			"airport_name": "Cirebon",
+			"City": "Cirebon",
+			"province": "Jawa Barat",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WITC",
+			"iata_code": "MEQ",
+			"airport_name": "Cut Nyak Dien",
+			"City": "Meulaboh",
+			"province": "Aceh",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WIKS",
+			"iata_code": "SIQ",
+			"airport_name": "Dabo",
+			"City": "Singkep",
+			"province": "Riau",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAPD",
+			"iata_code": "DOB",
+			"airport_name": "Dobo",
+			"City": "Dobo, Kepulauan Aru",
+			"province": "Maluku",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAPL",
+			"iata_code": "LUV",
+			"airport_name": "Dumatubin",
+			"City": "Langgur, Tual",
+			"province": "Maluku Tenggara",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WRKK",
+			"iata_code": "KOE",
+			"airport_name": "El Tari",
+			"City": "Kupang",
+			"province": "Nusa Tenggara Timur",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WABT",
+			"iata_code": "EWI",
+			"airport_name": "Enarotali",
+			"City": "Enarotali, Paniai",
+			"province": "Papua",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WABB",
+			"iata_code": "BIK",
+			"airport_name": "Frans Kaisiepo",
+			"City": "Biak",
+			"province": "Papua",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAMA",
+			"iata_code": "GLX",
+			"airport_name": "Gamarmalamo",
+			"City": "Galela",
+			"province": "Halmahera Utara",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WRKL",
+			"iata_code": "LKA",
+			"airport_name": "Gewayentana",
+			"City": "Larantuka",
+			"province": "Flores Timur",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WIAG",
+			"iata_code": "AKQ",
+			"airport_name": "Gunung Batin",
+			"City": "Astraksetra, Tulang Bawang",
+			"province": "Lampung",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WIHH",
+			"iata_code": "HLP",
+			"airport_name": "Halim Perdanakusuma",
+			"City": "Jakarta",
+			"province": "",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WRKA",
+			"iata_code": "ABU",
+			"airport_name": "Haliwen",
+			"City": "Atambua",
+			"province": "Nusa Tenggara Timur",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WIDD",
+			"iata_code": "BTH",
+			"airport_name": "Hang Nadim",
+			"City": "Batam",
+			"province": "Riau",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WRBS",
+			"iata_code": "SMQ",
+			"airport_name": "Haji Asan",
+			"City": "Sampit",
+			"province": "Kalimantan Tengah",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAAA",
+			"iata_code": "UPG",
+			"airport_name": "Hasanuddin",
+			"City": "Makassar",
+			"province": "Sulawesi Selatan",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WICC",
+			"iata_code": "BDO",
+			"airport_name": "Husein Sastranegara",
+			"City": "Bandung",
+			"province": "Jawa Barat",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WABL",
+			"iata_code": "ILA",
+			"airport_name": "Ilaga",
+			"City": "Ilaga",
+			"province": "Papua",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WASI",
+			"iata_code": "INX",
+			"airport_name": "Inanwatan",
+			"City": "Inanwatan, Sorong Selatan",
+			"province": "Papua",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WRKE",
+			"iata_code": "ENE",
+			"airport_name": "Ipi",
+			"City": "Ende",
+			"province": "Nusa Tenggara Timur",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WRBI",
+			"iata_code": "PKN",
+			"airport_name": "Iskandar Muda",
+			"City": "Pangkalan Bun",
+			"province": "Aceh",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WIIX",
+			"iata_code": "JKT",
+			"airport_name": "Jakarta (city)",
+			"City": "Jakarta",
+			"province": "",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WIPR",
+			"iata_code": "RGT",
+			"airport_name": "Japura",
+			"City": "Rengat",
+			"province": "Riau",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WASS",
+			"iata_code": "SOQ",
+			"airport_name": "Jefman",
+			"City": "Sorong",
+			"province": "Papua",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WABF",
+			"iata_code": "FOO",
+			"airport_name": "Jembruwo",
+			"City": "Numfor, Biak",
+			"province": "Papua",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WRSJ",
+			"iata_code": "SUB",
+			"airport_name": "Juanda",
+			"City": "Surabaya",
+			"province": "Jawa Timur",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WRLB",
+			"iata_code": "LBW",
+			"airport_name": "Juvai Semaring",
+			"City": "Long Bawan",
+			"province": "Kalimantan Timur",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WRLR",
+			"iata_code": "TRK",
+			"airport_name": "Juwata",
+			"City": "Tarakan",
+			"province": "Kalimantan Timur",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WASK",
+			"iata_code": "KNG",
+			"airport_name": "Kaimana",
+			"City": "Kaimana",
+			"province": "Papua",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAMP",
+			"iata_code": "PSJ",
+			"airport_name": "Kasiguncu",
+			"City": "Poso",
+			"province": "Sulawesi Tengah",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WASE",
+			"iata_code": "KEQ",
+			"airport_name": "Kebar",
+			"City": "Kebar, Manokwari",
+			"province": "Papua",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WIPV",
+			"iata_code": "KLQ",
+			"airport_name": "Keluang",
+			"City": "Keluang",
+			"province": "Sumatera Selatan",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAKP",
+			"iata_code": "KEI",
+			"airport_name": "Kepi",
+			"City": "Kepi, Merauke",
+			"province": "Papua",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WIKN",
+			"iata_code": "TNJ",
+			"airport_name": "Kijang",
+			"City": "Tanjung Pinang",
+			"province": "Kepulauan Riau",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WRKO",
+			"iata_code": "LBJ",
+			"airport_name": "Komodo",
+			"City": "Labuhan Bajo",
+			"province": "Flores",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAMI",
+			"iata_code": "TLI",
+			"airport_name": "Lalos",
+			"City": "Toli Toli",
+			"province": "Sulawesi Tengah",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAJL",
+			"iata_code": "LHI",
+			"airport_name": "Lereh",
+			"City": "Lereh, Jayapura",
+			"province": "Papua",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WITL",
+			"iata_code": "LSX",
+			"airport_name": "Lhok Sukon",
+			"City": "Lhok Sukon (Lhoksukon)",
+			"province": "Aceh",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WRLP",
+			"iata_code": "LPU",
+			"airport_name": "Long Apung",
+			"City": "Long Apung, Malinau",
+			"province": "Kalimantan Timur",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WIAA",
+			"iata_code": "SBG",
+			"airport_name": "Maimun Saleh",
+			"City": "Sabang",
+			"province": "Aceh",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAPE",
+			"iata_code": "MAL",
+			"airport_name": "Mangole",
+			"City": "Mangole",
+			"province": "Maluku Utara",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAMN",
+			"iata_code": "MNA",
+			"airport_name": "Melangguane",
+			"City": "Melangguane, Talaut",
+			"province": "Sulawesi Utara",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WASM",
+			"iata_code": "RDE",
+			"airport_name": "Merdei",
+			"City": "Merdei, Teluk Bintuni",
+			"province": "Papua",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WIPT",
+			"iata_code": "PDG",
+			"airport_name": "Minangkabau",
+			"City": "Ketaping / Padang",
+			"province": "Sumatera Barat",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAKD",
+			"iata_code": "MDP",
+			"airport_name": "Mindiptana",
+			"City": "Mindiptana, Boven Digoel",
+			"province": "Papua",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WABD",
+			"iata_code": "ONI",
+			"airport_name": "Moanamani",
+			"City": "Moanamani, Dogiyal",
+			"province": "Papua",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAKK",
+			"iata_code": "MKQ",
+			"airport_name": "Mopah",
+			"City": "Merauke",
+			"province": "Papua",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WRRB",
+			"iata_code": "BMU",
+			"airport_name": "Muhammad Salahuddin",
+			"City": "Bima, Sumbawa",
+			"province": "Nusa Tenggara Barat",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WIPU",
+			"iata_code": "MPC",
+			"airport_name": "Muko Muko",
+			"City": "Bengkulu",
+			"province": "",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAJM",
+			"iata_code": "LII",
+			"airport_name": "Mulia",
+			"City": "Mulia",
+			"province": "Papua",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAML",
+			"iata_code": "PLW",
+			"airport_name": "Mutiara",
+			"City": "Palu",
+			"province": "Sulawesi Tengah",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WABI",
+			"iata_code": "NBX",
+			"airport_name": "Nabire",
+			"City": "Nabire",
+			"province": "Papua",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAMH",
+			"iata_code": "NAH",
+			"airport_name": "Naha",
+			"City": "Naha, Sangihe",
+			"province": "Sulawesi Utara",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAPR",
+			"iata_code": "NAM",
+			"airport_name": "Namlea",
+			"City": "Namlea, Buru",
+			"province": "Maluku",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WIOG",
+			"iata_code": "NPO",
+			"airport_name": "Nangapinoh",
+			"City": "Melawi",
+			"province": "Kalimantan Barat",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAPK",
+			"iata_code": "BJK",
+			"airport_name": "Nangasuri",
+			"City": "Benjina",
+			"province": "Maluku Tenggara",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WRSC",
+			"iata_code": "CPF",
+			"airport_name": "Ngloram",
+			"City": "Cepu",
+			"province": "Jawa Tengah",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WADD",
+			"iata_code": "DPS",
+			"airport_name": "Ngurah Rai",
+			"City": "Denpasar",
+			"province": "Bali",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WRLF",
+			"iata_code": "NNX",
+			"airport_name": "Nunukan",
+			"City": "Nunukan",
+			"province": "Kalimantan Timur",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAKO",
+			"iata_code": "OKQ",
+			"airport_name": "Okaba",
+			"City": "Okaba, Merauke",
+			"province": "Papua",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAJO",
+			"iata_code": "OKL",
+			"airport_name": "Oksibil",
+			"City": "Oksibil",
+			"province": "Pegunungan Bintang Papua",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WIPA",
+			"iata_code": "DJB",
+			"airport_name": "Paalmerah",
+			"City": "Jambi",
+			"province": "",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WIPL",
+			"iata_code": "BKS",
+			"airport_name": "Padangkemiling (Fatmawati Soekarno)",
+			"City": "Bengkulu",
+			"province": "",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WRKB",
+			"iata_code": "BJW",
+			"airport_name": "Padhameleda",
+			"City": "Bajawa",
+			"province": "Nusa Tenggara Timur",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WIKK",
+			"iata_code": "PGK",
+			"airport_name": "Pangkalpinang",
+			"City": "Pangkal Pinang",
+			"province": "Bangka-Belitung",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WIOP",
+			"iata_code": "PSU",
+			"airport_name": "Pangsuma",
+			"City": "Putusibau",
+			"province": "Kalimantan Barat",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAPP",
+			"iata_code": "AMQ",
+			"airport_name": "Pattimura",
+			"City": "Ambon",
+			"province": "Maluku",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WIPQ",
+			"iata_code": "PDO",
+			"airport_name": "Pendopo",
+			"City": "Pendopo",
+			"province": "Sumatera Selatan",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WIBD",
+			"iata_code": "DUM",
+			"airport_name": "Pinang Kampai",
+			"City": "Dumai",
+			"province": "Riau",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAMR",
+			"iata_code": "OTI",
+			"airport_name": "Pitu",
+			"City": "Morotai",
+			"province": "Maluku",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WIMM",
+			"iata_code": "MES",
+			"airport_name": "Polonia",
+			"City": "Medan",
+			"province": "Sumatera Utara",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WIIP",
+			"iata_code": "PCB",
+			"airport_name": "Pondok Cabe",
+			"City": "Jakarta",
+			"province": "",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WQKN",
+			"iata_code": "",
+			"airport_name": "Primapun",
+			"City": "Primapun",
+			"province": "",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WIAT",
+			"iata_code": "TKG",
+			"airport_name": "Radin Inten II (Branti)",
+			"City": "Bandar Lampung",
+			"province": "Lampung",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WIOK",
+			"iata_code": "KTG",
+			"airport_name": "Rahadi Usman",
+			"City": "Ketapang",
+			"province": "Kalimantan Barat",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WION",
+			"iata_code": "NTX",
+			"airport_name": "Ranai",
+			"City": "Natuna",
+			"province": "Kepulauan Riau",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WASR",
+			"iata_code": "MKW",
+			"airport_name": "Rendani",
+			"City": "Manokwari",
+			"province": "Papua",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WIBR",
+			"iata_code": "RKO",
+			"airport_name": "Rokot",
+			"City": "Sipora",
+			"province": "Sumatera Barat",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAMM",
+			"iata_code": "MDC",
+			"airport_name": "Sam Ratulangi",
+			"City": "Manado",
+			"province": "Sulawesi Utara",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAPN",
+			"iata_code": "SQN",
+			"airport_name": "Sanana",
+			"City": "Sanana",
+			"province": "Maluku Utara",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "",
+			"iata_code": "SAE",
+			"airport_name": "Sangir",
+			"City": "Sangir",
+			"province": "Sulawesi Utara",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WRLT",
+			"iata_code": "TSX",
+			"airport_name": "Santan",
+			"City": "Tanjung Santan",
+			"province": "Kalimantan Timur",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WRKG",
+			"iata_code": "RTG",
+			"airport_name": "Satartacik",
+			"City": "Ruteng",
+			"province": "Nusa Tenggara Timur",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAPI",
+			"iata_code": "SXK",
+			"airport_name": "Saumlaki",
+			"City": "Saumlaki",
+			"province": "Maluku",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WRRA",
+			"iata_code": "AMI",
+			"airport_name": "Selaparang",
+			"City": "Mataram",
+			"province": "Nusa Tenggara Barat",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAJS",
+			"iata_code": "SEH",
+			"airport_name": "Senggeh",
+			"City": "Senggeh",
+			"province": "Papua",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAJJ",
+			"iata_code": "DJJ",
+			"airport_name": "Sentani",
+			"City": "Jayapura",
+			"province": "Papua",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WALL",
+			"iata_code": "BPN",
+			"airport_name": "Sepinggan",
+			"City": "Balikpapan",
+			"province": "Kalimantan Timur",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WRBK",
+			"iata_code": "KBU",
+			"airport_name": "Setagen",
+			"City": "Kotabaru",
+			"province": "Kalimantan Selatan",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WIKL",
+			"iata_code": "LLG",
+			"airport_name": "Silampari",
+			"City": "Lubuk Linggau, Musi Rawas",
+			"province": "Sumatera Selatan",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WIMN",
+			"iata_code": "SQT",
+			"airport_name": "Silangit",
+			"City": "Siborong-borong",
+			"province": "Sumatera Utara",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WIII",
+			"iata_code": "CGK",
+			"airport_name": "Soekarno-Hatta",
+			"City": "Cengkareng",
+			"province": "Banten",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAAS",
+			"iata_code": "SQR",
+			"airport_name": "Soroako",
+			"City": "Soroako",
+			"province": "Sulawesi Selatan",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAMT",
+			"iata_code": "TTE",
+			"airport_name": "Sultan Babullah",
+			"City": "Ternate",
+			"province": "Maluku",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WITT",
+			"iata_code": "BTJ",
+			"airport_name": "Sultan Iskandarmuda (Blang Bintang)",
+			"City": "Banda Aceh",
+			"province": "Aceh",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WIPP",
+			"iata_code": "PLM",
+			"airport_name": "Sultan Mahmud Badaruddin II",
+			"City": "Palembang",
+			"province": "Sumatera Selatan",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WIBB",
+			"iata_code": "PKU",
+			"airport_name": "Sultan Syarif Kasim II (Simpang Tiga)",
+			"City": "Pekanbaru",
+			"province": "Riau",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WRRS",
+			"iata_code": "SWQ",
+			"airport_name": "Sumbawa Besar",
+			"City": "Sumbawa",
+			"province": "Nusa Tenggara Barat",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WIBT",
+			"iata_code": "TJB",
+			"airport_name": "Sunjai Bati",
+			"City": "Tanjung Balai",
+			"province": "Sumatera Utara",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WIOO",
+			"iata_code": "PNK",
+			"airport_name": "Supadio",
+			"City": "Pontianak",
+			"province": "Kalimantan Barat",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WIOS",
+			"iata_code": "SQG",
+			"airport_name": "Susilo",
+			"City": "Sintang",
+			"province": "Kalimantan Barat",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WRBB",
+			"iata_code": "BDJ",
+			"airport_name": "Syamsudin Noor",
+			"City": "Banjarmasin",
+			"province": "Kalimantan Selatan",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAPT",
+			"iata_code": "TAX",
+			"airport_name": "Taliabu",
+			"City": "Taliabu",
+			"province": "Maluku Utara",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WRRT",
+			"iata_code": "TMC",
+			"airport_name": "Tambolaka",
+			"City": "Waikabubak",
+			"province": "Nusa Tenggara Timur",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAAJ",
+			"iata_code": "MJU",
+			"airport_name": "Tampa Padang",
+			"City": "Mamuju",
+			"province": "Sulawesi Barat",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WRLH",
+			"iata_code": "TNB",
+			"airport_name": "Tanah Grogot",
+			"City": "Tanah Grogot",
+			"province": "Kalimantan Timur",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAKT",
+			"iata_code": "TMH",
+			"airport_name": "Tanah Merah",
+			"City": "Tanah Merah, Boven Digoel",
+			"province": "Papua",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAST",
+			"iata_code": "TXM",
+			"airport_name": "Teminabuan",
+			"City": "Teminabuan, Sorong",
+			"province": "Papua",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WRLS",
+			"iata_code": "SRI",
+			"airport_name": "Temindung",
+			"City": "Samarinda",
+			"province": "Kalimantan Timur",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WITA",
+			"iata_code": "TPK",
+			"airport_name": "Teuku Cut Ali",
+			"City": "Tapak Tuan",
+			"province": "Aceh",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WABP",
+			"iata_code": "TIM",
+			"airport_name": "Timika",
+			"City": "Tembagapura",
+			"province": "Papua",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WRBP",
+			"iata_code": "PKY",
+			"airport_name": "Tjilik Riwut (Panarung)",
+			"City": "Palangkaraya",
+			"province": "Kalimantan Tengah",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WASF",
+			"iata_code": "FKQ",
+			"airport_name": "Torea",
+			"City": "Fak Fak",
+			"province": "Papua",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WRST",
+			"iata_code": "SUP",
+			"airport_name": "Trunojoyo",
+			"City": "Sumenep",
+			"province": "Madura",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WIHL",
+			"iata_code": "CXP",
+			"airport_name": "Tunggul Wulung",
+			"City": "Cilacap",
+			"province": "Jawa Tengah",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WABG",
+			"iata_code": "WET",
+			"airport_name": "Wagethe",
+			"City": "Wagethe",
+			"province": "Papua",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WRKC",
+			"iata_code": "MOF",
+			"airport_name": "Wai Oti",
+			"City": "Maumere",
+			"province": "Nusa Tenggara Timur",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WRRW",
+			"iata_code": "WGP",
+			"airport_name": "Waingapu",
+			"City": "Waingapu",
+			"province": "Nusa Tenggara Timur",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAJW",
+			"iata_code": "WMX",
+			"airport_name": "Wamena",
+			"City": "Wamena",
+			"province": "Papua",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAJR",
+			"iata_code": "WAR",
+			"airport_name": "Waris",
+			"City": "Waris",
+			"province": "Papua",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WRBN",
+			"iata_code": "TJS",
+			"airport_name": "Warukin",
+			"City": "Tanjung Selor",
+			"province": "Kalimantan Timur",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WASW",
+			"iata_code": "WSR",
+			"airport_name": "Wasior",
+			"City": "Wasior, Teluk Wondama",
+			"province": "Papua",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"icao_code": "WAAU",
+			"iata_code": "KDI",
+			"airport_name": "Wolter Monginsidi",
+			"City": "Kendari",
+			"province": "Sulawesi Tenggara",
+			"created_at": null,
+			"updated_at": null
+		}
+	]

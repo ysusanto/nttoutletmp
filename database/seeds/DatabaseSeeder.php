@@ -38,6 +38,15 @@ class DatabaseSeeder extends BaseSeeder
         $this->call('CancellationReasonSeeder');
         // $this->call('OptionTableSeeder');
         // $this->call('demoSeeder');
+        //midtrans and ro 
+        $this->call('CityAirportSeeder');
+        $this->call('CityRoSeeder');
+         $this->call('CourierRoSeeder');
+         $this->call('ListBankMidtrans');
+         $this->call('ProvinceRoSeeder');
+         $this->call('SubdistrictRoSeeder');
+
+
         $this->command->info('Seeding complete!');
 
         Model::reguard();

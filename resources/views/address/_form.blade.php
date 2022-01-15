@@ -18,56 +18,6 @@
     </div>
     <br/>
 @endif
-
-<div class="row">
-  <div class="col-md-6 nopadding-right">
-    <div class="form-group">
-      {!! Form::label('address_line_1', trans('app.form.address_line_1')) !!}
-      {!! Form::text('address_line_1', null, ['class' => 'form-control', 'placeholder' => trans('app.placeholder.address_line_1')]) !!}
-    </div>
-  </div>
-  <div class="col-md-6 nopadding-left">
-    <div class="form-group">
-      {!! Form::label('address_line_2', trans('app.form.address_line_2')) !!}
-      {!! Form::text('address_line_2', null, ['class' => 'form-control', 'placeholder' => trans('app.placeholder.address_line_2')]) !!}
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-6 nopadding-right">
-    <div class="form-group">
-      {!! Form::label('subdistrict_1', trans('app.form.subdistrict_1')) !!}
-      {!! Form::text('subdistrict_1', null, ['class' => 'form-control', 'placeholder' => trans('app.placeholder.subdistrict_1')]) !!}
-    </div>
-  </div>
-  <div class="col-md-6 nopadding-left">
-    <div class="form-group">
-      {!! Form::label('subdistrict_2', trans('app.form.subdistrict_2')) !!}
-      {!! Form::text('subdistrict_2', null, ['class' => 'form-control', 'placeholder' => trans('app.placeholder.subdistrict_2')]) !!}
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-4 nopadding-right">
-    <div class="form-group">
-      {!! Form::label('city', trans('app.form.city')) !!}
-      {!! Form::text('city', null, ['class' => 'form-control', 'placeholder' => trans('app.placeholder.city')]) !!}
-    </div>
-  </div>
-  <div class="col-md-4 sm-padding">
-    <div class="form-group">
-      {!! Form::label('zip_code', trans('app.form.zip_code')) !!}
-      {!! Form::text('zip_code', null, ['class' => 'form-control', 'placeholder' => trans('app.placeholder.zip_code')]) !!}
-    </div>
-  </div>
-  <div class="col-md-4 nopadding-left">
-    <div class="form-group">
-      {!! Form::label('phone', trans('app.form.phone')) !!}
-      {!! Form::text('phone', null, ['class' => 'form-control', 'placeholder' => trans('app.placeholder.phone_number')]) !!}
-    </div>
-  </div>
-</div>
-
 <div class="row">
   <div class="col-md-6 nopadding-right">
     <div class="form-group">
@@ -82,3 +32,51 @@
     </div>
   </div>
 </div>
+<div class="row">
+  <div class="col-md-6 nopadding-right">
+    <div class="form-group">
+      {!! Form::label('city', trans('app.form.city')) !!}
+      {!! Form::select('city', isset($city) ? $city : [], isset($cart) ? $cart->city : config('system_settings.address_default_state'), ['id' => 'city', 'class' => 'form-control flat', 'placeholder' => trans('theme.placeholder.city') . '*', empty($city) ? '' : 'required']) !!}
+    </div>
+  </div>
+  <div class="col-md-6 nopadding-left">
+  <div class="form-group">
+  {!! Form::label('subdistrict_2', trans('app.form.subdistrict_2')) !!}
+    {!! Form::select('subdistrict_2', isset($subdistrict_2) ? $subdistrict_2 : [], isset($cart) ? $cart->subdistrict_2 : config('system_settings.address_default_state'), ['id' => 'subdistrict_2', 'class' => 'form-control', 'placeholder' => trans('theme.placeholder.subdistrict_1') . '*', empty($subdistrict_2) ? '' : 'required']) !!}
+    
+      <div class="help-block with-errors"></div>
+    </div>
+  </div>
+ 
+</div>
+<div class="row">
+  <div class="col-md-6 nopadding-right">
+    <div class="form-group">
+      {!! Form::label('address_line_1', trans('app.form.address_line_1')) !!}
+      {!! Form::text('address_line_1', null, ['class' => 'form-control', 'placeholder' => trans('app.placeholder.address_line_1')]) !!}
+    </div>
+  </div>
+  <div class="col-md-6 nopadding-left">
+    <div class="form-group">
+      {!! Form::label('address_line_2', trans('app.form.address_line_2')) !!}
+      {!! Form::text('address_line_2', null, ['class' => 'form-control', 'placeholder' => trans('app.placeholder.address_line_2')]) !!}
+    </div>
+  </div>
+</div>
+
+<div class="row">
+ 
+  <div class="col-md-6 nopadding-right">
+    <div class="form-group">
+      {!! Form::label('zip_code', trans('app.form.zip_code')) !!}
+      {!! Form::text('zip_code', null, ['class' => 'form-control', 'placeholder' => trans('app.placeholder.zip_code')]) !!}
+    </div>
+  </div>
+  <div class="col-md-6 nopadding-left">
+    <div class="form-group">
+      {!! Form::label('phone', trans('app.form.phone')) !!}
+      {!! Form::text('phone', null, ['class' => 'form-control', 'placeholder' => trans('app.placeholder.phone_number')]) !!}
+    </div>
+  </div>
+</div>
+

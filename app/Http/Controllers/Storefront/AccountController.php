@@ -256,11 +256,19 @@ class AccountController extends Controller
      */
     public function address_edit(Request $request, Address $address)
     {
+        // dd($address);die();
         $countries = ListHelper::countries(); // Country list for ship_to dropdown
         $states = $address->state_id ? ListHelper::states($address->country_id) : [];
         $address_types = ListHelper::address_types();
-
-        return view('theme::modals._edit_address', compact('address', 'countries', 'states', 'address_types'))->render();
+        $statesro =\DB::table('states')->where('id', $address->state_id)->orderBy('name', 'asc')->first(); 
+            
+        $provincero =\DB::table('provinces')->where('province_eng',  $statesro->name)->first(); 
+      
+        $city=\DB::table('city_ros')->where('id_province_ro',$provincero->province_id_ro)->orderBy('city', 'asc')->pluck("city","city");
+        $checkciti=\DB::table('city_ros')->where('city',$address->city)->orderBy('city', 'asc')->first();
+        $subdistrict=\DB::table('subdistrict_ros')->where('id_city_ro',$checkciti->id_city_ro)->orderBy('subdistrict', 'asc')->pluck("subdistrict","subdistrict");
+        // dd($city);die();
+        return view('theme::modals._edit_address', compact('address', 'countries', 'states', 'address_types','city'))->render();
     }
 
     /**

@@ -104,6 +104,8 @@ class ShippingCourierController extends Controller
                 $courierRo->code=strtolower($request->servicetype);
                 $courierRo->is_active=$request->status;
                 $courierRo->created_at=date('Y-m-d H:i:s');
+                $courierRo->parent_code=strtolower( $courierRoparent->code);
+
                 $courierRo->save();
             }
             return back()->with('success', trans('messages.created', ['model' => $this->model]));

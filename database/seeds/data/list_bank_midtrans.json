@@ -1,0 +1,914 @@
+	[
+		{
+			"code": "aceh",
+			"name": "PT. BANK ACEH",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "aceh_syar",
+			"name": "PT. BPD ISTIMEWA ACEH SYARIAH",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "agris",
+			"name": "PT. BANK AGRIS",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "agroniaga",
+			"name": "PT. BANK RAKYAT INDONESIA AGRONIAGA TBK.",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "amar",
+			"name": "PT. BANK AMAR INDONESIA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "andara",
+			"name": "PT. BANK ANDARA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "anglomas",
+			"name": "PT. ANGLOMAS INTERNATIONAL BANK",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "antar_daerah",
+			"name": "PT. BANK ANTAR DAERAH",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "anz",
+			"name": "PT. BANK ANZ INDONESIA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "artajasa",
+			"name": "PT. ARTAJASA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "artha",
+			"name": "PT. BANK ARTHA GRAHA INTERNASIONAL TBK.",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "bali",
+			"name": "PT. BANK PEMBANGUNAN DAERAH BALI",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "bangkok",
+			"name": "BANGKOK BANK PUBLIC CO.LTD",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "banten",
+			"name": "PT. BANK BANTEN",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "barclays",
+			"name": "PT BANK BARCLAYS INDONESIA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "bca",
+			"name": "PT. BANK CENTRAL ASIA TBK.",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "bcad",
+			"name": "PT. BANK DIGITAL BCA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "bca_syar",
+			"name": "PT. BANK BCA SYARIAH",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "bengkulu",
+			"name": "PT. BPD BENGKULU",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "bisnis",
+			"name": "PT. BANK BISNIS INTERNASIONAL",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "bjb",
+			"name": "PT. BANK PEMBANGUNAN DAERAH JABAR DAN BANTEN",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "bjb_syar",
+			"name": "PT. BANK JABAR BANTEN SYARIAH",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "bni",
+			"name": "PT. BANK NEGARA INDONESIA (PERSERO)",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "bni_syar",
+			"name": "PT. BANK SYARIAH INDONESIA TBK. - BNIS",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "bnp",
+			"name": "PT. BANK NUSANTARA PARAHYANGAN",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "bnp_paribas",
+			"name": "PT. BANK BNP PARIBAS INDONESIA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "boa",
+			"name": "BANK OF AMERICA NA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "bri",
+			"name": "PT. BANK RAKYAT INDONESIA (PERSERO)",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "bri_syar",
+			"name": "PT. BANK SYARIAH INDONESIA TBK. - BRIS",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "bsi",
+			"name": "PT. BANK SYARIAH INDONESIA TBK.",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "btn",
+			"name": "PT. BANK TABUNGAN NEGARA (PERSERO)",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "btn_syar",
+			"name": "PT. BANK TABUNGAN NEGARA (PERSERO) UNIT USAHA SYARIAH",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "btpn",
+			"name": "PT. BANK BTPN",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "btpn_syar",
+			"name": "PT. BANK TABUNGAN PENSIUNAN NASIONAL SYARIAH",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "bukopin",
+			"name": "PT BANK KB BUKOPIN TBK.",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "bukopin_syar",
+			"name": "PT. BANK SYARIAH BUKOPIN",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "bumiputera",
+			"name": "PT. BANK BUMIPUTERA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "bumi_artha",
+			"name": "PT. BANK BUMI ARTA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "capital",
+			"name": "PT BANK CAPITAL INDONESIA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "centratama",
+			"name": "PT. CENTRATAMA NASIONAL BANK",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "chase",
+			"name": "JP MORGAN CHASE BANK, N.A",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "china",
+			"name": "BANK OF CHINA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "china_cons",
+			"name": "CHINA CONSTRUCTION",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "chinatrust",
+			"name": "PT. BANK CTBC INDONESIA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "cimb",
+			"name": "PT. BANK CIMB NIAGA TBK.",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "cimb_syar",
+			"name": "PT. BANK CIMB NIAGA TBK. - UNIT USAHA SYARIAH",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "cimb_rekening_ponsel",
+			"name": "PT. BANK CIMB NIAGA TBK. - REKENING PONSEL",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "citibank",
+			"name": "CITIBANK, NA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "commonwealth",
+			"name": "PT. BANK COMMONWEALTH",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "danamon",
+			"name": "PT. BANK DANAMON INDONESIA TBK.",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "danamon_syar",
+			"name": "PT. BANK DANAMON INDONESIA UNIT USAHA SYARIAH",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "dbs",
+			"name": "PT. BANK DBS INDONESIA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "deutsche",
+			"name": "DEUTSCHE BANK AG.",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "dipo",
+			"name": "PT. BANK DIPO INTERNATIONAL",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "diy",
+			"name": "PT. BANK PEMBANGUNAN DAERAH DIY",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "diy_syar",
+			"name": "PT.BANK PEMBANGUNAN DAERAH DIY UNIT USAHA SYARIAH",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "dki",
+			"name": "PT. BANK DKI",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "dki_syar",
+			"name": "PT. BANK DKI UNIT USAHA SYARIAH",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "ekonomi",
+			"name": "PT. BANK EKONOMI RAHARJA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "fama",
+			"name": "PT. BANK FAMA INTERNATIONAL",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "ganesha",
+			"name": "PT. BANK GANESHA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "gopay",
+			"name": "GO-PAY",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "hana",
+			"name": "PT. BANK KEB HANA INDONESIA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "harda",
+			"name": "PT. BANK HARDA INTERNATIONAL",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "hs_1906",
+			"name": "PT. BANK HS 1906",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "hsbc",
+			"name": "PT. BANK HSBC INDONESIA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "icbc",
+			"name": "PT. BANK ICBC INDONESIA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "ina_perdana",
+			"name": "PT. BANK INA PERDANA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "index_selindo",
+			"name": "BANK INDEX SELINDO",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "india",
+			"name": "PT. BANK OF INDIA INDONESIA TBK.",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "jago",
+			"name": "PT. BANK JAGO TBK.",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "jambi",
+			"name": "PT.BANK PEMBANGUNAN DAERAH JAMBI",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "jasa_jakarta",
+			"name": "PT. BANK JASA JAKARTA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "jateng",
+			"name": "PT. BANK PEMBANGUNAN DAERAH JAWA TENGAH",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "jateng_syar",
+			"name": "PT. BANK PEMBANGUNAN DAERAH JAWA TENGAH",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "jatim",
+			"name": "PT. BANK PEMBANGUNAN DAERAH JATIM",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "jatim_syar",
+			"name": "PT.BANK PEMBANGUNAN DAERAH JATIM - UNIT USAHA SYARIAH",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "jtrust",
+			"name": "PT. BANK JTRUST INDONESIA TBK.",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "kalbar",
+			"name": "PT.BANK PEMBANGUNAN DAERAH KALBAR",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "kalbar_syar",
+			"name": "PT.BANK PEMBANGUNAN DAERAH KALBAR UUS",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "kalsel",
+			"name": "PT. BANK PEMBANGUNAN DAERAH KALSEL",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "kalsel_syar",
+			"name": "PT. BANK PEMBANGUNAN DAERAH KALSEL - UNIT USAHA SYARIAH",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "kalteng",
+			"name": "PT. BPD KALIMANTAN TENGAH",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "kaltim",
+			"name": "PT.BANK PEMBANGUNAN DAERAH KALTIM",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "kaltim_syar",
+			"name": "PT.BANK PEMBANGUNAN DAERAH KALTIM - UNIT USAHA SYARIAH",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "lampung",
+			"name": "PT.BANK PEMBANGUNAN DAERAH LAMPUNG",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "maluku",
+			"name": "PT.BANK PEMBANGUNAN DAERAH MALUKU",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "mandiri",
+			"name": "PT. BANK MANDIRI (PERSERO) TBK.",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "mandiri_taspen",
+			"name": "PT. BANK MANDIRI TASPEN POS",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "maspion",
+			"name": "PT. BANK MASPION",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "mayapada",
+			"name": "PT. BANK MAYAPADA TBK.",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "maybank",
+			"name": "PT. BANK MAYBANK INDONESIA TBK.",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "maybank_syar",
+			"name": "PT. BANK MAYBANK SYARIAH INDONESIA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "maybank_uus",
+			"name": "PT. BANK MAYBANK INDONESIA TBK. UNIT USAHA SYARIAH",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "mayora",
+			"name": "PT. BANK MAYORA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "mega_syar",
+			"name": "PT. BANK MEGA SYARIAH",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "mega_tbk",
+			"name": "PT. BANK MEGA TBK.",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "mestika",
+			"name": "PT. BANK MESTIKA DHARMA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "metro",
+			"name": "PT. BANK METRO EXPRESS",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "mitraniaga",
+			"name": "PT. BANK MITRANIAGA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "mitsubishi",
+			"name": "THE BANK OF TOKYO MITSUBISHI UFJ LTD.",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "mizuho",
+			"name": "PT. BANK MIZUHO INDONESIA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "mnc",
+			"name": "PT. BANK MNC INTERNASIONAL TBK.",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "muamalat",
+			"name": "PT. BANK MUAMALAT INDONESIA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "multiarta",
+			"name": "PT. BANK MULTI ARTA SENTOSA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "mutiara",
+			"name": "PT. BANK MUTIARA TBK.",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "niaga_syar",
+			"name": "PT. BANK NIAGA TBK. SYARIAH",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "nagari",
+			"name": "PT. BANK NAGARI",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "nobu",
+			"name": "PT. BANK NATIONALNOBU",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "ntb",
+			"name": "PT. BANK PEMBANGUNAN DAERAH NTB",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "ntt",
+			"name": "PT.BANK PEMBANGUNAN DAERAH NTT",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "ocbc",
+			"name": "PT. BANK OCBC NISP TBK.",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "ocbc_syar",
+			"name": "PT. BANK OCBC NISP TBK. - UNIT USAHA SYARIAH",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "ok",
+			"name": "PT. BANK OKE INDONESIA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "ovo",
+			"name": "OVO",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "panin",
+			"name": "PT. PANIN BANK TBK.",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "panin_syar",
+			"name": "PT. BANK PANIN SYARIAH",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "papua",
+			"name": "PT.BANK PEMBANGUNAN DAERAH PAPUA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "permata",
+			"name": "PT. BANK PERMATA TBK.",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "permata_syar",
+			"name": "PT. BANK PERMATA TBK. UNIT USAHA SYARIAH",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "prima_master",
+			"name": "PT. PRIMA MASTER BANK",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "pundi",
+			"name": "PT. BANK PUNDI INDONESIA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "purba",
+			"name": "PT. BANK PURBA DANARTA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "qnb",
+			"name": "PT. BANK QNB INDONESIA TBK.",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "rabobank",
+			"name": "PT. BANK RABOBANK INTERNATIONAL INDONESIA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "rbos",
+			"name": "THE ROYAL BANK OF SCOTLAND N.V.",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "resona",
+			"name": "PT. BANK RESONA PERDANIA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "riau",
+			"name": "PT. BANK PEMBANGUNAN DAERAH RIAU KEPRI",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "riau_syar",
+			"name": "PT. BANK PEMBANGUNAN DAERAH RIAU KEPRI SYARIAH",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "sampoerna",
+			"name": "PT. BANK SAHABAT SAMPOERNA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "sbi",
+			"name": "PT. BANK SBI INDONESIA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "seabank",
+			"name": "PT. BANK SEABANK INDONESIA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "shinhan",
+			"name": "PT. BANK SHINHAN INDONESIA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "sinarmas",
+			"name": "PT. BANK SINARMAS",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "sinarmas_syar",
+			"name": "PT. BANK SINARMAS UNIT USAHA SYARIAH",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "stanchard",
+			"name": "STANDARD CHARTERED BANK",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "sulselbar",
+			"name": "PT. BANK SULSELBAR",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "sulselbar_syar",
+			"name": "PT. BANK SULSELBAR UNIT USAHA SYARIAH",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "sulteng",
+			"name": "PT. BPD SULAWESI TENGAH",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "sultenggara",
+			"name": "PT. BPD SULAWESI TENGGARA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "sulut",
+			"name": "PT. BANK SULUT",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "sumbar",
+			"name": "BPD SUMATERA BARAT",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "sumitomo",
+			"name": "PT. BANK SUMITOMO MITSUI INDONESIA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "sumsel_babel",
+			"name": "PT. BPD SUMSEL DAN BABEL",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "sumsel_babel_syar",
+			"name": "PT. BPD SUMSEL DAN BABEL UNIT USAHA SYARIAH",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "sumut",
+			"name": "PT. BANK PEMBANGUNAN DAERAH SUMUT",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "sumut_syar",
+			"name": "PT. BANK PEMBANGUNAN DAERAH SUMUT UUS",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "uob",
+			"name": "PT. BANK UOB INDONESIA",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "victoria",
+			"name": "PT. BANK VICTORIA INTERNATIONAL",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "victoria_syar",
+			"name": "PT. BANK VICTORIA SYARIAH",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "woori",
+			"name": "PT. BANK WOORI SAUDARA INDONESIA 1906 TBK.",
+			"created_at": null,
+			"updated_at": null
+		},
+		{
+			"code": "yudha_bhakti",
+			"name": "PT. BANK YUDHA BHAKTI",
+			"created_at": null,
+			"updated_at": null
+		}
+	]

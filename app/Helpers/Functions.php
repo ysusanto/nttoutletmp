@@ -2350,7 +2350,8 @@ if (!function_exists('getShopCourier')) {
             ->leftJoin('courier_ros as cr', 'courier_ros.parent_id', '=', 'cr.id')
             ->select(['shop_courier_ros.id', 'shop_courier_ros.id_courier', 'courier_ros.name as type_courier', 'cr.name as courier', 'cr.path_logo'])
 
-            ->where('shop_id', $cartdata->shop_id)->get();
+            ->where('shop_id', $cartdata->shop_id)
+            ->where("cr.is_active","1")->get();
         $courier = array();
         if ($shopcourier != null) {
             foreach ($shopcourier as $sc) {

@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Storefront;
 use App\AirportCity;
 use App\BankShop;
 use App\CartParent;
+use App\PaymentMethod;
 use DB;
 use Session;
 use App\Cart;
 use App\Order;
 use App\Customer;
-use App\PaymentMethod;
 use Illuminate\Http\Request;
 use App\Events\Order\OrderCreated;
 use App\Http\Controllers\Controller;
@@ -18,7 +18,6 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\Validations\OrderDetailRequest;
 use App\Http\Requests\Validations\CheckoutCartRequest;
 use App\Http\Requests\Validations\ConfirmGoodsReceivedRequest;
-
 use App\Contracts\PaymentServiceContract as PaymentService;
 use App\Services\Payments\PaypalExpressPaymentService;
 use Steevenz\Rajaongkir;
@@ -494,12 +493,13 @@ class OrderController extends Controller
     {
         // echo json_encode($request->shipping_cost);die();
         $cartparent=CartParent::where("id",$request->cartparentid)->first();
+        $idmidtrans=PaymentMethod::where("code","midtrans")->first()->id;
       if($cartparent){
         $orderparent=new OrderParent();
         $orderparent->code = "MT"  .str_pad(rand(1, 999999), 6, '0', STR_PAD_LEFT);
         // $orderparent->total = $old_cart ? ($old_cart->total + ($qtt * $unit_price)) : $unit_price;
         $orderparent->order_status_id = "0";
-        $orderparent->payment_method_id = "9";
+        $orderparent->payment_method_id = $idmidtrans;
         $orderparent->customer_id = $cartparent->customer_id;
         $orderparent->ip_address = $request->ip();
         $orderparent->save();
@@ -529,7 +529,7 @@ class OrderController extends Controller
               
                 $cart = crosscheckAndUpdateOldCartInfo($r, $value);
                 $grandtotal +=(float)$cart->calculate_grand_total();
-                $r->payment_method_id="9"; // hardcode dari midtrans
+                $r->payment_method_id=$idmidtrans; // hardcode dari midtrans
                 // dd($r);die();
                 
                 $order = $this->saveOrderFromCart($r, $cart);
@@ -545,6 +545,7 @@ class OrderController extends Controller
         $parammidtrans->op_id=$orderparent->id;
         
         $parammidtrans->customer_id=$orderparent->customer_id ;
+        // dd($parammidtrans);die();
         $result = $this->_generateMidtransPayment($parammidtrans);
         // $cart->forceDelete();
         echo $result->redirect_url;

@@ -11,7 +11,7 @@ class province extends Model
 
     protected $fillable = [
         'province_id_ro',
-        'province'
-
+        'province',
+        'province_eng'
     ];
 }

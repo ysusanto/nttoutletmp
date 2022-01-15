@@ -153,7 +153,8 @@ class AddressController extends Controller
                 ->leftJoin('courier_ros', 'shop_courier_ros.id_courier', '=', 'courier_ros.id')
                 ->leftJoin('courier_ros as cr', 'courier_ros.parent_id', '=', 'cr.id')
                 ->select(['shop_courier_ros.id', 'shop_courier_ros.id_courier', 'courier_ros.name as type_courier', 'cr.name as courier', 'cr.path_logo', 'courier_ros.code', 'cr.code as code_courier'])
-                ->where('shop_id', $cart->shop_id)->get();
+                ->where('shop_id', $cart->shop_id)
+                ->where("is_active","1")->get();
             $courier = array();
             $couriertype = array();
             if ($shopcourier != null) {
@@ -239,7 +240,33 @@ class AddressController extends Controller
 
         return response('Not allowed!', 404);
     }
-    function getCityRo($zipCode)
+    function ajaxStatesCity(Request $request)
     {
+        if ($request->ajax()) {
+            $states =\DB::table('states')->where('id', $request->input('id'))->orderBy('name', 'asc')->first(); 
+            
+            $provincero =\DB::table('provinces')->where('province_eng',  $states->name)->first(); 
+          
+            $city=\DB::table('city_ros')->where('id_province_ro',$provincero->province_id_ro)->orderBy('city', 'asc')->pluck("city");
+           // dd($city);die();
+            return response($city, 200);
+        }
+
+        return response('Not allowed!', 404);
+    }
+    function ajaxCitySubdistrict(Request $request)
+    {
+        if ($request->ajax()) {
+            $city=\DB::table('city_ros')->where('city',$request->input('id'))->first();
+            $subdistrik =\DB::table('subdistrict_ros')->where('id_city_ro', $city->id_city_ro)->orderBy('subdistrict', 'asc')->pluck('subdistrict'); 
+            
+         //   $provincero =\DB::table('provinces')->where('province_eng',  $states->name)->first(); 
+          
+            
+           // dd($city);die();
+            return response($subdistrik, 200);
+        }
+
+        return response('Not allowed!', 404);
     }
 }

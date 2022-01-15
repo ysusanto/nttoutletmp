@@ -1,0 +1,240 @@
+	[
+		{
+			"province_id_ro": "1",
+			"province": "Bali",
+			"created_at": "2021-11-14 08:16:25",
+			"updated_at": "2021-11-14 08:16:25",
+			"province_eng": "Bali"
+		},
+		{
+			"province_id_ro": "2",
+			"province": "Bangka Belitung",
+			"created_at": "2021-11-14 08:16:25",
+			"updated_at": "2021-11-14 08:16:25",
+			"province_eng": "Bangka–Belitung Islands"
+		},
+		{
+			"province_id_ro": "3",
+			"province": "Banten",
+			"created_at": "2021-11-14 08:16:25",
+			"updated_at": "2021-11-14 08:16:25",
+			"province_eng": "Banten"
+		},
+		{
+			"province_id_ro": "4",
+			"province": "Bengkulu",
+			"created_at": "2021-11-14 08:16:25",
+			"updated_at": "2021-11-14 08:16:25",
+			"province_eng": "Bengkulu"
+		},
+		{
+			"province_id_ro": "5",
+			"province": "Yogyakarta",
+			"created_at": "2021-11-14 08:16:25",
+			"updated_at": "2021-11-14 08:16:25",
+			"province_eng": "Yogyakarta"
+		},
+		{
+			"province_id_ro": "6",
+			"province": "Jakarta",
+			"created_at": "2021-11-14 08:16:25",
+			"updated_at": "2021-11-14 08:16:25",
+			"province_eng": "Jakarta Special Capital Region"
+		},
+		{
+			"province_id_ro": "7",
+			"province": "Gorontalo",
+			"created_at": "2021-11-14 08:16:25",
+			"updated_at": "2021-11-14 08:16:25",
+			"province_eng": "Gorontalo"
+		},
+		{
+			"province_id_ro": "8",
+			"province": "Jambi",
+			"created_at": "2021-11-14 08:16:25",
+			"updated_at": "2021-11-14 08:16:25",
+			"province_eng": "Jambi"
+		},
+		{
+			"province_id_ro": "9",
+			"province": "Jawa Barat",
+			"created_at": "2021-11-14 08:16:25",
+			"updated_at": "2021-11-14 08:16:25",
+			"province_eng": "West Java"
+		},
+		{
+			"province_id_ro": "10",
+			"province": "Jawa Tengah",
+			"created_at": "2021-11-14 08:16:25",
+			"updated_at": "2021-11-14 08:16:25",
+			"province_eng": "Central Java"
+		},
+		{
+			"province_id_ro": "11",
+			"province": "Jawa Timur",
+			"created_at": "2021-11-14 08:16:25",
+			"updated_at": "2021-11-14 08:16:25",
+			"province_eng": "East Java"
+		},
+		{
+			"province_id_ro": "12",
+			"province": "Kalimantan Barat",
+			"created_at": "2021-11-14 08:16:25",
+			"updated_at": "2021-11-14 08:16:25",
+			"province_eng": "West Kalimantan"
+		},
+		{
+			"province_id_ro": "13",
+			"province": "Kalimantan Selatan",
+			"created_at": "2021-11-14 08:16:25",
+			"updated_at": "2021-11-14 08:16:25",
+			"province_eng": "South Kalimantan"
+		},
+		{
+			"province_id_ro": "14",
+			"province": "Kalimantan Tengah",
+			"created_at": "2021-11-14 08:16:25",
+			"updated_at": "2021-11-14 08:16:25",
+			"province_eng": "Central Kalimantan"
+		},
+		{
+			"province_id_ro": "15",
+			"province": "Kalimantan Timur",
+			"created_at": "2021-11-14 08:16:25",
+			"updated_at": "2021-11-14 08:16:25",
+			"province_eng": "East Kalimantan"
+		},
+		{
+			"province_id_ro": "16",
+			"province": "Kalimantan Utara",
+			"created_at": "2021-11-14 08:16:25",
+			"updated_at": "2021-11-14 08:16:25",
+			"province_eng": "North Kalimantan"
+		},
+		{
+			"province_id_ro": "17",
+			"province": "Kepulauan Riau",
+			"created_at": "2021-11-14 08:16:25",
+			"updated_at": "2021-11-14 08:16:25",
+			"province_eng": "Riau Islands"
+		},
+		{
+			"province_id_ro": "18",
+			"province": "Lampung",
+			"created_at": "2021-11-14 08:16:25",
+			"updated_at": "2021-11-14 08:16:25",
+			"province_eng": "Lampung"
+		},
+		{
+			"province_id_ro": "19",
+			"province": "Maluku",
+			"created_at": "2021-11-14 08:16:25",
+			"updated_at": "2021-11-14 08:16:25",
+			"province_eng": "Maluku"
+		},
+		{
+			"province_id_ro": "20",
+			"province": "Maluku Utara",
+			"created_at": "2021-11-14 08:16:25",
+			"updated_at": "2021-11-14 08:16:25",
+			"province_eng": "North Maluku"
+		},
+		{
+			"province_id_ro": "21",
+			"province": "Nanggroe Aceh Darussalam (NAD)",
+			"created_at": "2021-11-14 08:16:25",
+			"updated_at": "2021-11-14 08:16:25",
+			"province_eng": "Special Region of Aceh"
+		},
+		{
+			"province_id_ro": "22",
+			"province": "Nusa Tenggara Barat (NTB)",
+			"created_at": "2021-11-14 08:16:25",
+			"updated_at": "2021-11-14 08:16:25",
+			"province_eng": "West Nusa Tenggara"
+		},
+		{
+			"province_id_ro": "23",
+			"province": "Nusa Tenggara Timur (NTT)",
+			"created_at": "2021-11-14 08:16:25",
+			"updated_at": "2021-11-14 08:16:25",
+			"province_eng": "East Nusa Tenggara"
+		},
+		{
+			"province_id_ro": "24",
+			"province": "Papua",
+			"created_at": "2021-11-14 08:16:25",
+			"updated_at": "2021-11-14 08:16:25",
+			"province_eng": "Special Region of Papua"
+		},
+		{
+			"province_id_ro": "25",
+			"province": "Papua Barat",
+			"created_at": "2021-11-14 08:16:25",
+			"updated_at": "2021-11-14 08:16:25",
+			"province_eng": "Special Region of West Papua"
+		},
+		{
+			"province_id_ro": "26",
+			"province": "Riau",
+			"created_at": "2021-11-14 08:16:25",
+			"updated_at": "2021-11-14 08:16:25",
+			"province_eng": "Riau"
+		},
+		{
+			"province_id_ro": "27",
+			"province": "Sulawesi Barat",
+			"created_at": "2021-11-14 08:16:25",
+			"updated_at": "2021-11-14 08:16:25",
+			"province_eng": "West Sulawesi"
+		},
+		{
+			"province_id_ro": "28",
+			"province": "Sulawesi Selatan",
+			"created_at": "2021-11-14 08:16:25",
+			"updated_at": "2021-11-14 08:16:25",
+			"province_eng": "South Sulawesi"
+		},
+		{
+			"province_id_ro": "29",
+			"province": "Sulawesi Tengah",
+			"created_at": "2021-11-14 08:16:25",
+			"updated_at": "2021-11-14 08:16:25",
+			"province_eng": "Central Sulawesi"
+		},
+		{
+			"province_id_ro": "30",
+			"province": "Sulawesi Tenggara",
+			"created_at": "2021-11-14 08:16:25",
+			"updated_at": "2021-11-14 08:16:25",
+			"province_eng": "Southeast Sulawesi"
+		},
+		{
+			"province_id_ro": "31",
+			"province": "Sulawesi Utara",
+			"created_at": "2021-11-14 08:16:25",
+			"updated_at": "2021-11-14 08:16:25",
+			"province_eng": "North Sulawesi"
+		},
+		{
+			"province_id_ro": "32",
+			"province": "Sumatera Barat",
+			"created_at": "2021-11-14 08:16:25",
+			"updated_at": "2021-11-14 08:16:25",
+			"province_eng": "West Sumatra"
+		},
+		{
+			"province_id_ro": "33",
+			"province": "Sumatera Selatan",
+			"created_at": "2021-11-14 08:16:25",
+			"updated_at": "2021-11-14 08:16:25",
+			"province_eng": "South Sumatra"
+		},
+		{
+			"province_id_ro": "34",
+			"province": "Sumatera Utara",
+			"created_at": "2021-11-14 08:16:25",
+			"updated_at": "2021-11-14 08:16:25",
+			"province_eng": "North Sumatra"
+		}
+	]

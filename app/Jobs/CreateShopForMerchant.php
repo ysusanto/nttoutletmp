@@ -4,6 +4,8 @@ namespace App\Jobs;
 
 use App\User;
 use App\Shop;
+use App\PaymentMethod;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Foundation\Bus\Dispatchable;
 
@@ -71,6 +73,15 @@ class CreateShopForMerchant
         $this->merchant->shop_id = $shop->id;
         $this->merchant->save();
 
+        // default payment method shop midtrans
+        $Paymentmethodsmidtrans=PaymentMethod::where('code',"midtrans")->first();
+        if($Paymentmethodsmidtrans!=null){
+            $shoppayment=\DB::table('shop_payment_methods')->insert([
+                'shop_id'=> $shop->id,
+                'payment_method_id'=>$Paymentmethodsmidtrans->id,
+                'created_at'=>Carbon::now()
+            ]);
+        }
         // Creating WordWide shippingZones for the Shop
         $shop->shippingZones()->create([
             'name' => trans('app.worldwide'),

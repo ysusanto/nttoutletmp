@@ -1,0 +1,31 @@
+
+1.
+
+select d.type,sum(d.amount)total_amount,count(d.employee_id)total_employee,case when c.Address is null then 'FALSE' ELSE 'TRUE' end as address_exist
+from Address c right join Payroll d on c.employee_id=d.employee_id
+where c.Address is NULL 
+GROUP BY d.type
+
+2.
+
+SELECT a.employee_id,a.name,b.name as religion_name, (select c.address from address c WHERE a.employee_id=c.employee_id ORDER BY seq LIMIT 1)AS 'address',sum(d.amount)'total_amount'
+FROM employee a LEFT JOIN religion b ON a.religion_id=b.religion_id
+LEFT JOIN payroll d on a.employee_id=d.employee_id
+GROUP BY a.employee_id
+
+
+3.
+
+int numberlayer = 5;
+int space,number;
+ for (int 1=1;i<numberlayer;i++){
+	for(space=1 ; space <= (numberlayer-i);space++)
+		Console.Write(" ");
+		Console.Write(" ");
+	for (number =1; number<=i;number++)
+		Console.Write("*");
+	for (number = (i-1);number>=1; number--)
+Console.Write("*");
+Console.WriteLine();
+ }
+

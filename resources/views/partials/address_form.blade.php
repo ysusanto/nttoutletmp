@@ -25,41 +25,7 @@
     </div>
   </div>
 </div>
-
 <div class="form-group">
-  {!! Form::text('address_line_1', null, ['class' => 'form-control flat', 'placeholder' => trans('theme.placeholder.address_line_1') . '*', 'required']) !!}
-  <div class="help-block with-errors"></div>
-</div>
-
-<div class="form-group">
-  {!! Form::text('address_line_2', null, ['class' => 'form-control flat', 'placeholder' => trans('theme.placeholder.address_line_2')]) !!}
-  <div class="help-block with-errors"></div>
-</div>
-<div class="row">
-  <div class="col-md-6 nopadding-right">
-    <div class="form-group">
-
-      {!! Form::text('subdistrict_1', null, ['class' => 'form-control', 'placeholder' => trans('app.placeholder.subdistrict_1')]) !!}
-      <div class="help-block with-errors"></div>
-    </div>
-  </div>
-  <div class="col-md-6 nopadding-left">
-    <div class="form-group">
-
-      {!! Form::text('subdistrict_2', null, ['class' => 'form-control', 'placeholder' => trans('app.placeholder.subdistrict_2')]) !!}
-      <div class="help-block with-errors"></div>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-6 nopadding-right">
-    <div class="form-group">
-      {!! Form::text('city', null, ['class' => 'form-control flat', 'placeholder' => trans('theme.placeholder.city') . '*', 'required']) !!}
-      <div class="help-block with-errors"></div>
-    </div>
-  </div>
-  <div class="col-md-6 nopadding-left">
-    <div class="form-group">
       @if (isset($one_checkout_form))
       {!! Form::text('state_id', $cart->state->name, ['class' => 'form-control', 'disabled' => 'true']) !!}
       <div class="help-block with-errors small text-warning">{{ trans('checkout::lang.make_changes_on_cart_page') }}</div>
@@ -68,7 +34,25 @@
       <div class="help-block with-errors"></div>
       @endif
     </div>
-  </div>
+    <div class="form-group">
+    {!! Form::select('city', isset($city) ? $city : [], isset($cart) ? $cart->city : config('system_settings.address_default_state'), ['id' => 'city', 'class' => 'form-control flat', 'placeholder' => trans('theme.placeholder.city') . '*', empty($city) ? '' : 'required']) !!}
+    
+      <div class="help-block with-errors"></div>
+    </div>
+
+<div class="form-group">
+    {!! Form::select('subdistrict_2', isset($subdistrict_2) ? $subdistrict_2 : [], isset($cart) ? $cart->subdistrict_2 : config('system_settings.address_default_state'), ['id' => 'subdistrict_2', 'class' => 'form-control flat', 'placeholder' => trans('theme.placeholder.subdistrict_1') . '*', empty($subdistrict_2) ? '' : 'required']) !!}
+    
+      <div class="help-block with-errors"></div>
+    </div>
+<div class="form-group">
+  {!! Form::text('address_line_1', null, ['class' => 'form-control flat', 'placeholder' => trans('theme.placeholder.address_line_1') . '*', 'required']) !!}
+  <div class="help-block with-errors"></div>
+</div>
+
+<div class="form-group">
+  {!! Form::text('address_line_2', null, ['class' => 'form-control flat', 'placeholder' => trans('theme.placeholder.address_line_2')]) !!}
+  <div class="help-block with-errors"></div>
 </div>
 
 <div class="form-group">

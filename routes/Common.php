@@ -17,6 +17,8 @@ Route::group(['middleware' => ['ajax']], function(){
 });
 
 Route::get('address/ajax/getCountryStates', 'AddressController@ajaxCountryStates')->name('ajax.getCountryStates')->middleware('ajax');
+Route::get('address/ajax/getStatesCity', 'AddressController@ajaxStatesCity')->name('ajax.getStatesCity')->middleware('ajax');
+Route::get('address/ajax/getCitySubdistrict', 'AddressController@ajaxCitySubdistrict')->name('ajax.getCitySubdistrict')->middleware('ajax');
 Route::get('shipping/ajax/getshippingcourier', 'AddressController@ajaxShippingCourier')->name('ajax.getShippingCourier')->middleware('ajax');
 Route::get('checkout/ajax/getpaymentmidtransurl', 'OrderController@ajaxpaymentmidtrans')->name('ajax.getPaymidtransUrl')->middleware('ajax');
 
